@@ -1,0 +1,38 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style/user_resgistration_style.css">
+    <title>
+        Einscloud
+    </title>
+</head>
+
+<body>
+<script src="script/user_registration_validation_script.js"></script>
+<p>
+<h1>Welcome to Einswatch registration for Users</h1></p>
+<p>
+
+<h2>Please fill up all fields</h2>
+<form name='user_registration_form' action='php/user_registration_create.php' method="post">
+
+    <h3>Personal particulars</h3>
+    First name: <br><input type='text' name='firstName' required><br>
+    Last name: <br><input type='text' name='lastName' required><br>
+    NRIC: <br><input type='text' name='nric' required><br>
+    Email: <br><input type='text' name='email'><br>
+    Phone number (watch): <br><input type='text' name='phoneNo' required><br>
+
+    <h3>Account information</h3>
+    Username: <br><input type='text' name='username' oninput="validateUsername()" required>
+    <div class='feedback' id='username_feedback'></div>
+
+    6 digit password: <br><input type='password' name='password' required><br>
+    Confirm 6 digit password: <br><input type='password' name='confirmPassword' oninput="validatePassword()" required>
+    <div class='feedback' id="password_feedback"></div>
+
+    <p><input type='submit' name='registerUser' value='Register'></p>
+
+</form>
+
+</body>
+</html>
