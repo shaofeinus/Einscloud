@@ -1,7 +1,7 @@
 <?php
 
-define('DB_USER', "root");
-define('DB_PASSWORD', "");
-define('DB_DATABASE', "personal_info");
+define('DB_USER', "eins");
+define('DB_PASSWORD', "eins");
+define('DB_DATABASE', "einscloud");
 define('DB_SERVER', "localhost");
 ?>
