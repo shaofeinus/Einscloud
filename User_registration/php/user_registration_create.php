@@ -23,6 +23,10 @@ class Input
         $this->firstName = $_POST['firstName'];
         $this->lastName = $_POST['lastName'];
         $this->email = $_POST['email'];
+        $this->email = filter_var($this->email, FILTER_SANITIZE_EMAIL);
+        if(strlen(trim($this->email)) == 0){
+            $this->email = NULL;
+        }
         $this->nric = $_POST['nric'];
         $this->phoneNo = $_POST['phoneNo'];
         $this->username = $_POST['username'];
