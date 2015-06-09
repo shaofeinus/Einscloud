@@ -18,7 +18,9 @@
     <h3>Personal particulars</h3>
     First name: <br><input type='text' name='firstName' required><br>
     Last name: <br><input type='text' name='lastName' required><br>
-    NRIC: <br><input type='text' name='nric' required><br>
+    NRIC: <br><input type='text' name='nric' oninput="validateNric()" required><br>
+	 <div class='feedback' id='nric_feedback'></div>
+	
     Email: <br><input type='text' name='email'><br>
     Phone number (watch): <br><input type='text' name='phoneNo' required><br>
 
@@ -27,7 +29,7 @@
     <div class='feedback' id='username_feedback'></div>
 
     6 digit password: <br><input type='password' name='password' required><br>
-    Confirm 6 digit password: <br><input type='password' name='confirmPassword' oninput="" required>
+    Confirm 6 digit password: <br><input type='password' name='confirmPassword' oninput="validatePassword()" required>
     <div class='feedback' id="password_feedback"></div>
 
     <p><input type='submit' name='registerUser' value='Register'></p>

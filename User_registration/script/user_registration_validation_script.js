@@ -29,6 +29,16 @@ function validatePassword() {
     }
 }
 
+function validateNric() {
+    var userNric = document.forms["user_registration_form"]["nric"].value;
+
+    if(!/^(s|t)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][a-z]$/i.test(userNric)){
+        document.getElementById("nric_feedback").innerHTML = "NRIC invalid"
+    }  else {
+        document.getElementById("nric_feedback").innerHTML = "";
+        formIsValid = true;
+    }
+}
 
 function checkUsernameExists(usernameInput, container) {
 
