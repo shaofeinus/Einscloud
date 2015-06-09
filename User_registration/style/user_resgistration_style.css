@@ -3,8 +3,14 @@ body {
     font-style: normal;
 }
 
+form {
+    float:left;
+}
+
 .feedback {
     font-style: italic;
     color: red;
     font-size: 0.75em;
+    float: right;
+    text-align: left;
 }

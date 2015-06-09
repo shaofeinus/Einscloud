@@ -13,24 +13,25 @@
 <p>
 
 <h2>Please fill up all fields</h2>
-<form name='user_registration_form' action='php/user_registration_create.php' method="post">
+<form name='user_registration_form' action='php/user_registration_create.php' method="post" onsubmit="return isFormValid()">
 
     <h3>Personal particulars</h3>
     First name: <br><input type='text' name='firstName' required><br>
     Last name: <br><input type='text' name='lastName' required><br>
-    NRIC: <br><input type='text' name='nric' oninput="validateNric()" required><br>
-	 <div class='feedback' id='nric_feedback'></div>
-	
+    NRIC: <br><input type='text' name='nric' oninput="validateNric()" required>
+	<div class='feedback' id='nric_feedback'></div><br>
     Email: <br><input type='text' name='email'><br>
-    Phone number (watch): <br><input type='text' name='phoneNo' required><br>
+    Phone number (watch): <br><input type='text' name='phoneNo' oninput="validatePhoneNo()" required>
+    <div class='feedback' id='phone_no_feedback'></div><br>
 
     <h3>Account information</h3>
     Username: <br><input type='text' name='username' oninput="validateUsername()" required>
-    <div class='feedback' id='username_feedback'></div>
+    <div class='feedback' id='username_feedback'></div><br>
 
-    6 digit password: <br><input type='password' name='password' required><br>
-    Confirm 6 digit password: <br><input type='password' name='confirmPassword' oninput="validatePassword()" required>
-    <div class='feedback' id="password_feedback"></div>
+    6 digit password: <br><input type='password' name='password' oninput="validatePassword()" required>
+    <div class='feedback' id="password_feedback"></div><br>
+    Confirm 6 digit password: <br><input type='password' name='confirmPassword' oninput="validateConfirmPassword()" required>
+    <div class='feedback' id="confirm_password_feedback"></div><br>
 
     <p><input type='submit' name='registerUser' value='Register'></p>
 
