@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b65a95f3-583c-43f7-9364-c444839fce4b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="C:\wamp\www\Einscloud\user_registration\php\check_username_exists.php" afterPath="$PROJECT_DIR$/user_registration/php/check_username_exists.php" />
-      <change type="MODIFICATION" beforePath="C:\wamp\www\Einscloud\user_registration\index.html" afterPath="$PROJECT_DIR$/user_registration/index.html" />
-      <change type="MODIFICATION" beforePath="C:\wamp\www\Einscloud\user_registration\style\user_resgistration_style.css" afterPath="$PROJECT_DIR$/user_registration/style/user_resgistration_style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="b65a95f3-583c-43f7-9364-c444839fce4b" name="Default" comment="" />
     <ignored path="Einscloud.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -39,8 +34,8 @@
       <file leaf-file-name="user_registration_validation_script.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/user_registration/script/user_registration_validation_script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17741935" vertical-offset="2600" max-vertical-offset="3468">
-              <caret line="164" column="61" selection-start-line="164" selection-start-column="61" selection-end-line="164" selection-end-column="61" />
+            <state vertical-scroll-proportion="1.3721198" vertical-offset="1784" max-vertical-offset="3468">
+              <caret line="177" column="1" selection-start-line="177" selection-start-column="1" selection-end-line="177" selection-end-column="1" />
               <folding>
                 <element signature="e#0#43#0" expanded="false" />
               </folding>
@@ -650,8 +645,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/user_registration/script/user_registration_validation_script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17741935" vertical-offset="2600" max-vertical-offset="3468">
-          <caret line="164" column="61" selection-start-line="164" selection-start-column="61" selection-end-line="164" selection-end-column="61" />
+        <state vertical-scroll-proportion="1.3721198" vertical-offset="1784" max-vertical-offset="3468">
+          <caret line="177" column="1" selection-start-line="177" selection-start-column="1" selection-end-line="177" selection-end-column="1" />
           <folding>
             <element signature="e#0#43#0" expanded="false" />
           </folding>
