@@ -14,3 +14,7 @@ form {
     float: right;
     text-align: left;
 }
+
+#nric_field {
+    text-transform: uppercase;
+}

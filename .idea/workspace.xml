@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b65a95f3-583c-43f7-9364-c444839fce4b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="C:\wamp\www\Einscloud\user_registration\php\check_username_exists.php" afterPath="$PROJECT_DIR$/user_registration/php/check_username_exists.php" />
+      <change type="MODIFICATION" beforePath="C:\wamp\www\Einscloud\user_registration\index.html" afterPath="$PROJECT_DIR$/user_registration/index.html" />
+      <change type="MODIFICATION" beforePath="C:\wamp\www\Einscloud\user_registration\style\user_resgistration_style.css" afterPath="$PROJECT_DIR$/user_registration/style/user_resgistration_style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Einscloud.iws" />
@@ -36,8 +39,8 @@
       <file leaf-file-name="user_registration_validation_script.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/user_registration/script/user_registration_validation_script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.79152733" vertical-offset="2180" max-vertical-offset="3077">
-              <caret line="172" column="12" selection-start-line="172" selection-start-column="12" selection-end-line="172" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.17741935" vertical-offset="2600" max-vertical-offset="3468">
+              <caret line="164" column="61" selection-start-line="164" selection-start-column="61" selection-end-line="164" selection-end-column="61" />
               <folding>
                 <element signature="e#0#43#0" expanded="false" />
               </folding>
@@ -48,14 +51,14 @@
       <file leaf-file-name="user_registration_create.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user_registration/php/user_registration_create.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.192307" vertical-offset="693" max-vertical-offset="1564">
-              <caret line="64" column="24" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
+            <state vertical-scroll-proportion="-19.115385" vertical-offset="625" max-vertical-offset="1496">
+              <caret line="66" column="27" selection-start-line="66" selection-start-column="27" selection-end-line="66" selection-end-column="27" />
               <folding>
                 <element signature="e#6#90#0#PHP" expanded="true" />
-                <marker date="1433760069442" expanded="true" signature="1128:1210" placeholder="INSERT INTO ..." />
-                <marker date="1433760069442" expanded="true" signature="1128:1323" placeholder="INSERT INTO ..." />
-                <marker date="1433760069442" expanded="true" signature="1128:1340" placeholder="INSERT INTO ..." />
-                <marker date="1433760069442" expanded="true" signature="1342:1561" placeholder="INSERT INTO ..." />
+                <marker date="1433841502218" expanded="true" signature="1133:1215" placeholder="INSERT INTO ..." />
+                <marker date="1433841502218" expanded="true" signature="1133:1330" placeholder="INSERT INTO ..." />
+                <marker date="1433841502218" expanded="true" signature="1133:1347" placeholder="INSERT INTO ..." />
+                <marker date="1433841502218" expanded="true" signature="1349:1570" placeholder="INSERT INTO ..." />
               </folding>
             </state>
           </provider>
@@ -64,11 +67,24 @@
       <file leaf-file-name="check_username_exists.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user_registration/php/check_username_exists.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.5384617" vertical-offset="0" max-vertical-offset="646">
-              <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+            <state vertical-scroll-proportion="-16.346153" vertical-offset="0" max-vertical-offset="646">
+              <caret line="25" column="44" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
               <folding>
                 <element signature="e#6#89#0#PHP" expanded="true" />
-                <marker date="1433825706187" expanded="true" signature="457:502" placeholder="SELECT * FRO..User..." />
+                <marker date="1433839736780" expanded="true" signature="453:494" placeholder="SELECT * FRO..User..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="check_nric_exists.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/user_registration/php/check_nric_exists.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-20.26923" vertical-offset="0" max-vertical-offset="629">
+              <caret line="31" column="2" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
+              <folding>
+                <element signature="e#6#90#0#PHP" expanded="true" />
+                <marker date="1433840114940" expanded="true" signature="438:475" placeholder="SELECT * FRO..User..." />
               </folding>
             </state>
           </provider>
@@ -77,8 +93,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user_registration/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.153846" vertical-offset="0" max-vertical-offset="799">
-              <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+            <state vertical-scroll-proportion="-5.230769" vertical-offset="0" max-vertical-offset="799">
+              <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -97,8 +113,8 @@
       <file leaf-file-name="user_resgistration_style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/user_registration/style/user_resgistration_style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-              <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+              <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -120,12 +136,14 @@
         <option value="$PROJECT_DIR$/User_registration/script/user_registration_index_script.js" />
         <option value="$PROJECT_DIR$/User_registration/php/check_username_exists.php" />
         <option value="$PROJECT_DIR$/user_registration/php/DB_connect/db_connect.php" />
-        <option value="$PROJECT_DIR$/user_registration/php/user_registration_create.php" />
-        <option value="$PROJECT_DIR$/user_registration/php/check_username_exists.php" />
-        <option value="$PROJECT_DIR$/user_registration/style/user_resgistration_style.css" />
         <option value="$PROJECT_DIR$/user_registration/php/DB_connect/db_config.php" />
         <option value="$PROJECT_DIR$/user_registration/index.html" />
+        <option value="$PROJECT_DIR$/user_registration/style/user_resgistration_style.css" />
+        <option value="$PROJECT_DIR$/user_registration/php/check_data_exists.php" />
+        <option value="$PROJECT_DIR$/user_registration/php/check_username_exists.php" />
+        <option value="$PROJECT_DIR$/user_registration/php/check_nric_exists.php" />
         <option value="$PROJECT_DIR$/user_registration/script/user_registration_validation_script.js" />
+        <option value="$PROJECT_DIR$/user_registration/php/user_registration_create.php" />
       </list>
     </option>
   </component>
@@ -358,19 +376,19 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32864866" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23454158" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18283582" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18283582" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32900432" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -435,10 +453,10 @@
           <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
           <folding>
             <element signature="e#6#90#0#PHP" expanded="true" />
-            <marker date="1433760069442" expanded="true" signature="1128:1210" placeholder="INSERT INTO ..." />
-            <marker date="1433760069442" expanded="true" signature="1128:1323" placeholder="INSERT INTO ..." />
-            <marker date="1433760069442" expanded="true" signature="1128:1340" placeholder="INSERT INTO ..." />
-            <marker date="1433760069442" expanded="true" signature="1342:1561" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1133:1215" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1133:1330" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1133:1347" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1349:1570" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -449,7 +467,7 @@
           <caret line="25" column="48" selection-start-line="25" selection-start-column="48" selection-end-line="25" selection-end-column="48" />
           <folding>
             <element signature="e#6#89#0#PHP" expanded="true" />
-            <marker date="1433825706187" expanded="true" signature="457:502" placeholder="SELECT * FRO..User..." />
+            <marker date="1433839736780" expanded="true" signature="453:494" placeholder="SELECT * FRO..User..." />
           </folding>
         </state>
       </provider>
@@ -494,10 +512,10 @@
           <caret line="51" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
           <folding>
             <element signature="e#6#90#0#PHP" expanded="true" />
-            <marker date="1433760069442" expanded="true" signature="1128:1210" placeholder="INSERT INTO ..." />
-            <marker date="1433760069442" expanded="true" signature="1128:1323" placeholder="INSERT INTO ..." />
-            <marker date="1433760069442" expanded="true" signature="1128:1340" placeholder="INSERT INTO ..." />
-            <marker date="1433760069442" expanded="true" signature="1342:1561" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1133:1215" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1133:1330" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1133:1347" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1349:1570" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -508,7 +526,7 @@
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
             <element signature="e#6#89#0#PHP" expanded="true" />
-            <marker date="1433825706187" expanded="true" signature="457:502" placeholder="SELECT * FRO..User..." />
+            <marker date="1433839736780" expanded="true" signature="453:494" placeholder="SELECT * FRO..User..." />
           </folding>
         </state>
       </provider>
@@ -570,17 +588,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user_registration/php/check_username_exists.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5384617" vertical-offset="0" max-vertical-offset="646">
-          <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
-          <folding>
-            <element signature="e#6#89#0#PHP" expanded="true" />
-            <marker date="1433825706187" expanded="true" signature="457:502" placeholder="SELECT * FRO..User..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/user_registration/php/DB_connect/db_config.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.6153846" vertical-offset="0" max-vertical-offset="204">
@@ -591,38 +598,60 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/user_registration/style/user_resgistration_style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="425">
+          <caret line="14" column="21" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user_registration/php/user_registration_create.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.192307" vertical-offset="693" max-vertical-offset="1564">
-          <caret line="64" column="24" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
-          <folding>
-            <element signature="e#6#90#0#PHP" expanded="true" />
-            <marker date="1433760069442" expanded="true" signature="1128:1210" placeholder="INSERT INTO ..." />
-            <marker date="1433760069442" expanded="true" signature="1128:1323" placeholder="INSERT INTO ..." />
-            <marker date="1433760069442" expanded="true" signature="1128:1340" placeholder="INSERT INTO ..." />
-            <marker date="1433760069442" expanded="true" signature="1342:1561" placeholder="INSERT INTO ..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/user_registration/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.153846" vertical-offset="0" max-vertical-offset="799">
-          <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+        <state vertical-scroll-proportion="-5.230769" vertical-offset="0" max-vertical-offset="799">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user_registration/php/check_username_exists.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.346153" vertical-offset="0" max-vertical-offset="646">
+          <caret line="25" column="44" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
+          <folding>
+            <element signature="e#6#89#0#PHP" expanded="true" />
+            <marker date="1433839736780" expanded="true" signature="453:494" placeholder="SELECT * FRO..User..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user_registration/php/check_nric_exists.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.26923" vertical-offset="0" max-vertical-offset="629">
+          <caret line="31" column="2" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
+          <folding>
+            <element signature="e#6#90#0#PHP" expanded="true" />
+            <marker date="1433840114940" expanded="true" signature="438:475" placeholder="SELECT * FRO..User..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user_registration/php/user_registration_create.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.115385" vertical-offset="625" max-vertical-offset="1496">
+          <caret line="66" column="27" selection-start-line="66" selection-start-column="27" selection-end-line="66" selection-end-column="27" />
+          <folding>
+            <element signature="e#6#90#0#PHP" expanded="true" />
+            <marker date="1433841502218" expanded="true" signature="1133:1215" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1133:1330" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1133:1347" placeholder="INSERT INTO ..." />
+            <marker date="1433841502218" expanded="true" signature="1349:1570" placeholder="INSERT INTO ..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/user_registration/script/user_registration_validation_script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79152733" vertical-offset="2180" max-vertical-offset="3077">
-          <caret line="172" column="12" selection-start-line="172" selection-start-column="12" selection-end-line="172" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.17741935" vertical-offset="2600" max-vertical-offset="3468">
+          <caret line="164" column="61" selection-start-line="164" selection-start-column="61" selection-end-line="164" selection-end-column="61" />
           <folding>
             <element signature="e#0#43#0" expanded="false" />
           </folding>
