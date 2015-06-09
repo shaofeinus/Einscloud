@@ -12,9 +12,9 @@ if(!empty($_GET["username"])) {
     $response = make_sql_query($username);
 
     if(mysqli_num_rows($response) > 0) {
-        echo json_encode(true);
+        echo 1;
     } else {
-        echo json_encode(false);
+        echo 0;
     }
 }
 

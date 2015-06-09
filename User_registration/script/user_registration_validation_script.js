@@ -9,13 +9,9 @@ function validateUsername() {
 
     if(usernameInput.length < 5) {
         document.getElementById("username_feedback").innerHTML = "Username below 5 characters";
-    } else if(isUsernameExists(usernameInput)==true) {
-        document.getElementById("username_feedback").innerHTML = "Username already exists";
-    }
-    else {
-        document.getElementById("username_feedback").innerHTML = "";
-        formIsValid = true;
-
+    } else {
+        var container = document.getElementById("username_feedback");
+        checkUsernameExists(usernameInput, container);
     }
 }
 
@@ -34,19 +30,30 @@ function validatePassword() {
 }
 
 
-function isUsernameExists(usernameInput) {
-    var xmlhttp = new XMLHttpRequest();
+function checkUsernameExists(usernameInput, container) {
+
+    var xmlhttp;
+
+    if(window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var response = parseInt(xmlhttp.responseText);
-            if(response == true) {
-                return true;
+            if(response == 1) {
+                container.innerHTML = "Username already exists";
+                formIsValid = false;
             } else {
-                return false
+                formIsValid = true;
             }
+        } else {
+            container.innerHTML = "";
+            formIsValid = true;
         }
     }
-    xmlhttp.open("GET", "../check_username_exists.php?username=" + usernameInput, true);
+    xmlhttp.open("GET", "php/check_username_exists.php?username=" + usernameInput, true);
     xmlhttp.send();
 }
