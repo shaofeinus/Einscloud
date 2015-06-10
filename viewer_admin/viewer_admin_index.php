@@ -28,7 +28,7 @@
 
 
 function queryCaregive($viewer_id) {
-    require_once '/php/DB_connect/db_connect.php';
+    require_once __DIR__.'/php/DB_connect/db_connect.php';
     $connector = new DB_CONNECT();
     $connector->connect();
 
