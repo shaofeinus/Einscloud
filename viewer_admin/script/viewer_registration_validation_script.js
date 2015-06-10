@@ -5,8 +5,8 @@
 var fieldIsValid = [false, false,false, false, false, false];
 
 function validateForm() {
-    var firstNameInput = document.forms["user_registration_form"]["firstName"].value;
-    var lastNameInput = document.forms["user_registration_form"]["lastName"].value;
+    var firstNameInput = document.forms["viewer_registration_form"]["firstName"].value;
+    var lastNameInput = document.forms["viewer_registration_form"]["lastName"].value;
 
     if(firstNameInput.trim() === "" || lastNameInput.trim() === "") {
         fieldIsValid[0] = false;
@@ -23,24 +23,25 @@ function validateForm() {
 }
 
 function validateNric() {
-    var userNricInput = document.forms["user_registration_form"]["nric"].value;
+    var viewerNricInput = document.forms["viewer_registration_form"]["nric"].value;
 
-    if(userNricInput.trim() === "") {
+    if(viewerNricInput.trim() === "") {
         document.getElementById("nric_feedback").innerHTML = "blank";
         fieldIsValid[1] = false;
-    } else if(!/^(s|t|g|f)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][a-z]$/i.test(userNricInput)){
+    } else if(!/^(s|t|g|f)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][a-z]$/i.test(viewerNricInput)){
         document.getElementById("nric_feedback").innerHTML = "NRIC invalid";
         fieldIsValid[1] = false;
     }  else {
         var container = document.getElementById("nric_feedback");
-        checkNricExists(userNricInput, container);
+        checkNricExists(viewerNricInput, container);
     }
 
     console.log(fieldIsValid);
 }
 
+
 function validatePhoneNo() {
-    var phoneNoInput = document.forms["user_registration_form"]["phoneNo"].value;
+    var phoneNoInput = document.forms["viewer_registration_form"]["phoneNo"].value;
 
     if(phoneNoInput.trim() === "") {
         document.getElementById("phone_no_feedback").innerHTML = "";
@@ -57,13 +58,10 @@ function validatePhoneNo() {
 }
 
 function validateUsername() {
-    var usernameInput = document.forms["user_registration_form"]["username"].value;
+    var usernameInput = document.forms["viewer_registration_form"]["username"].value;
 
-    if(usernameInput === "") {
+    if(usernameInput.trim() === "") {
         document.getElementById("username_feedback").innerHTML = "";
-        fieldIsValid[3] = false;
-    } else if(/[\s]/.test(usernameInput)) {
-        document.getElementById("username_feedback").innerHTML = "Username should not contain blank space";
         fieldIsValid[3] = false;
     } else if(usernameInput.length < 4) {
         document.getElementById("username_feedback").innerHTML = "Username below 4 characters";
@@ -77,19 +75,13 @@ function validateUsername() {
 }
 
 function validatePassword() {
-    var userPasswordInput = document.forms["user_registration_form"]["password"].value;
+    var viewerPasswordInput = document.forms["viewer_registration_form"]["password"].value;
 
-    if(userPasswordInput === "") {
+    if(viewerPasswordInput === "") {
         document.getElementById("password_feedback").innerHTML = "";
         fieldIsValid[4] = false;
-    } else if (userPasswordInput.length < 6) {
+    } else if (viewerPasswordInput.length < 8) {
         document.getElementById("password_feedback").innerHTML = "Password too short";
-        fieldIsValid[4] = false;
-    } else if (userPasswordInput.length > 6) {
-        document.getElementById("password_feedback").innerHTML = "Password too long";
-        fieldIsValid[4] = false;
-    } else if (!/^\d+$/.test(userPasswordInput)) {
-        document.getElementById("password_feedback").innerHTML = "Password should be numbers only";
         fieldIsValid[4] = false;
     } else {
         document.getElementById("password_feedback").innerHTML = "";
@@ -100,16 +92,16 @@ function validatePassword() {
 }
 
 function validateConfirmPassword() {
-    var userPasswordInput = document.forms["user_registration_form"]["password"].value;
-    var userCfmPasswordInput = document.forms["user_registration_form"]["confirmPassword"].value;
+    var viewerPasswordInput = document.forms["viewer_registration_form"]["password"].value;
+    var userCfmPasswordInput = document.forms["viewer_registration_form"]["confirmPassword"].value;
 
     if(userCfmPasswordInput === "") {
         document.getElementById("confirm_password_feedback").innerHTML = "";
         fieldIsValid[5] = false;
-    } else if(userPasswordInput === "") {
+    } else if(viewerPasswordInput === "") {
         document.getElementById("confirm_password_feedback").innerHTML = "Please enter a password first"
         fieldIsValid[5] = false;
-    } else if(userPasswordInput !== userCfmPasswordInput) {
+    } else if(viewerPasswordInput !== userCfmPasswordInput) {
         document.getElementById("confirm_password_feedback").innerHTML = "Passwords do not match";
         fieldIsValid[5] = false;
     } else {

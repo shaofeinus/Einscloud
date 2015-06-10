@@ -16,7 +16,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
     $response = make_sql_query($username, $password);
 
     if(mysqli_num_rows($response) == 1) {
-        $_SESSION["login_user"] = $username;
+        $_SESSION["login_viewer"] = $username;
         header("Location: ../user_admin_index.php");
     } else {
         echo "<script> alert('Password does not match username'); window.location.assign('../index.html')</script>";
@@ -31,7 +31,7 @@ function make_sql_query($username, $password) {
     $connector->connect();
 
     $passwordHashed = md5($password);
-    $query = "SELECT * FROM User WHERE username='$username' AND password='$passwordHashed'";
+    $query = "SELECT * FROM RegisteredViewer WHERE username='$username' AND password='$passwordHashed'";
 
     $response = mysqli_query($connector->conn, $query);
     $connector->close();

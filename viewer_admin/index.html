@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/user_resgistration_style.css">
+    <link rel="stylesheet" type="text/css" href="style/viewer_style.css">
     <meta charset="UTF-8">
-    <title>Einswatch User admin</title>
+    <title>Einswatch Viewer</title>
 </head>
 
 <body>
-<script src="script/user_login_validation_script.js"></script>
+<script src="script/viewer_login_validation_script.js"></script>
 
-<h1>Welcome Einswatch users<br></h1>
-<h2>Existing Einswatch Users</h2>
+<h1>Welcome Einswatch Viewer<br></h1>
+<h2>Existing Einswatch Viewer</h2>
+
 
 <table>
-    <form id="user_login_form" action='php/user_login.php' method='post' onsubmit="return isFormValid()">
+    <form id="viewer_login_form" action='php/viewer_login.php' method='post' onsubmit="return isFormValid()">
 
         <tr>
             <td>Username:</td>
@@ -26,7 +26,7 @@
         </tr>
 
         <tr>
-            <td>6 digit password:</td>
+            <td>Password:</td>
         </tr>
         <tr>
             <td><input type='password' name='password' oninput="validatePassword()" required></td>
@@ -34,19 +34,16 @@
         </tr>
 
         <tr>
-            <td><input type='submit' name='loginUser' value='Log in'></td>
+            <td><input type='submit' name='loginViewer' value='Log in'></td>
         </tr>
     </form>
 </table>
 
-
-<h2>New Einswatch Users</h2>
-
+<h2>New Einswatch Viewer</h2>
 <table>
-    <form id="goto_register_form" action='user_registration.html'>
+    <form id="goto_register_form" action='viewer_registration.html'>
         <tr><input type='submit' value='Register'></tr>
     </form>
 </table>
-
 </body>
 </html>

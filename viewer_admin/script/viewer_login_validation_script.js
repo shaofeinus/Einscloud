@@ -2,7 +2,6 @@
  * Created by Shao Fei on 9/6/2015.
  */
 var fieldIsValid = [false, false];
-var passwordIsCorrect = false;
 
 function validateForm() {
     validateUsername();
@@ -11,13 +10,10 @@ function validateForm() {
 }
 
 function validateUsername() {
-    var usernameInput = document.forms["user_login_form"]["username"].value;
+    var usernameInput = document.forms["viewer_login_form"]["username"].value;
 
-    if(usernameInput === "") {
+    if(usernameInput.trim() === "") {
         document.getElementById("username_feedback").innerHTML = "";
-        fieldIsValid[0] = false;
-    } else if(/[\s]/.test(usernameInput)) {
-        document.getElementById("username_feedback").innerHTML = "Username should not contain blank space";
         fieldIsValid[0] = false;
     } else if(usernameInput.length < 4) {
         document.getElementById("username_feedback").innerHTML = "Username below 4 characters";
@@ -31,19 +27,13 @@ function validateUsername() {
 }
 
 function validatePassword() {
-    var userPasswordInput = document.forms["user_login_form"]["password"].value;
+    var userPasswordInput = document.forms["viewer_login_form"]["password"].value;
 
     if(userPasswordInput === "") {
         document.getElementById("password_feedback").innerHTML = "";
         fieldIsValid[1] = false;
-    } else if (userPasswordInput.length < 6) {
+    } else if (userPasswordInput.length < 8) {
         document.getElementById("password_feedback").innerHTML = "Password too short";
-        fieldIsValid[1] = false;
-    } else if (userPasswordInput.length > 6) {
-        document.getElementById("password_feedback").innerHTML = "Password too long";
-        fieldIsValid[1] = false;
-    } else if (!/^\d+$/.test(userPasswordInput)) {
-        document.getElementById("password_feedback").innerHTML = "Password should be numbers only";
         fieldIsValid[1] = false;
     } else {
         document.getElementById("password_feedback").innerHTML = "";
@@ -98,7 +88,7 @@ function isFormValid() {
     if(!formIsValid) {
         alert("Log in information is incomplete/contain invalid fields");
         return false;
-    } else{
+    } else {
         return true;
     }
 }
