@@ -7,15 +7,37 @@
 <title>User Admin Console</title>
 </head>
 <body>
-	<h1> Hello <?php session_start(); echo $_SESSION['login_firstname'].' '.$_SESSION['login_lastname']; ?></h1>
+<?php 
+session_start();
+$user_id = $_SESSION ["login_id"];
+
+// import sql utility functions.
+require_once $_SERVER ['DOCUMENT_ROOT'] . '/php/DB_connect/db_utility.php';
+
+
+if (isset($_POST["Delete Selected"])) {
+	if(!empty($_POST['reg_viewer'])){
+		// Loop to store and display values of individual checked checkbox.
+		foreach($_POST['reg_viewer'] as $viewer_id){
+			make_query ( "delete from Caregive where rv_id='$viewer_id' and user_id='$user_id'" );
+		}
+	}
+	
+	if(!empty($_POST['unreg_viewer'])){
+		// Loop to store and display values of individual checked checkbox.
+		foreach($_POST['unreg_viewer'] as $vr_code){
+			make_query ( "delete from UnregisteredViewer where verification_code='$vr_code'" );
+		}
+	}
+}
+?>
+
+	<h1> Hello <?php echo $_SESSION['login_firstname'].' '.$_SESSION['login_lastname']; ?></h1>
 
 	<?php
-	//import sql utility functions.
-	require_once $_SERVER['DOCUMENT_ROOT'].'/php/DB_connect/db_utility.php';
-	
 	/* Fetch viewers data */
 	// Fetch Unregistered Viewers of this User
-	$user_id = $_SESSION ["login_id"];
+	
 	$unreg_viewers_sql_resp = make_query ( "select * from UnregisteredViewer where user_id='$user_id'" );
 	
 	// Fetch Registered Viewers of this User
@@ -23,21 +45,28 @@
 	?>
 
 
-
-	<h2>List of registered viewers</h2>
-	<?php generate_viewer_table($reg_viewers_sql_resp)?>
-
-	<h2>List of unregistered viewers</h2>
-	<?php generate_viewer_table($unreg_viewers_sql_resp)?>
+	<form id="viewer_management_form" action='' method='post'
+		onsubmit="return isFormValid()">
+		<h2>List of registered viewers</h2>
+		<?php generate_viewer_table($reg_viewers_sql_resp)?>
 	
+		<h2>List of unregistered viewers</h2>
+		<?php generate_viewer_table($unreg_viewers_sql_resp)?>
+		
+		<input type="submit" name="Delete Selected" value="Delete Selected" 
+		onclick="return confirm('Are you sure that you would like to delete these contacts?')"/>
+	</form>
+
 	<p>
-		<form id="goto_register_form" action='user_add_viewer.php'>
-			<input type='submit' value='Add Viewer'>
-		</form>
+	
+	
+	<form id="goto_register_form" action='user_add_viewer.php'>
+		<input type='submit' value='Add Viewer'>
+	</form>
 	</p>
 
-<?php 
-function generate_viewer_table($viewer_sql_resp){
+<?php
+function generate_viewer_table($viewer_sql_resp) {
 	echo "<table border=1><tr>
 			<th>Name</th>
 			<th>Phone No.</th>
@@ -47,13 +76,21 @@ function generate_viewer_table($viewer_sql_resp){
 	/* Read registered viewers and fillin the table */
 	$isNoRecords = false;
 	if (mysqli_num_rows ( $viewer_sql_resp ) > 0) {
-			
 		// output data of each row
 		while ( $row = mysqli_fetch_assoc ( $viewer_sql_resp ) ) {
 			echo "<tr>";
-			echo "<th>" . $row ["firstname"] . " " . $row ["lastname"] . "</th>";
-			echo "<th>" . $row ["phone_no"] . "</th>";
-			echo "<th>" . $row ["email"] . "</th>";
+			if (isset ( $row ["id"] ))
+				echo "<td>" . $row ["firstname"] . " " . $row ["lastname"] . "</td>";
+			else
+				echo "<td>" . $row ["viewername"] . "</td>";
+			echo "<td>" . $row ["phone_no"] . "</td>";
+			echo "<td>" . $row ["email"] . "</td>";
+			
+			if (isset ( $row ["id"] ))
+				echo "<td>" . "<input type='checkbox' name='reg_viewer[]' value='" . $row ["id"] . "'>" . "</td>";
+			else
+				echo "<td>" . "<input type='checkbox' name='unreg_viewer[]' value='" . $row ["verification_code"] . "'>" . "</td>";
+			
 			echo "</tr>";
 		}
 	} else {
@@ -61,7 +98,8 @@ function generate_viewer_table($viewer_sql_resp){
 	}
 	
 	echo "</table>";
-	if($isNoRecords) echo 'No records found.<br>';
+	if ($isNoRecords)
+		echo 'No records found.<br>';
 }
 ?>
 </body>
