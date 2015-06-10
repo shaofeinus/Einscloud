@@ -8,47 +8,56 @@
 
 <body>
 <script src="script/user_registration_validation_script.js"></script>
-<p>
 
-<h1>Welcome to Einswatch registration for Users</h1></p>
-<p>
+<h1>Welcome to Einswatch registration for Users</h1>
 
 <h2>Please fill up all fields</h2>
 
+<table>
 <form name='user_registration_form' action='php/user_registration_create.php' method="post"
       onsubmit="return isFormValid()">
 
-    <h3>Personal particulars</h3>
-    First name: <br><input type='text' name='firstName' required><br>
-    Last name: <br><input type='text' name='lastName' required><br>
-    NRIC: <br><input id="nric_field" type='text' name='nric' oninput="validateNric()" required>
+    <tr class="title_row"><td>Personal particulars</td></tr>
+    <tr><td>First name:</td></tr>
+    <tr><td><input type='text' name='firstName' required></td></tr>
+    <tr><td>Last name:</td></tr>
+    <tr><td><input type='text' name='lastName' required></td></tr>
+    <tr><td>NRIC:</td></tr>
+    <tr>
+        <td><input id="nric_field" type='text' name='nric' oninput="validateNric()" required></td>
+        <td><div class='feedback' id='nric_feedback'></div></td>
+    </tr>
+    <tr><td>Email:</td></tr>
+    <tr><td><input type='text' name='email'></td></tr>
+    <tr><td>Phone number (watch):</td></tr>
+    <tr>
+        <td><input type='text' name='phoneNo' oninput="validatePhoneNo()" required></td>
+        <td><div class='feedback' id='phone_no_feedback'></div></td>
+    </tr>
 
-    <div class='feedback' id='nric_feedback'></div>
-    <br>
-    Email: <br><input type='text' name='email'><br>
-    Phone number (watch): <br><input type='text' name='phoneNo' oninput="validatePhoneNo()" required>
+    <tr><br></tr>
 
-    <div class='feedback' id='phone_no_feedback'></div>
-    <br>
-
-    <h3>Account information</h3>
-    Username: <br><input type='text' name='username' oninput="validateUsername()" required>
-
-    <div class='feedback' id='username_feedback'></div>
-    <br>
-
-    6 digit password: <br><input type='password' name='password' oninput="validatePassword()" required>
-
-    <div class='feedback' id="password_feedback"></div>
-    <br>
-    Confirm 6 digit password: <br><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
-                                         required>
-
-    <div class='feedback' id="confirm_password_feedback"></div>
-    <br>
-
-    <p><input type='submit' name='registerUser' value='Register'></p>
+    <tr class="title_row"><td>Account information</td></tr>
+    <tr><td>Username:</td></tr>
+    <tr>
+        <td><input type='text' name='username' oninput="validateUsername()" required></td>
+        <td><div class='feedback' id='username_feedback'></div></td>
+    </tr>
+    <tr><td>6 digit password:</td></tr>
+    <tr>
+        <td><input type='password' name='password' oninput="validatePassword()" required></td>
+        <td><div class='feedback' id="password_feedback"></div></td>
+    </tr>
+    <tr><td>Confirm 6 digit password:</td></tr>
+    <tr>
+        <td><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
+                   required></td>
+        <td><div class='feedback' id="confirm_password_feedback"></div></td>
+    </tr>
+    <tr><td><input type='submit' name='registerUser' value='Register'></td></tr>
 
 </form>
+</table>
+
 </body>
 </html>

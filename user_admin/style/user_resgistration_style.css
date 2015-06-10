@@ -3,16 +3,16 @@ body {
     font-style: normal;
 }
 
-#user_registration_form {
-    float:left;
-}
-
 .feedback {
-    font-style: italic;
-    color: red;
-    font-size: 0.75em;
-    float: right;
-    text-align: left;
+     font-style: italic;
+     color: red;
+     font-size: 0.75em;
+     text-align: left;
+ }
+
+.title_row {
+    font-size: 1.25em;
+    font-weight: bold;
 }
 
 #nric_field {
