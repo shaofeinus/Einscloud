@@ -8,79 +8,61 @@
 </head>
 <body>
 	<h1> Hello <?php session_start(); echo $_SESSION['login_firstname'].' '.$_SESSION['login_lastname']; ?></h1>
-<?php
-/* Fetch viewers data */
 
-// Fetch Unregistered Viewers of this User
-$user_id = $_SESSION ["login_id"];
-$unreg_viewers_sql_resp = make_query ( "select * from UnregisteredViewer where user_id='$user_id'" );
+	<?php
+	//import sql utility functions.
+	require_once $_SERVER['DOCUMENT_ROOT'].'/php/DB_connect/db_utility.php';
+	
+	/* Fetch viewers data */
+	// Fetch Unregistered Viewers of this User
+	$user_id = $_SESSION ["login_id"];
+	$unreg_viewers_sql_resp = make_query ( "select * from UnregisteredViewer where user_id='$user_id'" );
+	
+	// Fetch Registered Viewers of this User
+	$reg_viewers_sql_resp = make_query ( "select * from RegisteredViewer where id=(select rv_id from Caregive where user_id='$user_id')" );
+	?>
 
-// Fetch Registered Viewers of this User
-$reg_viewers_sql_resp = make_query ( "select * from RegisteredViewer where id=(select rv_id from Caregive where user_id='$user_id')" );
-function make_query($query) {
-	require_once 'php/DB_connect/db_connect.php'; // TODO prone to path change. Need refactor.
-	$connector = new DB_CONNECT ();
-	$connector->connect ();
-	$response = mysqli_query ( $connector->conn, $query );
-	$connector->close ();
-	return $response;
-}
 
-?>
+
 	<h2>List of registered viewers</h2>
-	<table border=1>
-		<tr>
-			<th>Name</th>
-			<th>Phone No.</th>
-			<th>Email</th>
-		</tr>
-		<?php
-		/* Read registered viewers and fillin the table */
-		$isRegNoRecords = false;
-		if (mysqli_num_rows ( $reg_viewers_sql_resp ) > 0) {
-			
-			// output data of each row
-			while ( $row = mysqli_fetch_assoc ( $reg_viewers_sql_resp ) ) {
-				echo "<tr>";
-				echo "<th>" . $row ["firstname"] . " " . $row ["lastname"] . "</th>";
-				echo "<th>" . $row ["phone_no"] . "</th>";
-				echo "<th>" . $row ["email"] . "</th>";
-				echo "</tr>";
-			}
-		} else {
-			$isRegNoRecords = true;
-		}
-		?>
-	</table>
-	<?php if($isRegNoRecords) echo 'No records found.<br>'?>
+	<?php generate_viewer_table($reg_viewers_sql_resp)?>
 
 	<h2>List of unregistered viewers</h2>
-	<table border=1>
-		<tr>
+	<?php generate_viewer_table($unreg_viewers_sql_resp)?>
+	
+	<p>
+		<form id="goto_register_form" action='user_add_viewer.php'>
+			<input type='submit' value='Add Viewer'>
+		</form>
+	</p>
+
+<?php 
+function generate_viewer_table($viewer_sql_resp){
+	echo "<table border=1><tr>
 			<th>Name</th>
 			<th>Phone No.</th>
 			<th>Email</th>
-		</tr>
-		<?php
-		/* Read registered viewers and fillin the table */
-		$isUnregNoRecords = false;
-		if (mysqli_num_rows ( $unreg_viewers_sql_resp ) > 0) {
+			<th></th>
+		</tr>";
+	/* Read registered viewers and fillin the table */
+	$isNoRecords = false;
+	if (mysqli_num_rows ( $viewer_sql_resp ) > 0) {
 			
-			// output data of each row
-			while ( $row = mysqli_fetch_assoc ( $unreg_viewers_sql_resp ) ) {
-				echo "<tr>";
-				echo "<th>" . $row ["firstname"] . " " . $row ["lastname"] . "</th>";
-				echo "<th>" . $row ["phone_no"] . "</th>";
-				echo "<th>" . $row ["email"] . "</th>";
-				echo "</tr>";
-			}
-		} else {
-			$isUnregNoRecords = true;
+		// output data of each row
+		while ( $row = mysqli_fetch_assoc ( $viewer_sql_resp ) ) {
+			echo "<tr>";
+			echo "<th>" . $row ["firstname"] . " " . $row ["lastname"] . "</th>";
+			echo "<th>" . $row ["phone_no"] . "</th>";
+			echo "<th>" . $row ["email"] . "</th>";
+			echo "</tr>";
 		}
-		?>
-	</table>
-	<?php if($isUnregNoRecords) echo 'No records found.<br>'?>
-
-
+	} else {
+		$isNoRecords = true;
+	}
+	
+	echo "</table>";
+	if($isNoRecords) echo 'No records found.<br>';
+}
+?>
 </body>
 </html>
