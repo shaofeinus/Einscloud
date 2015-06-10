@@ -13,7 +13,7 @@
 	$user_id = $_SESSION ["login_id"];
 	
 	// import sql utility functions.
-	require_once $_SERVER ['DOCUMENT_ROOT'] . '/php/DB_connect/db_utility.php';
+	require_once __DIR__.'/php/DB_connect/db_utility.php';
 	
 	if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 		if (! empty ( $_POST ['reg_viewer'] )) {
