@@ -2,6 +2,7 @@
  * Created by Shao Fei on 9/6/2015.
  */
 var fieldIsValid = [false, false];
+var passwordIsCorrect = false;
 
 function validateForm() {
     validateUsername();
@@ -12,8 +13,11 @@ function validateForm() {
 function validateUsername() {
     var usernameInput = document.forms["user_login_form"]["username"].value;
 
-    if(usernameInput.trim() === "") {
+    if(usernameInput === "") {
         document.getElementById("username_feedback").innerHTML = "";
+        fieldIsValid[0] = false;
+    } else if(/[\s]/.test(usernameInput)) {
+        document.getElementById("username_feedback").innerHTML = "Username should not contain blank space";
         fieldIsValid[0] = false;
     } else if(usernameInput.length < 4) {
         document.getElementById("username_feedback").innerHTML = "Username below 4 characters";
@@ -94,7 +98,7 @@ function isFormValid() {
     if(!formIsValid) {
         alert("Log in information is incomplete/contain invalid fields");
         return false;
-    } else {
+    } else{
         return true;
     }
 }

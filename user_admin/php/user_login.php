@@ -19,7 +19,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
         $_SESSION["login_user"] = $username;
         header("Location: ../user_admin_index.php");
     } else {
-        header("Location: user_wrong_password.html");
+        echo "<script> alert('Password does not match username'); window.location.assign('../index.html')</script>";
     }
 } else {
     $error_msg = "Empty field(s)";

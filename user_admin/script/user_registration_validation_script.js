@@ -39,7 +39,6 @@ function validateNric() {
     console.log(fieldIsValid);
 }
 
-
 function validatePhoneNo() {
     var phoneNoInput = document.forms["user_registration_form"]["phoneNo"].value;
 
@@ -60,8 +59,11 @@ function validatePhoneNo() {
 function validateUsername() {
     var usernameInput = document.forms["user_registration_form"]["username"].value;
 
-    if(usernameInput.trim() === "") {
+    if(usernameInput === "") {
         document.getElementById("username_feedback").innerHTML = "";
+        fieldIsValid[3] = false;
+    } else if(/[\s]/.test(usernameInput)) {
+        document.getElementById("username_feedback").innerHTML = "Username should not contain blank space";
         fieldIsValid[3] = false;
     } else if(usernameInput.length < 4) {
         document.getElementById("username_feedback").innerHTML = "Username below 4 characters";
