@@ -3,7 +3,7 @@ body {
     font-style: normal;
 }
 
-form {
+#user_registration_form {
     float:left;
 }
 

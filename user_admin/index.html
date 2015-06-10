@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <link rel="stylesheet" type="text/css" href="style/user_resgistration_style.css">
+    <meta charset="UTF-8">
+    <title>Einswatch User admin</title>
+</head>
+
+<body>
+<script src="script/user_login_validation_script.js"></script>
+
+<h1>Welcome Einswatch users<br></h1>
+<h2>Existing Einswatch Users</h2>
+
+<form id="user_login_form" action='php/user_login.php' method='post' onsubmit="return isFormValid()">
+    Username: <br><input type='text' name='username' oninput="validateUsername()" required>
+    <div class='feedback' id='username_feedback'></div>
+    <br>
+
+    6 digit password: <br><input type='password' name='password' oninput="validatePassword()" required>
+    <div class='feedback' id='password_feedback'></div>
+    <br>
+
+    <p><input type='submit' name='loginUser' value='Log in'></p>
+</form>
+
+<h2>New Einswatch Users</h2>
+<form id="goto_register_form" action='user_registration.html'>
+    <input type='submit' value='Register'>
+</form>
+
+</body>
+</html>
