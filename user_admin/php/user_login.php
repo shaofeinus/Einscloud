@@ -16,7 +16,14 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
     $response = make_sql_query($username, $password);
 
     if(mysqli_num_rows($response) == 1) {
+        $row = mysqli_fetch_assoc($response);
+    	$_SESSION["login_id"] =  $row ["id"];
         $_SESSION["login_user"] = $username;
+        $_SESSION['login_firstname'] =  $row ["firstname"];
+        $_SESSION['login_lastname'] = $row ["lastname"];
+        $_SESSION['login_email'] = $row ["email"];
+        $_SESSION['login_nric'] = $row ["nric"];
+        $_SESSION['login_phone_no'] = $row ["phone_no"];
         header("Location: ../user_admin_index.php");
     } else {
         echo "<script> alert('Password does not match username'); window.location.assign('../index.html')</script>";
