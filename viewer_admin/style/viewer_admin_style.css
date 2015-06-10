@@ -18,3 +18,15 @@ body {
 #nric_field {
     text-transform: uppercase;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+th {text-align: left;}

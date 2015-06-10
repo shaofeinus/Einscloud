@@ -14,10 +14,16 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
     $username = $_POST["username"];
     $password = $_POST["password"];
     $response = make_sql_query($username, $password);
+    // fetch id
 
     if(mysqli_num_rows($response) == 1) {
+        $row = mysqli_fetch_assoc($response);
         $_SESSION["login_viewer"] = $username;
-        header("Location: ../user_admin_index.php");
+        $_SESSION["viewer_id"] = $row['id'];
+        $_SESSION["viewer_phone"] = $row['phone_no'];
+        //echo $_SESSION['viewer_phone'];
+        //echo $_SESSION["viewerid"];
+        header("Location: ../viewer_admin_index.php");
     } else {
         echo "<script> alert('Password does not match username'); window.location.assign('../index.html')</script>";
     }
