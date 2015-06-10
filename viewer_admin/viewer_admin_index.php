@@ -43,6 +43,7 @@ function queryCaregive($viewer_id) {
 
 
 
+
     if(mysqli_num_rows($caregiveResponse) > 0) {
         echo "<table>
         <tr>
@@ -73,7 +74,7 @@ function queryCaregive($viewer_id) {
 }
 
 function queryUnregistered($viewer_phone) {
-    require_once '/php/DB_connect/db_connect.php';
+    require_once __DIR__.'/php/DB_connect/db_connect.php';
     $connector = new DB_CONNECT();
     $connector->connect();
 
