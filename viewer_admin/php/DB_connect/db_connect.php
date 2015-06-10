@@ -10,7 +10,6 @@ class DB_CONNECT {
 		if(!$this->conn) {
 			die("Connection failed: " . mysqli_connect_error());
 		}
-        echo "connection is alright";
     }
 
     function close() {

@@ -31,7 +31,7 @@ function queryCaregive($viewer_id) {
     require_once __DIR__.'/php/DB_connect/db_connect.php';
     $connector = new DB_CONNECT();
     $connector->connect();
-    echo "before query";
+
     $caregiveQuery = "SELECT firstname, lastname, birthday, gender, nric, phone_no FROM User, Caregive WHERE rv_id = '$viewer_id' AND user_id = User.id";
     $caregiveResponse = mysqli_query($connector->conn, $caregiveQuery);
 
@@ -40,9 +40,7 @@ function queryCaregive($viewer_id) {
         echo "response is erroneous";
         die(mysql_error());
     }
-    else{
-        echo "response is ok";
-    }
+
 
 
 
@@ -76,7 +74,7 @@ function queryCaregive($viewer_id) {
 }
 
 function queryUnregistered($viewer_phone) {
-    require_once '/php/DB_connect/db_connect.php';
+    require_once __DIR__.'/php/DB_connect/db_connect.php';
     $connector = new DB_CONNECT();
     $connector->connect();
 
