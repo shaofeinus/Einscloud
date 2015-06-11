@@ -11,18 +11,18 @@ function displayAddViewerForm() {
     var i = 0;
 
     while(num_viewer_forms_left !== 0) {
-        output += "<table>"
-        + "<tr><th>Viewer " + (i + 1) + "</th><tr>"
-        + "<tr><td>Give your Viewer a name</td></tr>"
-        + "<tr><td><input type='text' name='nickname_" + i + "' required></td></tr>"
-        + "<tr><td>Phone number</td></tr>"
+        output += "<table class='form_table'>"
+        + "<tr><th class='form_th'>Viewer " + (i + 1) + "</th><tr>"
+        + "<tr><td class='form_td'>Give your Viewer a name</td></tr>"
+        + "<tr><td class='form_td'><input type='text' name='nickname_" + i + "' required></td></tr>"
+        + "<tr><td class='form_td'>Phone number</td></tr>"
         + "<tr>"
-        + "<td><input type='text' oninput='validatePhoneNo(" + i + ")' name='viewerPhone_" + i + "' required></td>"
-        + "<td><div class='feedback' id='phone_no_feedback_" + i + "'></div></td>"
+        + "<td class='form_td'><input type='text' oninput='validatePhoneNo(" + i + ")' name='viewerPhone_" + i + "' required></td>"
+        + "<td class='form_td'><div class='feedback' id='phone_no_feedback_" + i + "'></div></td>"
         + "</tr>"
-        + "<tr><td>Email</td></tr>"
-        + "<td><input type='text' oninput='validateEmail(" + i + ")' name='viewerEmail_" + i + "'></td>"
-        + "<td><div class='feedback' id='email_feedback_" + i + "'></div></td>"
+        + "<tr><td class='form_td'>Email</td></tr>"
+        + "<td class='form_td'><input type='text' oninput='validateEmail(" + i + ")' name='viewerEmail_" + i + "'></td>"
+        + "<td class='form_td'><div class='feedback' id='email_feedback_" + i + "'></div></td>"
         + "</table>";
 
         i++;
