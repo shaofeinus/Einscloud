@@ -85,3 +85,16 @@ function make_sql_query($input) {
     }
 }
 ?>
+
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<title>User Registration Success</title>
+	</head
+	<p>
+	<form id="goto_login_form" action='../index.html'>
+		<input type='submit' value='Go to login page'>
+	</form>
+	</p>
+	</body>
+</html>
