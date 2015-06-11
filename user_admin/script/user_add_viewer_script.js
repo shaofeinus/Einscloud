@@ -3,37 +3,55 @@
  */
 var num_viewer;
 
+function verifyLogin() {
+    $.post('php/user_add_viewer_functions.php',
+        {
+            func: 'verifyLogin',
+            params: ''
+        },
+        function(data, status) {
+            console.log(data);
+        });
+}
+
+function getName() {
+    $.post('php/user_add_viewer_functions.php',
+        {
+            func: 'getName',
+            params: ''
+        },
+        function(data, status) {
+            console.log(data);
+            document.getElementById('user_real_name').innerHTML = data;
+        });
+}
+
+function displayDropMenu() {
+    $.post('php/user_add_viewer_functions.php',
+        {
+            func: 'displayDropMenu',
+            params: ''
+        },
+        function(data, status) {
+            console.log(data);
+            document.getElementById('drop_menu').innerHTML = data;
+        });
+}
+
 function displayAddViewerForm() {
     var output = "";
     var dropdownMenu = document.getElementById("add_num_viewers");
     num_viewer = parseInt(dropdownMenu.options[dropdownMenu.selectedIndex].value);
-    var num_viewer_forms_left = num_viewer;
-    var i = 0;
 
-    while(num_viewer_forms_left !== 0) {
-        output += "<table class='form_table'>"
-        + "<tr><th class='form_th'>Viewer " + (i + 1) + "</th><tr>"
-        + "<tr><td class='form_td'>Give your Viewer a name</td></tr>"
-        + "<tr><td class='form_td'><input type='text' name='nickname_" + i + "' required></td></tr>"
-        + "<tr><td class='form_td'>Phone number</td></tr>"
-        + "<tr>"
-        + "<td class='form_td'><input type='text' oninput='validatePhoneNo(" + i + ")' name='viewerPhone_" + i + "' required></td>"
-        + "<td class='form_td'><div class='feedback' id='phone_no_feedback_" + i + "'></div></td>"
-        + "</tr>"
-        + "<tr><td class='form_td'>Email</td></tr>"
-        + "<td class='form_td'><input type='text' oninput='validateEmail(" + i + ")' name='viewerEmail_" + i + "'></td>"
-        + "<td class='form_td'><div class='feedback' id='email_feedback_" + i + "'></div></td>"
-        + "</table>";
-
-        i++;
-        num_viewer_forms_left--;
-
-        if(num_viewer_forms_left === 0) {
-            output += "<input type='submit' name='addViewersSubmit' value='Add Viewers'>";
-        }
-    }
-
-    document.getElementById("add_viewers_form").innerHTML = output;
+    $.post('php/user_add_viewer_functions.php',
+        {
+            func: 'displayAddViewerForm',
+            params: num_viewer
+        },
+        function(data, status) {
+            console.log(data);
+            document.getElementById("add_viewers_form").innerHTML = data;
+        });
 }
 
 function validatePhoneNo(i) {
@@ -65,9 +83,6 @@ function validateEmail(i) {
     if(/[\s]/.test(emailInput)) {
         document.getElementById("email_feedback_" + i).innerHTML = "Email should not contain blank space";
         currEmailValid = false;
-    } else if(!emailAndPhoneMatch(i)) {
-        document.getElementById("email_feedback_" + i).innerHTML = "Email does not match the phone number";
-        currEmailValid = false;
     } else if(document.forms["add_viewers_form"]["viewerPhone_" + i].value === "") {
         document.getElementById("phone_no_feedback_" + i).innerHTML = "Missing phone number";
         currEmailValid = false;
@@ -78,13 +93,6 @@ function validateEmail(i) {
 
     console.log("email " + i + " valid " + currEmailValid);
     return currEmailValid
-}
-
-//TODO: check for match IF viewer is registered
-function emailAndPhoneMatch(i) {
-    var emailInput = document.forms["add_viewers_form"]["viewerEmail_" + i].value;
-    var phoneNoInput = document.forms["add_viewers_form"]["viewerPhone_" + i].value;
-    return true;
 }
 
 function validateForm() {
@@ -106,4 +114,61 @@ function validateForm() {
     } else {
         return true;
     }
+}
+
+/** Unused functions **/
+function checkEmailAndPhoneMatch(i) {
+    var emailInput = document.forms["add_viewers_form"]["viewerEmail_" + i].value;
+    var phoneNoInput = document.forms["add_viewers_form"]["viewerPhone_" + i].value;
+
+    if(phoneNoExists(phoneNoInput)) {
+        return emailAndPhoneMatch(emailInput, phoneNoInput);
+    } else {
+        return true;
+    }
+}
+
+function emailAndPhoneMatch(emailInput, phoneNoInput) {
+    var matches;
+    $.post("php/user_add_viewer_functions.php",
+        {
+            func: "checkViewerEmailPhoneMatch",
+            params: [emailInput, phoneNoInput]
+        },
+        function(data, status) {
+            console.log("email phone match: " + data);
+            if(status === 'success') {
+                if(data === 'true') {
+                    matches = true;
+                } else {
+                    matches = false;
+                }
+            }
+        });
+
+    return matches;
+}
+
+function phoneNoExists(phoneNoInput) {
+    var exists
+    $.post("php/user_add_viewer_functions.php",
+        {
+            func: "checkViewerPhoneExists",
+            params: phoneNoInput
+        },
+        function(data, status) {
+            console.log("viewer phone exists: " + data);
+            if(status === 'success') {
+                if(data === 'true') {
+                    var emailInput = document.forms["add_viewers_form"]["viewerEmail_" + i].value;
+                    var phoneNoInput = document.forms["add_viewers_form"]["viewerPhone_" + i].value;
+                    emailAndPhoneMatch;
+                } else {
+                    exists = false;
+                }
+            }
+        });
+
+    console.log("viewer phone exists returned value: " + exists);
+    return exists;
 }

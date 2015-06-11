@@ -98,7 +98,7 @@
 	<p>
 	
 	
-	<form id="goto_register_form" action='user_add_viewer.php'>
+	<form id="goto_register_form" action='user_add_viewer.html'>
 		<input type='submit' value='Add Viewer'>
 	</form>
 	</p>

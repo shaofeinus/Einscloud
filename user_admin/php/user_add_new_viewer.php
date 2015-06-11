@@ -10,6 +10,7 @@ processAddViewer();
 
 function processAddViewer() {
     if(isset($_POST['addViewersSubmit'])) {
+        session_start();
         $i = 0;
         $successViewer = array();
 
@@ -50,7 +51,7 @@ function processAddViewer() {
             }
         }
         $s = json_encode($alert_feedback);
-        echo "<script>alert($s)</script>";
+        echo "<script>alert($s); window.location = '../user_add_viewer.html';</script>";
     }
 }
 

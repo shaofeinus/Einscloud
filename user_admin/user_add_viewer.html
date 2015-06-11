@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <link rel="stylesheet" type="text/css" href="style/user_resgistration_style.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="script/user_add_viewer_script.js"></script>
+    <meta charset="UTF-8">
+    <title>Einswatch add Viewers</title>
+</head>
+
+<body>
+
+<script>
+    verifyLogin();
+    displayDropMenu();
+</script>
+
+<h1>Welcome
+    <script>getName();</script>
+    <var id="user_real_name"></var>
+</h1>
+
+<form id="drop_menu" name="select_no_of_viewers_form"></form>
+
+<form id="add_viewers_form" name="add_viewers_form" action="php/user_add_new_viewer.php" method="post" onsubmit="return validateForm()"></form>
+
+</body>
+</html>
