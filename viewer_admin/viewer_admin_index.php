@@ -29,6 +29,10 @@
     <form id="edit_form" action='viewer_profile.php'>
         <input type='submit' value='Edit my profile'>
     </form>
+    <br>
+    <form id="log_out_form" action='./php/logout.php'>
+        <input type='submit' value='Log out'>
+    </form>
     <?php
 
 function queryCaregive($viewer_id) {

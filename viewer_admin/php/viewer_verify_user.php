@@ -39,7 +39,11 @@
     else{
         echo "your verification key is wrong";
     }
-
+?>
+    <form id="back_to_index" action='../viewer_admin_index.php'><br>
+        <input type='submit' value='Go back to Viewer Admin'>
+    </form>
+<?php
     $connector->close();
 
 ?>
