@@ -24,8 +24,12 @@
 
     queryUnregistered($viewer_phone);
 
-    //echo "<br><br><input type='submit' value='Edit my profile'>";
-
+    ?>
+    <br><br>
+    <form id="edit_form" action='viewer_profile.php'>
+        <input type='submit' value='Edit my profile'>
+    </form>
+    <?php
 
 function queryCaregive($viewer_id) {
     require_once __DIR__.'/php/DB_connect/db_connect.php';
@@ -115,7 +119,7 @@ function queryUnregistered($viewer_phone) {
         }
         ?>
 
-            </form>
+            </form></table>
         <?php
     } else {
         echo "No user awaiting your confirmation";
@@ -124,6 +128,7 @@ function queryUnregistered($viewer_phone) {
     $connector->close();
 }
 ?>
+
 
 
 </body>
