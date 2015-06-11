@@ -3,6 +3,22 @@ body {
     font-style: normal;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+table.form_table, td.form_td, th.form_th{
+    width: auto;
+    border: inherit;
+    border-collapse: collapse;
+}
+
 .feedback {
      font-style: italic;
      color: red;

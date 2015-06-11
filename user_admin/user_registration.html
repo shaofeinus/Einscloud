@@ -13,51 +13,56 @@
 
 <h2>Please fill up all fields</h2>
 
-<table>
+<div class="form_table">
+<table class="form_table">
 <form name='user_registration_form' action='php/user_registration_create.php' method="post"
       onsubmit="return isFormValid()">
 
-    <tr class="title_row"><td>Personal particulars</td></tr>
-    <tr><td>First name:</td></tr>
-    <tr><td><input type='text' name='firstName' required></td></tr>
-    <tr><td>Last name:</td></tr>
-    <tr><td><input type='text' name='lastName' required></td></tr>
-    <tr><td>NRIC:</td></tr>
+    <tr><th class="form_th">Personal particulars</th></tr>
+    <tr><td class="form_td">First name:</td></tr>
+    <tr><td class="form_td"><input type='text' name='firstName' required></td></tr>
+    <tr><td class="form_td">Last name:</td></tr>
+    <tr><td class="form_td"><input type='text' name='lastName' required></td></tr>
+    <tr><td class="form_td">NRIC:</td></tr>
     <tr>
-        <td><input id="nric_field" type='text' name='nric' oninput="validateNric()" required></td>
-        <td><div class='feedback' id='nric_feedback'></div></td>
+        <td class="form_td"><input id="nric_field" type='text' name='nric' oninput="validateNric()" required></td>
+        <td class="form_td"><div class='feedback' id='nric_feedback'></div></td>
     </tr>
-    <tr><td>Email:</td></tr>
-    <tr><td><input type='text' name='email'></td></tr>
-    <tr><td>Phone number (watch):</td></tr>
+    <tr><td class="form_td">Email:</td></tr>
     <tr>
-        <td><input type='text' name='phoneNo' oninput="validatePhoneNo()" required></td>
-        <td><div class='feedback' id='phone_no_feedback'></div></td>
+        <td class="form_td"><input type='text' name='email' oninput="validateEmail()"></td>
+        <td class="form_td"><div class='feedback' id='email_feedback'></div></td>
+    </tr>
+    <tr><td class="form_td">Phone number (watch):</td></tr>
+    <tr>
+        <td class="form_td"><input type='text' name='phoneNo' oninput="validatePhoneNo()" required></td>
+        <td class="form_td"><div class='feedback' id='phone_no_feedback'></div></td>
     </tr>
 
     <tr><br></tr>
 
-    <tr class="title_row"><td>Account information</td></tr>
-    <tr><td>Username:</td></tr>
+    <tr><th class="form_th">Account information</th></tr>
+    <tr><td class="form_td">Username:</td></tr>
     <tr>
-        <td><input type='text' name='username' oninput="validateUsername()" required></td>
-        <td><div class='feedback' id='username_feedback'></div></td>
+        <td class="form_td"><input type='text' name='username' oninput="validateUsername()" required></td>
+        <td class="form_td"><div class='feedback' id='username_feedback'></div></td>
     </tr>
-    <tr><td>6 digit password:</td></tr>
+    <tr><td class="form_td">6 digit password:</td></tr>
     <tr>
-        <td><input type='password' name='password' oninput="validatePassword()" required></td>
-        <td><div class='feedback' id="password_feedback"></div></td>
+        <td class="form_td"><input type='password' name='password' oninput="validatePassword()" required></td>
+        <td class="form_td"><div class='feedback' id="password_feedback"></div></td>
     </tr>
-    <tr><td>Confirm 6 digit password:</td></tr>
+    <tr><td class="form_td">Confirm 6 digit password:</td></tr>
     <tr>
-        <td><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
+        <td class="form_td"><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
                    required></td>
-        <td><div class='feedback' id="confirm_password_feedback"></div></td>
+        <td class="form_td"><div class='feedback' id="confirm_password_feedback"></div></td>
     </tr>
-    <tr><td><input type='submit' name='registerUser' value='Register'></td></tr>
+    <tr><td class="form_td"><input type='submit' name='registerUser' value='Register'></td></tr>
 
 </form>
 </table>
+</div>
 
 </body>
 </html>

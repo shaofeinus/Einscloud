@@ -2,7 +2,7 @@
  * Created by Shao Fei on 8/6/2015.
  */
 
-var fieldIsValid = [false, false,false, false, false, false];
+var fieldIsValid = [false, false, false, false, false, false, false];
 
 function validateForm() {
     var firstNameInput = document.forms["user_registration_form"]["firstName"].value;
@@ -19,6 +19,7 @@ function validateForm() {
     validateUsername();
     validatePassword();
     validateConfirmPassword();
+    validateEmail();
     console.log(fieldIsValid);
 }
 
@@ -42,8 +43,11 @@ function validateNric() {
 function validatePhoneNo() {
     var phoneNoInput = document.forms["user_registration_form"]["phoneNo"].value;
 
-    if(phoneNoInput.trim() === "") {
+    if(phoneNoInput === "") {
         document.getElementById("phone_no_feedback").innerHTML = "";
+        fieldIsValid[2] = false;
+    } else if(/[\s]/.test(phoneNoInput)) {
+        document.getElementById("phone_no_feedback").innerHTML = "Phone number should not contain blank space";
         fieldIsValid[2] = false;
     } else if (!/^[8|9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/.test(phoneNoInput)) {
         document.getElementById("phone_no_feedback").innerHTML = "Invalid phone number";
@@ -71,6 +75,20 @@ function validateUsername() {
     } else {
         var container = document.getElementById("username_feedback");
         checkUsernameExists(usernameInput, container);
+    }
+
+    console.log(fieldIsValid);
+}
+
+function validateEmail() {
+    var emailInput = document.forms["user_registration_form"]["email"].value;
+
+    if(/[\s]/.test(emailInput)) {
+        document.getElementById("email_feedback").innerHTML = "Email should not contain blank space";
+        fieldIsValid[6] = false;
+    } else {
+        document.getElementById("email_feedback_" + i).innerHTML = "";
+        fieldIsValid[6]  = true;
     }
 
     console.log(fieldIsValid);

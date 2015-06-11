@@ -13,28 +13,28 @@
 <h1>Welcome Einswatch users<br></h1>
 <h2>Existing Einswatch Users</h2>
 
-<table>
+<table class="form_table">
     <form id="user_login_form" action='php/user_login.php' method='post' onsubmit="return isFormValid()">
 
         <tr>
-            <td>Username:</td>
+            <td class="form_td">Username:</td>
         </tr>
 
         <tr>
-            <td><input type='text' name='username' oninput="validateUsername()" required></td>
-            <td><div class='feedback' id='username_feedback'></div></td>
+            <td class="form_td"><input type='text' name='username' oninput="validateUsername()" required></td>
+            <td class="form_td"><div class='feedback' id='username_feedback'></div></td>
         </tr>
 
         <tr>
-            <td>6 digit password:</td>
+            <td class="form_td">6 digit password:</td>
         </tr>
         <tr>
-            <td><input type='password' name='password' oninput="validatePassword()" required></td>
-            <td><div class='feedback' id='password_feedback'></div></td>
+            <td class="form_td"><input type='password' name='password' oninput="validatePassword()" required></td>
+            <td class="form_td"><div class='feedback' id='password_feedback'></div></td>
         </tr>
 
         <tr>
-            <td><input type='submit' name='loginUser' value='Log in'></td>
+            <td class="form_td"><input type='submit' name='loginUser' value='Log in'></td>
         </tr>
     </form>
 </table>
@@ -42,9 +42,9 @@
 
 <h2>New Einswatch Users</h2>
 
-<table>
+<table class="form_table">
     <form id="goto_register_form" action='user_registration.html'>
-        <tr><input type='submit' value='Register'></tr>
+        <tr><td class="form_td"><input type='submit' value='Register'></td></tr>
     </form>
 </table>
 
