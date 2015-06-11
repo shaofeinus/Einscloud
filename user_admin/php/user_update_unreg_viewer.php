@@ -80,5 +80,10 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 	
 	</form>
 	
+	<p>
+	<form id="log_out_form" action='./logout.php'>
+		<input type='submit' value='Log out'>
+	</form>
+	</p>
 	</body>
 </html>

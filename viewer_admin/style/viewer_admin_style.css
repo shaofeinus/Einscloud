@@ -3,6 +3,14 @@ body {
     font-style: normal;
 }
 
+
+a:link {
+    color: #60bdff;
+    font-size: 0.75em;
+    text-align: right;
+
+}
+
 .feedback {
     font-style: italic;
     color: red;
@@ -28,5 +36,7 @@ table, td, th {
     border: 1px solid black;
     padding: 5px;
 }
+
+
 
 th {text-align: left;}
