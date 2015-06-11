@@ -86,7 +86,7 @@
 	
 		<h2>List of unregistered viewers</h2>
 		<input type="submit" name="Update Unreg" value="Modify Unregistered Viewer Information" 
-			formmethod="get" formaction="/php/user_update_unreg_viewer.php"/>
+			formmethod="get" formaction="./php/user_update_unreg_viewer.php"/>
 		<?php generate_viewer_table($unreg_viewers_sql_resp)?>
 		
 		<p>
