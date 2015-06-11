@@ -1,3 +1,4 @@
+<?php session_start ();?>
 <!DOCTYPE html>
 <html>
 	<head lang="en">
@@ -9,7 +10,6 @@
 	
 	<body>
 	<?php
-	session_start ();
 	$user_id = $_SESSION ["login_id"];
 	
 	// import sql utility functions.
@@ -38,7 +38,7 @@
 			<th>Email</th>
 			<th></th>
 		</tr>";
-		/* Read registered viewers and fillin the table */
+		/* Read viewers and fillin the table */
 		$isNoRecords = false;
 		if (mysqli_num_rows ( $viewer_sql_resp ) > 0) {
 			// output data of each row
@@ -73,7 +73,6 @@
 	<?php
 	/* Fetch viewers data */
 	// Fetch Unregistered Viewers of this User
-	
 	$unreg_viewers_sql_resp = make_query ( "select * from UnregisteredViewer where user_id='$user_id'" );
 	
 	// Fetch Registered Viewers of this User
@@ -81,16 +80,19 @@
 	?>
 
 
-	<form id="viewer_management_form" action='' method='post'
-		onsubmit="return isFormValid()">
+	<form id="viewer_management_form" method='post'>
 		<h2>List of registered viewers</h2>
 		<?php generate_viewer_table($reg_viewers_sql_resp)?>
 	
 		<h2>List of unregistered viewers</h2>
+		<input type="submit" name="Update Unreg" value="Modify Unregistered Viewer Information" 
+			formmethod="get" formaction="/php/user_update_unreg_viewer.php"/>
 		<?php generate_viewer_table($unreg_viewers_sql_resp)?>
 		
+		<p>
 		<input type="submit" name="Delete Selected" value="Delete Selected"
 			onclick="return confirm('Are you sure that you would like to delete these contacts?')" />
+		</p>
 	</form>
 
 	<p>
