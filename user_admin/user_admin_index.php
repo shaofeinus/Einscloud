@@ -102,6 +102,13 @@
 		<input type='submit' value='Add Viewer'>
 	</form>
 	</p>
+	
+	<p>
+	<form id="log_out_form" action='./php/logout.php'>
+		<input type='submit' value='Log out'>
+	</form>
+	</p>
+	
 
 </body>
 </html>
