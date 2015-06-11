@@ -116,6 +116,17 @@ function validateForm() {
     }
 }
 
+function logout() {
+    $.post('php/user_add_viewer_functions.php',
+        {
+            func: 'logout',
+            params: ''
+        },
+        function(data, status) {
+            console.log(data);
+        });
+}
+
 /** Unused functions **/
 function checkEmailAndPhoneMatch(i) {
     var emailInput = document.forms["add_viewers_form"]["viewerEmail_" + i].value;

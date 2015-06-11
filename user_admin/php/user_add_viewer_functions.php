@@ -27,6 +27,8 @@ function decideFunction() {
                 return displayAddViewerForm($function_params);
             case 'getName':
                 return getName();
+            case 'logout':
+                return logout();
             default:
                 return NULL;
         }
@@ -97,7 +99,7 @@ function displayAddViewerForm($num_forms)
             "<td class='form_td'><div class='feedback' id='phone_no_feedback_" . $i . "'></div></td>" .
             "</tr>" .
             "<tr><td class='form_td'>Email</td></tr>" .
-            "<td class='form_td'><input type='text' oninput='validateEmail(" . $i . ")' name='viewerEmail_".$i."'></td>" .
+            "<td class='form_td'><input type='email' oninput='validateEmail(" . $i . ")' name='viewerEmail_".$i."'></td>" .
             "<td class='form_td'><div class='feedback' id='email_feedback_" . $i . "'></div></td>".
             "</table>";
 
@@ -110,6 +112,12 @@ function displayAddViewerForm($num_forms)
     }
 
     echo $output;
+}
+
+function logout() {
+    session_destroy();
+    header("Location: ../logged_out.html");
+    echo "logged out";
 }
 
 /** Unused functions */
