@@ -48,7 +48,7 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 			echo "<tr>";
 			echo "<td>" . "<input type='text' name='viewername[]' value='" . $row ["viewername"] . "'>" . "</td>";
 			echo "<td>" . "<input type='text' name='phone_no[]' value='" . $row ["phone_no"] . "'>" . "</td>";
-			echo "<td>" . "<input type='text' name='email[]' value='" . $row ["email"] . "'>" . "</td>";
+			echo "<td>" . "<input type='email' name='email[]' value='" . $row ["email"] . "'>" . "</td>";
 			echo "</tr>";
 		}
 	} else {
