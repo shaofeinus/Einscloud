@@ -15,22 +15,28 @@ function processAddViewer() {
         $successViewer = array();
 
         while(isset($_POST['nickname_'.$i]) && isset($_POST['viewerPhone_'.$i]) && isset($_POST['viewerEmail_'.$i])) {
-            $viewername = $_POST['nickname_'.$i];
-            $phone_no = $_POST['viewerPhone_'.$i];
-            $email = $_POST['viewerEmail_'.$i];
+            $viewername = $_POST['nickname_' . $i];
+            $phone_no = $_POST['viewerPhone_' . $i];
+            $email = $_POST['viewerEmail_' . $i];
             $user_id = $_SESSION['login_id'];
             $verification_code = getVerificationCode();
 
-            if(!empty($email)) {
-                $query = "INSERT INTO UnregisteredViewer (verification_code, phone_no, email, user_id, viewername)".
+            if (!empty($email)) {
+                $query = "INSERT INTO UnregisteredViewer (verification_code, phone_no, email, user_id, viewername)" .
                     "VALUES ('$verification_code', '$phone_no', '$email', '$user_id', '$viewername')";
             } else {
-                $query = "INSERT INTO UnregisteredViewer (verification_code, phone_no, email, user_id, viewername)".
+                $query = "INSERT INTO UnregisteredViewer (verification_code, phone_no, email, user_id, viewername)" .
                     "VALUES ('$verification_code', '$phone_no', NULL, '$user_id', '$viewername')";
             }
 
-            require_once __DIR__.'/DB_connect/db_utility.php';
+            require_once __DIR__ . '/DB_connect/db_utility.php';
             $response = make_query($query);
+
+            if (!empty($email) && $response) {
+                $_SESSION['viewer_email'] = $email;
+                header("Location: ../caregive_email.php");
+            }
+
             $instance = array();
             array_push($instance, $viewername);
             if($response) {
