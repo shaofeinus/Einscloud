@@ -33,8 +33,9 @@ function processAddViewer() {
             $response = make_query($query);
 
             if (!empty($email) && $response) {
-                $_SESSION['viewer_email'] = $email;
-                header("Location: ../caregive_email.php");
+                require_once '../caregive_email.php';
+                emailToViewer($email, $_SESSION['login_firstname'], $_SESSION['login_lastname']);
+
             }
 
             $instance = array();
