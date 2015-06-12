@@ -13,10 +13,10 @@
 <script>
     verifyLogin();
     displayDropMenu();
+    getName();
 </script>
 
 <h1>Welcome
-    <script>getName();</script>
     <var id="user_real_name"></var>
 </h1>
 
@@ -37,7 +37,7 @@
 
     <tr>
         <td class="form_td">
-            <button onclick="logout()">Log out</button>
+            <form onsubmit="logout()"><input type="submit" value="Log out"></form>
         </td>
     </tr>
 

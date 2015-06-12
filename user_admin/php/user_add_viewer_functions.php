@@ -70,7 +70,9 @@ function displayDropMenu() {
 function verifyLogin() {
     session_start();
     if(empty($_SESSION['login_user'])) {
-        header("Location: logged_out.html");
+        echo true;
+    } else {
+        echo false;
     }
 }
 

@@ -10,6 +10,9 @@ function verifyLogin() {
             params: ''
         },
         function(data, status) {
+            if(data == true) {
+                window.location.replace("logged_out.html");
+            }
             console.log(data);
         });
 }
@@ -117,12 +120,9 @@ function validateForm() {
 }
 
 function logout() {
-    $.post('php/user_add_viewer_functions.php',
-        {
-            func: 'logout',
-            params: ''
-        },
+    $.post('php/logout.php', "",
         function(data, status) {
+            window.location.replace("php/logout.php");
             console.log(data);
         });
 }
