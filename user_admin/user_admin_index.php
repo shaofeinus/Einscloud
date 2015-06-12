@@ -1,4 +1,7 @@
-<?php session_start ();?>
+<?php session_start ();
+if(!isset($_SESSION ["login_id"]))
+    header("Location: logged_out.html");
+?>
 <!DOCTYPE html>
 <html>
 	<head lang="en">
@@ -10,23 +13,7 @@
 	</head>
 	
 	<body>
-    <script>
-        verifyLogin();
 
-        function verifyLogin() {
-            $.post('php/user_add_viewer_functions.php',
-                {
-                    func: 'verifyLogin',
-                    params: ''
-                },
-                function(data, status) {
-                    if(data == true) {
-                        window.location.replace("logged_out.html");
-                    }
-                    console.log(data);
-                });
-        }
-    </script>
 
 	<?php
 	$user_id = $_SESSION ["login_id"];
