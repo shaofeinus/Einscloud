@@ -5,10 +5,29 @@
 		<link rel="stylesheet" type="text/css"
 			href="style/user_resgistration_style.css">
 		<meta charset="UTF-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<title>User Admin Console</title>
 	</head>
 	
 	<body>
+    <script>
+        verifyLogin();
+
+        function verifyLogin() {
+            $.post('php/user_add_viewer_functions.php',
+                {
+                    func: 'verifyLogin',
+                    params: ''
+                },
+                function(data, status) {
+                    if(data == true) {
+                        window.location.replace("logged_out.html");
+                    }
+                    console.log(data);
+                });
+        }
+    </script>
+
 	<?php
 	$user_id = $_SESSION ["login_id"];
 	
