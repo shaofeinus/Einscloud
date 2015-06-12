@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-    $user_name = $_SESSION['login_firstname'] . $_SESSION['login_lastname'];
+    $user_name = $_SESSION['login_firstname'] . ' ' . $_SESSION['login_lastname'];
 
     $to = $_SESSION['viewer_email'];
     $subject = $user_name . ' needs you to be his Einswatch viewer';
