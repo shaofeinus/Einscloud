@@ -12,5 +12,5 @@ session_start();
 
 echo 'trying';
 $result = mail($to, $subject, $message, $headers);
-header("Location: /php/user_add_new_viewer.php");
+//header("Location: /php/user_add_new_viewer.php");
 ?>
