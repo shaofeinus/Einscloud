@@ -2,7 +2,7 @@
  * Created by Shao Fei on 8/6/2015.
  */
 
-var fieldIsValid = [false, false, false, false, false, false, false];
+var fieldIsValid = [false, false, false, false, false, false, false, false];
 
 function validateForm() {
     var firstNameInput = document.forms["user_registration_form"]["firstName"].value;
@@ -20,6 +20,7 @@ function validateForm() {
     validatePassword();
     validateConfirmPassword();
     validateEmail();
+    validateBirthday();
     console.log(fieldIsValid);
 }
 
@@ -133,6 +134,39 @@ function validateConfirmPassword() {
     } else {
         document.getElementById("confirm_password_feedback").innerHTML = "";
         fieldIsValid[5] = true;
+    }
+
+    console.log(fieldIsValid);
+}
+
+function validateBirthday() {
+    var userBirthday = document.forms["user_registration_form"]["birthday"].value;
+
+    //generate today;s date
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd='0'+dd
+    }
+
+    if(mm<10) {
+        mm='0'+mm
+    }
+    today = yyyy+'-'+mm+'-'+dd;
+
+
+    if(userBirthday === "") {
+        document.getElementById("birthday_feedback").innerHTML = "";
+        fieldIsValid[7] = false;
+    } else if(userBirthday > today) {
+        document.getElementById("birthday_feedback").innerHTML = "Invalid Date of Birth"
+        fieldIsValid[7] = false;
+    } else {
+        document.getElementById("birthday_feedback").innerHTML = "";
+        fieldIsValid[7] = true;
     }
 
     console.log(fieldIsValid);

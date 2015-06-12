@@ -28,6 +28,20 @@
         <td class="form_td"><input id="nric_field" type='text' name='nric' oninput="validateNric()" required></td>
         <td class="form_td"><div class='feedback' id='nric_feedback'></div></td>
     </tr>
+
+    <tr><td class="form_td">Gender:</td></tr>
+    <tr>
+        <td class="form_td"><input id="male" type='radio' name='gender' value='M'  required>Male
+            <input id="female" type='radio' name='gender' value='F'  required>Female</td>
+        <td class="form_td"><div class='feedback' id='gender_feedback'></div></td>
+    </tr>
+
+    <tr><td class="form_td">Date of Birth:</td></tr>
+    <tr>
+        <td class="form_td"><input id="birthday" type='date' name='birthday' oninput="validateBirthday()" required></td>
+        <td class="form_td"><div class='feedback' id='birthday_feedback'></div></td>
+    </tr>
+
     <tr><td class="form_td">Email:</td></tr>
     <tr>
         <td class="form_td"><input type='email' name='email' oninput="validateEmail()"></td>

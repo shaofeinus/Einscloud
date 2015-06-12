@@ -16,6 +16,8 @@ class Input
     public $username;
     public $password;
     public $confirmPassword;
+    public $birthday;
+    public $gender;
 
 
     public function getInput()
@@ -31,6 +33,8 @@ class Input
         $this->phoneNo = $_POST['phoneNo'];
         $this->username = $_POST['username'];
         $this->password = md5($_POST['password']);
+        $this->birthday = $_POST['birthday'];
+        $this->gender = $_POST['gender'];
     }
 }
 
@@ -58,11 +62,11 @@ function make_sql_query($input) {
     $connector = new DB_CONNECT();
     $connector->connect();
 
-    $query1 = "INSERT INTO User(firstname, lastname, nric, phone_no, username, password)
-	VALUES('$input->firstName', '$input->lastName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password')";
+    $query1 = "INSERT INTO User(firstname, lastname, nric, phone_no, username, password, birthday, gender)
+	VALUES('$input->firstName', '$input->lastName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->birthday', '$input->gender')";
 
-    $query2 = "INSERT INTO User(firstname, lastname, nric, phone_no, username, password, email)
-	VALUES('$input->firstName', '$input->lastName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->email')";
+    $query2 = "INSERT INTO User(firstname, lastname, nric, phone_no, username, password, email, birthday, gender)
+	VALUES('$input->firstName', '$input->lastName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->birthday', '$input->gender')";
 
     if(empty($input->email)) {
         echo $query1 . "<br>";
