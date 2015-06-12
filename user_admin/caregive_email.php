@@ -10,7 +10,7 @@ session_start();
         'Reply-To: admin@einscloud.com' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
-echo 'trying';
+
 $result = mail($to, $subject, $message, $headers);
 //header("Location: /php/user_add_new_viewer.php");
 ?>
