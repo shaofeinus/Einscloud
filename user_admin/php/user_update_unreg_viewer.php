@@ -34,10 +34,10 @@ function compare_and_update($column_name, $sql_result){
 }
 
 function generate_unrge_viewer_update_table($viewer_sql_resp) {
-	echo "<table><tr>
-		<th align='left'>Name</th>
-		<th align='left'>Phone No.</th>
-		<th align='left'>Email</th>
+	echo "<table class='form_table'><tr>
+		<th class='form_th' align='left'>Name</th>
+		<th class='form_th' align='left'>Phone No.</th>
+		<th class='form_th' align='left'>Email</th>
 	</tr>";
 	/* Read unregistered viewers and fillin the table */
 	$isNoRecords = false;
@@ -46,9 +46,9 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 		//TODO validate these data
 		while ( $row = mysqli_fetch_assoc ( $viewer_sql_resp ) ) {
 			echo "<tr>";
-			echo "<td>" . "<input type='text' name='viewername[]' value='" . $row ["viewername"] . "'>" . "</td>";
-			echo "<td>" . "<input type='text' name='phone_no[]' value='" . $row ["phone_no"] . "'>" . "</td>";
-			echo "<td>" . "<input type='email' name='email[]' value='" . $row ["email"] . "'>" . "</td>";
+			echo "<td class='form_td'>" . "<input type='text' name='viewername[]' value='" . $row ["viewername"] . "'>" . "</td>";
+			echo "<td class='form_td'>" . "<input type='text' name='phone_no[]' value='" . $row ["phone_no"] . "'>" . "</td>";
+			echo "<td class='form_td'>" . "<input type='email' name='email[]' value='" . $row ["email"] . "'>" . "</td>";
 			echo "</tr>";
 		}
 	} else {
@@ -64,6 +64,7 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 <html>
 	<head lang="en">
 		<title>Modify Unregistered Viewers</title>
+        <link rel="stylesheet" type="text/css" href="../style/user_resgistration_style.css">
 	</head>
 
 	<body>
