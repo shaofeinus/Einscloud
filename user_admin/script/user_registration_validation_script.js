@@ -88,7 +88,7 @@ function validateEmail() {
         document.getElementById("email_feedback").innerHTML = "Email should not contain blank space";
         fieldIsValid[6] = false;
     } else {
-        document.getElementById("email_feedback").innerHTML = "";
+        document.getElementById("email_feedback_" + i).innerHTML = "";
         fieldIsValid[6]  = true;
     }
 

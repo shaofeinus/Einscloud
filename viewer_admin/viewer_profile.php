@@ -104,4 +104,6 @@
         <input type='submit' value='Go back to Viewer Admin'>
     </form>
 
+</body>
+
 </html>

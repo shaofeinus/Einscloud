@@ -101,8 +101,10 @@ function displayAddViewerForm($num_forms)
             "<td class='form_td'><div class='feedback' id='phone_no_feedback_" . $i . "'></div></td>" .
             "</tr>" .
             "<tr><td class='form_td'>Email</td></tr>" .
+            "<tr>" .
             "<td class='form_td'><input type='email' oninput='validateEmail(" . $i . ")' name='viewerEmail_".$i."'></td>" .
             "<td class='form_td'><div class='feedback' id='email_feedback_" . $i . "'></div></td>".
+            "</tr>" .
             "</table>";
 
         $i++;
