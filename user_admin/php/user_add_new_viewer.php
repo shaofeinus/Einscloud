@@ -1,6 +1,4 @@
-<?php
-
-?>
+<?php session_start();?>
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
@@ -9,7 +7,6 @@ processAddViewer();
 
 function processAddViewer() {
     if(isset($_POST['addViewersSubmit'])) {
-        session_start();
         $i = 0;
         $successViewer = array();
 
@@ -30,7 +27,9 @@ function processAddViewer() {
 
             require_once __DIR__ . '/DB_connect/db_utility.php';
             $response = make_query($query);
-
+			
+            //Send out invitation email asynchronously
+            
             if (!empty($email) && $response) {
                 $_SESSION['verificationCode'] = $verification_code;
                 ?>
@@ -43,6 +42,13 @@ function processAddViewer() {
                 //emailToViewer($email, $_SESSION['login_firstname'], $_SESSION['login_lastname']);
 
             }
+            
+            //Send out invitation SMS asynchronously
+            ?><script language="JavaScript" type="text/javascript" 
+            	src= "../../burstsms/burstsms_send_verification_code.js"></script>
+            <?php
+            $username = $_SESSION['login_firstname'] . " " . $_SESSION['login_lastname'];
+            echo "<script> sendVerificationCodeSMS('{$username}', {$verification_code}, {$phone_no}); </script>";
 
             $instance = array();
             array_push($instance, $viewername);
