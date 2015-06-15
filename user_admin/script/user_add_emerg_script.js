@@ -42,15 +42,7 @@ function displayDropMenu() {
         },
         function(data, status) {
             console.log(data);
-            var json_output = JSON.parse(data);
-            var num_rows = json_output['num_rows'];
-            while(num_rows) {
-                num_exists.push(false);
-                num_rows--;
-            }
-            var html = json_output['html'];
-
-            document.getElementById('drop_menu').innerHTML = html;
+            document.getElementById('drop_menu').innerHTML = data;
         });
 }
 
@@ -65,6 +57,11 @@ function displayAddEmergForm() {
             params: num_emerg
         },
         function(data, status) {
+            var num_rows = num_emerg;
+            while(num_rows) {
+                num_exists.push(true);
+                num_rows--;
+            }
             console.log(data);
             document.getElementById("add_emerg_form").innerHTML = data;
         });

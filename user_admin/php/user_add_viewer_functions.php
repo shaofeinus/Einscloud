@@ -15,8 +15,8 @@ function decideFunction() {
         $function_params = $_POST['params'];
 
         switch($function_name) {
-            case 'checkViewerPhoneExists':
-                return checkViewerPhoneExists($function_params);
+            case 'checkPhoneExists':
+                return checkPhoneExists($function_params);
             case 'emailAndPhoneMatch':
                 return emailAndPhoneMatch($function_params);
             case 'displayDropMenu':
@@ -117,6 +117,73 @@ function displayAddViewerForm($num_forms)
 
     echo $output;
 }
+
+function checkPhoneExists($phone_no) {
+    session_start();
+    $user_id = $_SESSION['login_id'];
+
+    $unregisteredPhoneExists = checkUnregisteredViewers($phone_no, $user_id);
+    $registeredPhoneExists = checkRegisteredViewers($phone_no, $user_id);
+
+    $output = array();
+
+    if($registeredPhoneExists || $unregisteredPhoneExists){
+        $output['exists'] = true;
+        if($registeredPhoneExists) {
+            $output['message'] = "Phone number is already one of your care giver";
+        }
+
+        if($unregisteredPhoneExists) {
+            $output['message'] = "Phone number already is already requested and pending response";
+        }
+    } else {
+        $output['exists'] = false;
+        $output['message'] = "";
+    }
+
+    echo json_encode($output);
+}
+
+function checkUnregisteredViewers($phone_no, $user_id) {
+    require_once __DIR__.'/DB_connect/db_utility.php';
+    $query = "SELECT * FROM UnregisteredViewer WHERE phone_no='$phone_no' AND user_id=$user_id";
+    $response = make_query($query);
+    if($response) {
+        if(mysqli_num_rows($response) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return "error";
+    }
+}
+
+function checkRegisteredViewers($phone_no, $user_id) {
+    require_once __DIR__.'/DB_connect/db_utility.php';
+    $query = "SELECT rv_id FROM Caregive WHERE user_id=$user_id";
+    $response = make_query($query);
+    if($response) {
+        if(mysqli_num_rows($response)) {
+            while($row = mysqli_fetch_assoc($response)) {
+                $rv_id = $row['rv_id'];
+                $query = "SELECT phone_no FROM RegisteredViewer WHERE id=$rv_id";
+                $response_each = make_query($query);
+                if(mysqli_num_rows($response_each)) {
+                    $row_each = mysqli_fetch_assoc($response_each);
+                    $phone_no_each = $row_each['phone_no'];
+                    if($phone_no_each == $phone_no) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    } else {
+        return "error";
+    }
+}
+
 
 function logout() {
     session_destroy();

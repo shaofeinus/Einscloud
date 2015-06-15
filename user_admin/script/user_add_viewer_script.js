@@ -2,6 +2,8 @@
  * Created by Shao Fei on 11/6/2015.
  */
 var num_viewer;
+var num_exists = [];
+var curr_form;
 
 function verifyLogin() {
     $.post('php/user_add_viewer_functions.php',
@@ -37,6 +39,7 @@ function displayDropMenu() {
         },
         function(data, status) {
             console.log(data);
+            var num_rwos
             document.getElementById('drop_menu').innerHTML = data;
         });
 }
@@ -53,11 +56,17 @@ function displayAddViewerForm() {
         },
         function(data, status) {
             console.log(data);
+            var num_rows = num_viewer;
+            while(num_rows) {
+                num_exists.push(true);
+                num_rows--;
+            }
             document.getElementById("add_viewers_form").innerHTML = data;
         });
 }
 
 function validatePhoneNo(i) {
+    curr_form = i;
     var currPhoneNoValid;
     var phoneNoInput = document.forms["add_viewers_form"]["viewerPhone_" + i].value;
 
@@ -71,12 +80,31 @@ function validatePhoneNo(i) {
         document.getElementById("phone_no_feedback_" + i).innerHTML = "Invalid phone number";
         currPhoneNoValid = false;
     } else {
-        document.getElementById("phone_no_feedback_" + i).innerHTML = "";
-        currPhoneNoValid = true
+        currPhoneNoValid = true;
+        var container = document.getElementById("phone_no_feedback_" + i);
+        checkPhoneExists(phoneNoInput, container);
     }
 
-    console.log("phone no " + i + " valid " + currPhoneNoValid);
+    console.log("phone no " + i + " valid: " + currPhoneNoValid + " number exists: " + num_exists[i]);
     return currPhoneNoValid;
+}
+
+function checkPhoneExists(phoneNoInput, container) {
+    $.post('php/user_add_viewer_functions.php',
+        {
+            func: "checkPhoneExists",
+            params: phoneNoInput
+        },
+        function(data, status) {
+            console.log(data);
+            if(data) {
+                data = JSON.parse(data);
+                num_exists[curr_form] = data['exists'];
+                container.innerHTML = data['message'];
+            } else {
+                container.innerHTML = "";
+            }
+        });
 }
 
 function validateEmail(i) {
@@ -105,12 +133,16 @@ function validateForm() {
         console.log("loop " + i);
         var phoneNoValid = validatePhoneNo(i);
         var emailValid = validateEmail(i);
-        console.log(i + " " + phoneNoValid + " " + emailValid);
+        console.log(i + " " + phoneNoValid + " " + emailValid + " " + num_exists[i]);
         if(!(phoneNoValid && emailValid)){
+            formIsValid = false;
+            break;
+        } else if(num_exists[i]) {
             formIsValid = false;
             break;
         }
     }
+
     if(formIsValid === false) {
         alert("Form is incomplete/contains invalid fields");
         return false;
