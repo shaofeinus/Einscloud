@@ -36,16 +36,13 @@ function displayDropMenu() {
     $query = "SELECT * FROM CallLandline WHERE user_id='$user_id'";
     $response = make_query($query);
     if($response) {
-        $num_rows = mysqli_num_rows($response);
-        $outputs = array();
         $html_output = "";
-        $num_rows_output = 0;
+        $num_rows = mysqli_num_rows($response);
         if($num_rows < 5){
             $html_output = "How may emergency landline contacts do you want to add?<br>".
                 "<select id='add_num_emerg' onchange='displayAddEmergForm()'>".
                 "<option value='0'></option>";
             $num_options = 5 - $num_rows;
-            $num_rows_output = $num_options;
             $index = 1;
             while($num_options) {
                 $html_output = $html_output . "<option value=$index>$index</option>";
@@ -57,10 +54,7 @@ function displayDropMenu() {
             $html_output = "You already have 5 emergency landline contacts. Click <a href='user_admin_index.php'>here</a> to manage emergency landline contacts";
         }
 
-        $outputs['html'] = $html_output;
-        $outputs['num_rows'] = $num_rows_output;
-
-        echo json_encode($outputs);
+        echo $html_output;
 
     } else {
         echo "error retrieving data";
