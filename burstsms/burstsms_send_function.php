@@ -1,7 +1,7 @@
 <?php
 function sendSMS($text, $number){
 	//Test code (to avoid sms charge). To be deleted upon actual deployment.
-	require_once '../user_admin/php/DB_connect/db_utility.php';
+	require_once __DIR__.'/../user_admin/php/DB_connect/db_utility.php';
 	make_query("insert into LogInLieuOfSMS values('{$text}', {$number})");
 	
 	/* Not employing since money costing.
