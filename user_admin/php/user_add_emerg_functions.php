@@ -37,26 +37,35 @@ function displayDropMenu() {
     $response = make_query($query);
     if($response) {
         $num_rows = mysqli_num_rows($response);
-
+        $outputs = array();
+        $html_output = "";
+        $num_rows_output = 0;
         if($num_rows < 5){
-            echo "How may emergency landline contacts do you want to add?<br>";
-            echo "<select id='add_num_emerg' onchange='displayAddEmergForm()'>";
+            $html_output = "How may emergency landline contacts do you want to add?<br>".
+                "<select id='add_num_emerg' onchange='displayAddEmergForm()'>".
+                "<option value='0'></option>";
             $num_options = 5 - $num_rows;
+            $num_rows_output = $num_options;
             $index = 1;
-            echo "<option value='0'></option>";
             while($num_options) {
-                echo "<option value=$index>$index</option>";
+                $html_output = $html_output . "<option value=$index>$index</option>";
                 $index++;
                 $num_options--;
             }
-            echo "</select>";
+            $html_output = $html_output . "</select>";
         } else{
-            echo "You already have 5 emergency landline contacts. Click <a href='user_admin_index.php'>here</a> to manage emergency landline contacts";
+            $html_output = "You already have 5 emergency landline contacts. Click <a href='user_admin_index.php'>here</a> to manage emergency landline contacts";
         }
 
+        $outputs['html'] = $html_output;
+        $outputs['num_rows'] = $num_rows_output;
+
+        echo json_encode($outputs);
+
     } else {
-        echo "Error retrieving data";
+        echo "error retrieving data";
     }
+
 }
 
 function displayAddEmergForm($num_forms) {
@@ -80,7 +89,7 @@ function displayAddEmergForm($num_forms) {
         $num_forms--;
 
         if ($num_forms == 0) {
-            $output = $output . "<input type='submit' name='addEmergSubmit' value='Add Viewers'>";
+            $output = $output . "<input type='submit' name='addEmergSubmit' value='Add Emergency landlines'>";
         }
     }
 
@@ -88,19 +97,39 @@ function displayAddEmergForm($num_forms) {
 }
 
 function checkPhoneExists($phone_no) {
+    session_start();
+    $user_id = $_SESSION['login_id'];
+
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $phone_no = json_decode($phone_no);
-    $query = "SELECT * FROM LandlineContact WHERE phone_no='$phone_no'";
+
+    $query = "SELECT id FROM LandlineContact WHERE phone_no=$phone_no";
+
+    $response = make_query($query);
+
+    $landline_id = 0;
+
+    if($response) {
+        $row = mysqli_fetch_assoc($response);
+
+        if($row) {
+            $landline_id = $row['id'];
+        }
+    } else {
+        echo "error";
+    }
+
+    $query = "SELECT * FROM CallLandline WHERE landline_id=$landline_id AND user_id=$user_id";
+
     $response = make_query($query);
 
     if($response) {
         if(mysqli_num_rows($response) > 0) {
-            echo json_encode(true);
+            echo true;
         } else {
-            echo json_encode(false);
+            echo false;
         }
     } else {
-        echo json_encode("error");
+        echo "error";
     }
 }
 

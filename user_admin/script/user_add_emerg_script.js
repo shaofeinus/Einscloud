@@ -5,6 +5,8 @@
  * Created by Shao Fei on 11/6/2015.
  */
 var num_emerg;
+var num_exists = [];
+var curr_form;
 
 function verifyLogin() {
     $.post('php/user_add_viewer_functions.php',
@@ -40,7 +42,15 @@ function displayDropMenu() {
         },
         function(data, status) {
             console.log(data);
-            document.getElementById('drop_menu').innerHTML = data;
+            var json_output = JSON.parse(data);
+            var num_rows = json_output['num_rows'];
+            while(num_rows) {
+                num_exists.push(false);
+                num_rows--;
+            }
+            var html = json_output['html'];
+
+            document.getElementById('drop_menu').innerHTML = html;
         });
 }
 
@@ -61,6 +71,7 @@ function displayAddEmergForm() {
 }
 
 function validatePhoneNo(i) {
+    curr_form = i;
     var currPhoneNoValid = new Boolean();
     var phoneNoInput = document.forms["add_emerg_form"]["landPhone_" + i].value;
 
@@ -75,17 +86,17 @@ function validatePhoneNo(i) {
         currPhoneNoValid = false;
     } else if(phoneNoInput==="") {
         document.getElementById("phone_no_feedback_" + i).innerHTML = "";
-        currPhoneNoValid = true
+        currPhoneNoValid = false;
     } else {
         var container = document.getElementById("phone_no_feedback_" + i);
-        checkPhoneExists(phoneNoInput, currPhoneNoValid, container);
+        checkPhoneExists(phoneNoInput, container);
     }
 
     console.log("phone no " + i + " valid " + currPhoneNoValid);
     return currPhoneNoValid;
 }
 
-function checkPhoneExists(phoneNoInput, currPhoneNoValid, container) {
+function checkPhoneExists(phoneNoInput, container) {
     $.post('php/user_add_emerg_functions.php',
         {
             func: "checkPhoneExists",
@@ -93,16 +104,14 @@ function checkPhoneExists(phoneNoInput, currPhoneNoValid, container) {
         },
         function(data, status) {
             console.log(data);
-            if(data == "true") {
+            if(data == true) {
                 container.innerHTML = "You already have this number as an Emergency landline contact";
-                console.log("number exists");
-                //currPhoneNoValid = false;
-            } else if(data == "false") {
+                num_exists[curr_form] = true;
+            } else if(data == false) {
                 container.innerHTML = "";
-                console.log("number does not exist");
-                //currPhoneNoValid = true;
+                num_exists[curr_form] = false;
             } else {
-                container.innerHTML = "aaa";
+                container.innerHTML = "";
             }
         });
 }
@@ -111,6 +120,7 @@ function checkPhoneExists(phoneNoInput, currPhoneNoValid, container) {
 function validateForm() {
     var formIsValid = true;
     var i;
+
     for(i = 0; i < num_emerg; i++) {
         console.log("loop " + i);
         var phoneNoValid = validatePhoneNo(i);
@@ -120,6 +130,15 @@ function validateForm() {
             break;
         }
     }
+
+    for(i = 0; i<num_emerg; i++) {
+        console.log("num " + i + ": " + num_exists[i]);
+        if(num_exists[i]) {
+            formIsValid = false;
+            break;
+        }
+    }
+
     if(formIsValid === false) {
         alert("Form is incomplete/contains invalid fields");
         return false;
