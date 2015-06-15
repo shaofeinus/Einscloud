@@ -1,11 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Shao Fei
- * Date: 11/6/2015
- * Time: 2:12 PM
- */
 
+?>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<?php
 processAddViewer();
 
 function processAddViewer() {
@@ -33,8 +32,14 @@ function processAddViewer() {
             $response = make_query($query);
 
             if (!empty($email) && $response) {
-                require_once '../caregive_email.php';
-                emailToViewer($email, $_SESSION['login_firstname'], $_SESSION['login_lastname']);
+                ?>
+                    <script language="JavaScript" type="text/javascript" src= "../script/user_email_viewer_script.js"></script>
+                <?php
+                echo '<script>'
+                . 'emailViewer("' . $email . '", "' . $_SESSION['login_firstname'] . '", "' . $_SESSION['login_lastname'] . '");'
+                . '</script>';
+                //require_once '../caregive_email.php';
+                //emailToViewer($email, $_SESSION['login_firstname'], $_SESSION['login_lastname']);
 
             }
 
