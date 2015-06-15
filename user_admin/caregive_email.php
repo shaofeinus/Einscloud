@@ -23,7 +23,7 @@ function emailToViewer()
         Dear Sir/Mdm,<br>
 		<p>' . $user_name . ' has recently purchased the Einswatch and has requested that you download
 		the mobile app to be a personal caregiver. Your one-time verification code is "' . $verificationCode .
-		'. Follow this <a href= "http://einstech.com">link</a> to download the app.</p><br>
+		'". Follow this <a href= "http://einstech.com">link</a> to download the app.</p><br>
 		Best Regards,<br>
         The Einswatch Team
         </body>
