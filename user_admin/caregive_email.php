@@ -1,12 +1,16 @@
 <?php
 
-function emailToViewer($email, $firstName, $lastName)
+emailToViewer();
+
+function emailToViewer()
 {
+    //$user_name =$firstName . ' ' . $lastName;
+    //$to = $email;
 
+    $to = $_POST['email'];
+    $user_name = $_POST['firstName'] . ' ' . $_POST['lastName'];
+    echo $user_name;
 
-    $user_name =$firstName . ' ' . $lastName;
-
-    $to = $email;
     $subject = $user_name . ' needs you to be his Einswatch viewer';
     $message = 'Dear Sir/Mdm, ' . $user_name . ' has recently purchased the Einswatch and wants you to download the app.';
     $headers = 'From: admin@einscloud.com' . "\r\n" .
@@ -16,6 +20,6 @@ function emailToViewer($email, $firstName, $lastName)
     $result = mail($to, $subject, $message, $headers);
 
 
-  //  header("Location: user_add_viewer.html");
+    //header("Location: http://reddit.com");
 }
 ?>
