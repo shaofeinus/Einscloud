@@ -1,10 +1,8 @@
 <?php
 function sendSMS($text, $number){
 	//Test code (to avoid sms charge). To be deleted upon actual deployment.
-	$myfile = fopen("OutputInLieuOfSMS.log", "w") or die("Unable to open file!");
-	$txt = "This log: " . $text . " " . $number . "\n";
-	fwrite($myfile, $txt);
-	fclose($myfile);
+	require_once '../user_admin/php/DB_connect/db_utility.php';
+	make_query("insert into LogInLieuOfSMS values('{$text}', {$number})");
 	
 	/* Not employing since money costing.
 	$api_key = 'e56a6a069e9b7066794bcbe264546a95';
