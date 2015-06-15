@@ -32,6 +32,7 @@ function processAddViewer() {
             $response = make_query($query);
 
             if (!empty($email) && $response) {
+                $_SESSION['verificationCode'] = $verification_code;
                 ?>
                     <script language="JavaScript" type="text/javascript" src= "../script/user_email_viewer_script.js"></script>
                 <?php

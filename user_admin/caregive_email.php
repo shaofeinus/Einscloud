@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 emailToViewer();
 
 function emailToViewer()
@@ -10,16 +10,35 @@ function emailToViewer()
     $to = $_POST['email'];
     $user_name = $_POST['firstName'] . ' ' . $_POST['lastName'];
     echo $user_name;
-
+    $verificationCode = $_SESSION['verificationCode'];
     $subject = $user_name . ' needs you to be his Einswatch viewer';
-    $message = 'Dear Sir/Mdm, ' . $user_name . ' has recently purchased the Einswatch and wants you to download the app.';
-    $headers = 'From: admin@einscloud.com' . "\r\n" .
-        'Reply-To: admin@einscloud.com' . "\r\n" .
-        'X-Mailer: PHP/' . phpversion();
-
-    $result = mail($to, $subject, $message, $headers);
+    //$message = 'Dear Sir/Mdm,\n ' . $user_name . ' has recently purchased the Einswatch and wants you to download the app.';
+    //$headers = 'From: admin@einscloud.com' . "\r\n" . 'Reply-To: admin@einscloud.com' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
 
 
+
+    $message = '
+        <html>
+        <body>
+        Dear Sir/Mdm,<br>
+		<p>' . $user_name . ' has recently purchased the Einswatch and has requested that you download
+		the mobile app to be a personal caregiver. Your one-time verification code is "' . $verificationCode .
+		'. Follow this <a href= "http://einstech.com">link</a> to download the app.</p><br>
+		Best Regards,<br>
+        The Einswatch Team
+        </body>
+        </html>
+    ';
+
+    //echo $message;
+// Always set content-type when sending HTML email
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+// More headers
+    $headers .= 'From: <einscloud@gmail.com>' . "\r\n";
+    //$headers .= 'Cc: myboss@example.com' . "\r\n";
     //header("Location: http://reddit.com");
+    $result = mail($to, $subject, $message, $headers);
 }
 ?>
