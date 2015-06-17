@@ -87,13 +87,13 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
                 <div class="col-lg-6">
                     <div class="form-group">
                         <input type="submit" name="Back" value="Go Back to Admin Console" formmethod="get" formaction="../user_admin_index.php"
-                        onclick="return confirm('Any modification made will be discarded. Confirm?')" />
+                        onclick="return confirm('Any modification made will be discarded. Confirm?')" class="btn btn-primary"/>
                     </div>	
                     <div class="form-group">
-                        <input type="submit" name="Update" value="Update Contacts"/>
+                        <input type="submit" name="Update" value="Update Contacts" class="btn btn-primary"/>
                     </div>
                     <div class="form-group">
-                        <input type='submit' value='Log out' formaction="./logout.php">
+                        <input type='submit' value='Log out' formaction="./logout.php" class="btn btn-primary"/>
                     </div>
                 </div>
                 <div class="col-lg-2"/>
