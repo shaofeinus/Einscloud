@@ -11,7 +11,7 @@
 <body>
     <script src="script/viewer_verify_script.js"></script>
     <div class="container">
-        <div class="jumbotron">
+        <div class="jumbotron well">
         <h1>Hello <?php echo $_SESSION['login_viewer'] . ','; ?></h1>
         </div>
         <div class="page-header">

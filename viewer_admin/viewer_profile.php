@@ -9,7 +9,7 @@
 
 <body>
 <div class="container">
-    <div class="jumbotron">
+    <div class="jumbotron well">
         <h1><?php echo $_SESSION['login_viewer'] . "'s Profile"; ?></h1>
     </div>
 </div>
@@ -41,7 +41,7 @@
             ?>
 
                 <form name="viewer_edit_username" action="php/viewer_edit_username.php" method="post" onsubmit="return isFormValid(3)">
-                <small><input type="text" name="username"  placeholder="Your desired username" oninput="validateUsername()" required></small>
+                <small><em><input type="text" name="username"  placeholder="Your desired username" oninput="validateUsername()" required></em></small>
                 <input type="submit" class="btn-primary" value="Edit">
                 <div class='alert-info' id='username_feedback'></div></td>
                 </tr>
@@ -55,7 +55,7 @@
             ?>
 
                 <form name='viewer_edit_phone' action='php/viewer_edit_phone.php' method="post" onsubmit="return isFormValid(2)">
-                <small><input type='text' name='phoneNo' placeholder="Input phone number" oninput="validatePhoneNo()" required></small>
+                <small><em><input type='text' name='phoneNo' placeholder="Input phone number" oninput="validatePhoneNo()" required></em></small>
                 <input type='submit' class="btn-primary" value='Edit'>
                 <div class='alert-info' id='phone_no_feedback'></div>
                 </td>
@@ -75,7 +75,7 @@
             ?>
 
             <form name='viewer_edit_email' action='php/viewer_edit_email.php' method="post">
-                <small><input type='email' name='email' placeholder="example@example.com" required></small>
+                <small><em><input type='email' name='email' placeholder="example@example.com" required></em></small>
                 <input type='submit' class="btn-primary" value='Edit' ></form>
 
                 </td></tr>
@@ -85,11 +85,14 @@
                 <th>Viewer Type: </th>';
             echo "<td>" . $row["rvtype"];
             ?>
+
             <form name='viewer_edit_rvtype' action='php/viewer_edit_rvtype.php' method="post">
-                <select name='rvtype' required><option value="Family">Family</option>
+
+                <select  name='rvtype' required><option value="Family">Family</option>
                     <option value="Others">Others</option>
                 </select>
                 <input type='submit' class="btn-primary" value='Edit'></form></td>
+
             <?php
            //here
         }

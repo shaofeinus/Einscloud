@@ -1,82 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <link rel="stylesheet" type="text/css" href="style/user_resgistration_style.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <meta charset="UTF-8">
-    <title>Einswatch User registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Einswatch User Registration</title>
 </head>
 
 <body>
 <script src="script/user_registration_validation_script.js"></script>
 
-<h1>Welcome to Einswatch registration for Users</h1>
+<div class="container">
+    <div class="jumbotron well">
+        <h1>Einswatch Registration for Viewer</h1>
+    </div>
+    <div class="page-header">
+        <h3>Please fill up all fields</h3>
+    </div>
+</div>
 
-<h2>Please fill up all fields</h2>
-
-<div class="form_table">
-<table class="form_table">
+<div class="container">
+<table>
     <form name='user_registration_form' action='php/user_registration_create.php' method="post"
           onsubmit="return isFormValid()">
 
-        <tr><th class="form_th">Personal particulars</th></tr>
-        <tr><td class="form_td">First name:</td></tr>
-        <tr><td class="form_td"><input type='text' name='firstName' required></td></tr>
-        <tr><td class="form_td">Last name:</td></tr>
-        <tr><td class="form_td"><input type='text' name='lastName' required></td></tr>
-        <tr><td class="form_td">NRIC:</td></tr>
+        <tr class="page-header"><td><h4>Personal Particulars</h4></td></tr>
+        <tr><td>First name:</td></tr>
+        <tr><td><input type='text' name='firstName' placeholder="eg: John" required></td></tr>
+        <tr><td>Last name:</td></tr>
+        <tr><td><input type='text' name='lastName' placeholder="eg: Doe" required></td></tr>
+        <tr><td>NRIC:</td></tr>
         <tr>
-            <td class="form_td"><input id="nric_field" type='text' name='nric' oninput="validateNric()" required></td>
-            <td class="form_td"><div class='feedback' id='nric_feedback'></div></td>
+            <td class="form_td"><input id="nric_field" type='text' name='nric' placeholder="eg: SXXXXXXXY" oninput="validateNric()" required></td>
+            <td class="form_td"><div class='alert-info' id='nric_feedback'></div></td>
         </tr>
 
         <tr><td class="form_td">Gender:</td></tr>
         <tr>
             <td class="form_td"><input id="male" type='radio' name='gender' value='M'  required>Male
                 <input id="female" type='radio' name='gender' value='F'  required>Female</td>
-            <td class="form_td"><div class='feedback' id='gender_feedback'></div></td>
+            <td class="form_td"><div class='alert-info' id='gender_feedback'></div></td>
         </tr>
 
         <tr><td class="form_td">Date of Birth:</td></tr>
         <tr>
             <td class="form_td"><input id="birthday" type='date' name='birthday' oninput="validateBirthday()" required></td>
-            <td class="form_td"><div class='feedback' id='birthday_feedback'></div></td>
+            <td class="form_td"><div class='alert-info' id='birthday_feedback'></div></td>
         </tr>
 
         <tr><td class="form_td">Email:</td></tr>
         <tr>
-            <td class="form_td"><input type='email' name='email' oninput="validateEmail()"></td>
-            <td class="form_td"><div class='feedback' id='email_feedback'></div></td>
+            <td class="form_td"><input type='email' name='email' placeholder="example@example.com" oninput="validateEmail()"></td>
+            <td class="form_td"><div class='alert-info' id='email_feedback'></div></td>
         </tr>
         <tr><td class="form_td">Phone number (watch):</td></tr>
         <tr>
             <td class="form_td"><input type='text' name='phoneNo' oninput="validatePhoneNo()" required></td>
-            <td class="form_td"><div class='feedback' id='phone_no_feedback'></div></td>
+            <td class="form_td"><div class='alert-info' id='phone_no_feedback'></div></td>
         </tr>
 
         <tr><br></tr>
 
-        <tr><th class="form_th">Account information</th></tr>
+        <tr><th class="page-header"><h4>Account information</h4></th></tr>
         <tr><td class="form_td">Username:</td></tr>
         <tr>
-            <td class="form_td"><input type='text' name='username' oninput="validateUsername()" required></td>
-            <td class="form_td"><div class='feedback' id='username_feedback'></div></td>
+            <td class="form_td"><input type='text' name='username' placeholder="eg: Your desired login name" oninput="validateUsername()" required></td>
+            <td class="form_td"><div class='alert-info' id='username_feedback'></div></td>
         </tr>
         <tr><td class="form_td">6 digit password:</td></tr>
         <tr>
             <td class="form_td"><input type='password' name='password' oninput="validatePassword()" required></td>
-            <td class="form_td"><div class='feedback' id="password_feedback"></div></td>
+            <td class="form_td"><div class='alert-info' id="password_feedback"></div></td>
         </tr>
-        <tr><td class="form_td">Confirm 6 digit password:</td></tr>
+        <tr><td>Confirm 6 digit password:</td></tr>
         <tr>
-            <td class="form_td"><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
-                       required></td>
-            <td class="form_td"><div class='feedback' id="confirm_password_feedback"></div></td>
+            <td class="form_td"><p><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
+                       required></p></td>
+            <td class="form_td"><div class='alert-info' id="confirm_password_feedback"></div></td>
         </tr>
-        <tr><td class="form_td"><input type='submit' name='registerUser' value='Register'></td></tr>
+        <tr><td><p><input class="btn-primary" type='submit' name='registerUser' value='Register'></p></td></tr>
 
     </form>
     <form action="index.html">
-        <tr><td class="form_td"><input type="submit" value="Back to log in"></td></tr>
+        <tr><td class="form_td"><input type="submit"  class="btn-primary" value="Back to log in"></td></tr>
     </form>
 
 </table>
