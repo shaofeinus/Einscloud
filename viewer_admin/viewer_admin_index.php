@@ -14,86 +14,89 @@
         <div class="jumbotron well">
         <h1>Hello <?php echo $_SESSION['login_viewer'] . ','; ?></h1>
         </div>
-        <div class="page-header">
-            <h3>You are currently viewing: </h3>
-        </div>
     </div>
 
-    <?php
-    require_once 'php/DB_connect/db_utility.php';
-    $username = $_SESSION['login_viewer'];
-    $viewer_id = $_SESSION['viewer_id'];
-    $viewer_phone = $_SESSION['viewer_phone'];
+    <div class="container well">
+        <div class="page-header">
+            <h3>You are currently viewing:</h3>
+        </div>
 
 
-    $caregiveQuery = "SELECT firstname, lastname, birthday, gender, nric, phone_no FROM User, Caregive WHERE rv_id = '$viewer_id' AND user_id = User.id";
-    $caregiveResponse = make_query($caregiveQuery);
-
-    if($caregiveResponse === FALSE) {
-        echo "response is erroneous";
-        die(mysql_error());
-    }
-    if(mysqli_num_rows($caregiveResponse) > 0) {
-        ?>
-        <div class="container">
-            <div class="row">
         <?php
-        while ($row = mysqli_fetch_assoc($caregiveResponse)) {
+        require_once 'php/DB_connect/db_utility.php';
+        $username = $_SESSION['login_viewer'];
+        $viewer_id = $_SESSION['viewer_id'];
+        $viewer_phone = $_SESSION['viewer_phone'];
 
+
+        $caregiveQuery = "SELECT firstname, lastname, birthday, gender, nric, phone_no FROM User, Caregive WHERE rv_id = '$viewer_id' AND user_id = User.id";
+        $caregiveResponse = make_query($caregiveQuery);
+
+        if($caregiveResponse === FALSE) {
+            echo "response is erroneous";
+            die(mysql_error());
+        }
+        if(mysqli_num_rows($caregiveResponse) > 0) {
             ?>
 
-                    <div class="col-sm-4">
-                        <h4><?php echo $row["firstname"] . " " . $row["lastname"] ?></h4>
-                        <table>
-                            <tr>
-                                <th>Age: </th>
-                                <td><?php echo date_diff(date_create($row["birthday"]), date_create('today'))->y ?></td>
-                            </tr>
-                            <tr>
-                                <th>Gender: </th>
-                                <td><?php echo $row["gender"]?></td>
-                            </tr>
-                            <tr>
-                                <th>NRIC: </th>
-                                <td><?php echo $row["nric"]?></td>
-                            </tr>
-                            <tr>
-                                <th>Phone Number: </th>
-                                <td><?php echo ' ' . $row["phone_no"]?></td>
-                            </tr>
-                        </table>
-                    </div>
+            <div class="row">
+            <?php
+            while ($row = mysqli_fetch_assoc($caregiveResponse)) {
+
+                ?>
+
+                        <div class="col-sm-4">
+                            <h4><?php echo $row["firstname"] . " " . $row["lastname"] ?></h4>
+                            <table>
+                                <tr>
+                                    <th>Age: </th>
+                                    <td><?php echo date_diff(date_create($row["birthday"]), date_create('today'))->y ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Gender: </th>
+                                    <td><?php echo $row["gender"]?></td>
+                                </tr>
+                                <tr>
+                                    <th>NRIC: </th>
+                                    <td><?php echo $row["nric"]?></td>
+                                </tr>
+                                <tr>
+                                    <th>Phone Number: </th>
+                                    <td><?php echo ' ' . $row["phone_no"]?></td>
+                                </tr>
+                            </table>
+                        </div>
 
             <?php
-        }
-    ?>
-    </div></div>
-    <?php
-    }
-    else{
-        ?>
-        <div class = 'container'>
-            <div class ='page-header'>
-                <h3><?php echo "You have no viewers";?></h3>
+            }
+            ?>
             </div>
-        </div>
-    <?php
-    }
+            <?php
+        }
+        else {
+            ?>
+                <div class ='page-header'>
+                    <h4><?php echo "You have no viewers";?></h4>
+                </div>
 
-    ?>
-    <div class="container">
+        <?php
+        }
+
+        ?>
+    </div>
+
+    <div class="container well">
         <div class="page-header">
             <h3>Unverified Users Requiring Your Confirmation to View: </h3>
         </div>
-    </div>
-    <?php
-    $unregisteredQuery = "select id, firstname, lastname, U.phone_no, gender, birthday from UnregisteredViewer, User U where '$viewer_phone' = UnregisteredViewer.phone_no AND user_id = U.id";
 
-    $unregisteredResponse = make_query($unregisteredQuery);
+        <?php
+        $unregisteredQuery = "select id, firstname, lastname, U.phone_no, gender, birthday from UnregisteredViewer, User U where '$viewer_phone' = UnregisteredViewer.phone_no AND user_id = U.id";
 
-    if(mysqli_num_rows($unregisteredResponse) > 0) {
-        ?>
-        <div class="container">
+        $unregisteredResponse = make_query($unregisteredQuery);
+
+        if(mysqli_num_rows($unregisteredResponse) > 0) {
+            ?>
             <div class="row">
                 <?php
                 while ($row = mysqli_fetch_assoc($unregisteredResponse)) {
@@ -133,22 +136,23 @@
                 <?php
                 }
                 ?>
-            </div></div>
-    <?php
-    }
-    else{
-        ?>
-        <div class = 'container'>
-
-            <h4><?php echo "You have no viewers waiting for your verification";?></h4>
-
-        </div>
+            </div>
         <?php
-    }
+        }
+        else{
+            ?>
+            <div class = 'page-header'>
+                <h4><?php echo "You have no viewers waiting for your verification";?></h4>
+            </div>
 
-    ?>
+            <?php
+        }
+
+        ?>
+    </div>
+
     <div class = 'container'>
-    <br><br>
+
     <form id="edit_form" action='viewer_profile.php'>
         <input type='submit' class="btn-primary" value='Edit my profile'>
     </form>

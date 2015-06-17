@@ -109,11 +109,11 @@
         </div>
         <table class="table">
     <form id="viewer_edit_password" action='php/viewer_edit_password.php'onsubmit="return isPasswordValid(6,4,5)" method="post">
-        <tr><th>Old Password: </th><td><small><input type="password" name="oldPassword" placeholder= "Old Password" oninput="validateOldPassword()" required></small></td></tr>
+        <tr><th>Old Password: </th><td><small><em><input type="password" name="oldPassword" placeholder= "Input Old Password" oninput="validateOldPassword()" required></em></small></td></tr>
         <div class='feedback' id='old_password_feedback'></div>
-        <tr><th>New Password: </th><td><small><input type="password" name="newPassword" placeholder= "New Password" oninput="validatePassword()"required></small></td></tr>
+        <tr><th>New Password: </th><td><small><em><input type="password" name="newPassword" placeholder= "Input New Password" oninput="validatePassword()"required></em></small></td></tr>
         <div class='feedback' id='password_feedback'></div>
-        <tr><th>Confirm Password: </th><td><small><input type="password" name="confirmPassword" placeholder= "Confirm Password" oninput="validateConfirmPassword()"required></small></td></tr>
+        <tr><th>Confirm Password: </th><td><small><em><input type="password" name="confirmPassword" placeholder= "Confirm Password" oninput="validateConfirmPassword()"required></em></small></td></tr>
         <div class='feedback' id='confirm_password_feedback'></div>
         <tr><th></th><td><small><input type='submit' class="btn-primary" value='Change My Password'></small></td></tr>
         </table>
