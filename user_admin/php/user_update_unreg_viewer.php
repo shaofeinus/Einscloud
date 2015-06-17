@@ -34,7 +34,7 @@ function compare_and_update($column_name, $sql_result){
 }
 
 function generate_unrge_viewer_update_table($viewer_sql_resp) {
-	echo "<table class='form_table'><tr>
+	echo "<table class='table table-hover'><tr>
 		<th class='form_th' align='left'>Name</th>
 		<th class='form_th' align='left'>Phone No.</th>
 		<th class='form_th' align='left'>Email</th>
@@ -46,9 +46,9 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 		//TODO validate these data
 		while ( $row = mysqli_fetch_assoc ( $viewer_sql_resp ) ) {
 			echo "<tr>";
-			echo "<td class='form_td'>" . "<input type='text' name='viewername[]' value='" . $row ["viewername"] . "'>" . "</td>";
-			echo "<td class='form_td'>" . "<input type='text' name='phone_no[]' value='" . $row ["phone_no"] . "'>" . "</td>";
-			echo "<td class='form_td'>" . "<input type='email' name='email[]' value='" . $row ["email"] . "'>" . "</td>";
+			echo "<td class='form_td'>" . "<input class='form-control' type='text' name='viewername[]' value='" . $row ["viewername"] . "'>" . "</td>";
+			echo "<td class='form_td'>" . "<input class='form-control' type='text' name='phone_no[]' value='" . $row ["phone_no"] . "'>" . "</td>";
+			echo "<td class='form_td'>" . "<input class='form-control' placeholder='Enter password' type='email' name='email[]' value='" . $row ["email"] . "'>" . "</td>";
 			echo "</tr>";
 		}
 	} else {
@@ -64,27 +64,39 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 <html>
 	<head lang="en">
 		<title>Modify Unregistered Viewers</title>
-        <link rel="stylesheet" type="text/css" href="../style/user_resgistration_style.css">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<!--         <link rel="stylesheet" type="text/css" href="../style/user_resgistration_style.css"> -->
 	</head>
 
 	<body>
-	
-	
-	<h1> Hello <?php echo $_SESSION['login_firstname'].' '.$_SESSION['login_lastname']; ?></h1>
-	<p>listed below are your unregistered viewers</p>
-	
-	<form id="unreg_viewer_update_form" method='post'>
-		<?php generate_unrge_viewer_update_table($viewers_sql_resp)?>
-		<input type="submit" name="Back" value="Go Back to Admin Console" formmethod="get" formaction="../user_admin_index.php"
-			onclick="return confirm('Any modification made will be discarded. Confirm?')" />
-		<input type="submit" name="Update" value="Update Contacts"/>
-	
-	</form>
-	
-	<p>
-	<form id="log_out_form" action='./logout.php'>
-		<input type='submit' value='Log out'>
-	</form>
-	</p>
+	<div class="container">
+		<div class="jumbotron">
+			<h1> Hello <?php echo $_SESSION['login_firstname'].' '.$_SESSION['login_lastname']; ?></h1>
+			<p>listed below are your unregistered viewers</p>
+		</div>
+        <form id="unreg_viewer_update_form" method='post' class="form-horizontal" role="form">
+            <?php generate_unrge_viewer_update_table($viewers_sql_resp)?>
+            <div class="row">
+                <div class="col-lg-4"/>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <input type="submit" name="Back" value="Go Back to Admin Console" formmethod="get" formaction="../user_admin_index.php"
+                        onclick="return confirm('Any modification made will be discarded. Confirm?')" />
+                    </div>	
+                    <div class="form-group">
+                        <input type="submit" name="Update" value="Update Contacts"/>
+                    </div>
+                    <div class="form-group">
+                        <input type='submit' value='Log out' formaction="./logout.php">
+                    </div>
+                </div>
+                <div class="col-lg-2"/>
+            </div>
+        </form>
+	</div>
 	</body>
 </html>
