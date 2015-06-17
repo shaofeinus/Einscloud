@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Einscloud</title>
 </head>
 <body>
-	<h1><i>Welcome to Einscloud!</i></h1>
+<div class = 'container'>
+	<div class = 'jumbotron'>
+    <h1><i>Welcome to Einscloud!</i></h1>
+    </div>
+    <div class = row>
+
 	<form id="goto_viewer" action='user_admin/index.html'>
 		<tr>
-			<input type='submit' value="I'm a user" style="width:100px">
+			<input class="btn-primary btn-lg btn-block" type='submit' value="I'm a user" >
 		</tr>
 	</form>
-	
+
 	<br>
 
 	<form id="goto_register_form" action='viewer_admin/index.html'>
 		<tr>
-			<input type='submit' value="I'm a caregiver" style="width:100px">
+			<input class="btn-primary btn-lg btn-block" type='submit' value="I'm a caregiver" >
 		</tr>
-	</form>
+
+	</form></div>
+    </div>
+</div>
 </body>
 </html>

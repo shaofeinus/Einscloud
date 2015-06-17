@@ -41,8 +41,8 @@
             ?>
 
                 <form name="viewer_edit_username" action="php/viewer_edit_username.php" method="post" onsubmit="return isFormValid(3)">
-                <small><input type="text" name="username"  placeholder="Username" oninput="validateUsername()" required></small>
-                <input type="submit" value="Edit">
+                <small><input type="text" name="username"  placeholder="Your desired username" oninput="validateUsername()" required></small>
+                <input type="submit" class="btn-primary" value="Edit">
                 <div class='alert-info' id='username_feedback'></div></td>
                 </tr>
 
@@ -56,7 +56,7 @@
 
                 <form name='viewer_edit_phone' action='php/viewer_edit_phone.php' method="post" onsubmit="return isFormValid(2)">
                 <small><input type='text' name='phoneNo' placeholder="Input phone number" oninput="validatePhoneNo()" required></small>
-                <input type='submit' value='Edit'>
+                <input type='submit' class="btn-primary" value='Edit'>
                 <div class='alert-info' id='phone_no_feedback'></div>
                 </td>
                 </tr></form>
@@ -76,7 +76,7 @@
 
             <form name='viewer_edit_email' action='php/viewer_edit_email.php' method="post">
                 <small><input type='email' name='email' placeholder="example@example.com" required></small>
-                <input type='submit' value='Edit' ></form>
+                <input type='submit' class="btn-primary" value='Edit' ></form>
 
                 </td></tr>
             <?php
@@ -89,7 +89,7 @@
                 <select name='rvtype' required><option value="Family">Family</option>
                     <option value="Others">Others</option>
                 </select>
-                <input type='submit' value='Edit'></form></td>
+                <input type='submit' class="btn-primary" value='Edit'></form></td>
             <?php
            //here
         }
@@ -112,12 +112,12 @@
         <div class='feedback' id='password_feedback'></div>
         <tr><th>Confirm Password: </th><td><small><input type="password" name="confirmPassword" placeholder= "Confirm Password" oninput="validateConfirmPassword()"required></small></td></tr>
         <div class='feedback' id='confirm_password_feedback'></div>
-        <tr><th></th><td><small><input type='submit' value='Change My Password'></small></td></tr>
+        <tr><th></th><td><small><input type='submit' class="btn-primary" value='Change My Password'></small></td></tr>
         </table>
     </form>
 
     <tr><td><form id="back_to_index" action='viewer_admin_index.php'>
-                <input type='submit' value='Go back to Viewer Admin'></td></tr>
+                <input type='submit' class="btn-primary" value='Go back to Viewer Admin'></td></tr>
     </form>
 
     </div>
