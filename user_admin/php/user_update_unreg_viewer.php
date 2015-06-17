@@ -1,9 +1,12 @@
 <?php 
 session_start ();
+if(!isset($_SESSION ["login_id"]))
+    header("Location: ../logged_out.html");
+
 $user_id = $_SESSION ["login_id"];
 
 // import sql utility functions.
-require_once __DIR__.'/DB_connect/db_utility.php';
+require_once 'DB_connect/db_utility.php';
 
 // Fetch Unregistered Viewers of this User
 $viewers_sql_resp = make_query ( "select * from UnregisteredViewer where user_id='$user_id'" );
@@ -63,19 +66,18 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 <!DOCTYPE html>
 <html>
 	<head lang="en">
-		<title>Modify Unregistered Viewers</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<!--         <link rel="stylesheet" type="text/css" href="../style/user_resgistration_style.css"> -->
+		<title>Modify Unregistered Viewers</title>
 	</head>
 
 	<body>
 	<div class="container">
-		<div class="jumbotron">
-			<h1> Hello <?php echo $_SESSION['login_firstname'].' '.$_SESSION['login_lastname']; ?></h1>
+		<div class="jumbotron well">
+			<h1> Hello, <?php echo $_SESSION['login_firstname'].' '.$_SESSION['login_lastname']; ?></h1>
 			<p>listed below are your unregistered viewers</p>
 		</div>
         <form id="unreg_viewer_update_form" method='post' class="form-horizontal" role="form">

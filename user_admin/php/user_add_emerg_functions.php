@@ -4,6 +4,9 @@
  * User: Shao Fei
  * Date: 12/6/2015
  * Time: 3:01 PM
+ * 
+ * This script contains functions used to generate the page content for user_add_emerg.html
+ * Functions in this script is called by a relevant JS script.
  */
 
 decideFunction();
