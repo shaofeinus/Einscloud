@@ -73,13 +73,19 @@
     <?php
     }
     else{
-        echo "You are viewing 0 users";
-        }
+        ?>
+        <div class = 'container'>
+            <div class ='page-header'>
+                <h3><?php echo "You have no viewers";?></h3>
+            </div>
+        </div>
+    <?php
+    }
 
     ?>
     <div class="container">
         <div class="page-header">
-            <h2>Unverified Users Requiring Your Confirmation to View </h2>
+            <h2>Unverified Users Requiring Your Confirmation to View: </h2>
         </div>
     </div>
     <?php
@@ -133,7 +139,13 @@
     <?php
     }
     else{
-        echo "You are viewing 0 users";
+        ?>
+        <div class = 'container'>
+            <div class ='page-header'>
+            <h3><?php echo "You have no viewers waiting for your verification";?></h3>
+            </div>
+        </div>
+        <?php
     }
 
     ?>
@@ -147,62 +159,6 @@
         <input type='submit' value='Log out'>
     </form>
     </div>
-    <?php
-
-
-
-function queryUnregistered($viewer_phone) {
-    require_once __DIR__.'/php/DB_connect/db_connect.php';
-    $connector = new DB_CONNECT();
-    $connector->connect();
-
-
-    $unregisteredResponse = mysqli_query($connector->conn, $unregisteredQuery);
-
-    if($unregisteredResponse === FALSE) {
-        echo "response is erroneous";
-        die(mysql_error());
-    }
-    if(mysqli_num_rows($unregisteredResponse) > 0) {
-
-        echo "<table>
-        <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>Phone Number</th>
-        <th>Enter Verification</th>
-        </tr>";
-        ?>
-
-            <form name='viewer_verify_form' action='php/viewer_verify_user.php' method="post"
-        <?php
-        while($row = mysqli_fetch_assoc($unregisteredResponse)) {
-            echo "<tr>";
-            echo "<td>" . $row["firstname"] . " " . $row["lastname"] . "<br></td>";
-            echo "<td>" . date_diff(date_create($row["birthday"]), date_create('today'))->y . "</td>";
-            echo "<td>" . $row["gender"] . "</td>";
-            echo "<td>" . $row["phone_no"] . "</td>";
-            echo "<td>" . "<input type='text' name='verification_code'  required>" . " ";
-            echo "<input type='submit' value='Verify'>";
-            echo '<input type="hidden" name="user_id" value=' . $row["id"] . '>';
-            echo "</td>";
-
-            echo "</tr>";
-
-        }
-        ?>
-
-            </form></table>
-        <?php
-    } else {
-        echo "No user awaiting your confirmation";
-    }
-
-    $connector->close();
-}
-?>
-
 
 
 </body>

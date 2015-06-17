@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <link rel="stylesheet" type="text/css" href="style/viewer_style.css">
+    <!-- <link rel="stylesheet" type="text/css" href="style/viewer_admin_style.css"> -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Einswatch Viewer Registration</title>
 </head>
 
 <body>
 <script src="script/viewer_registration_validation_script.js"></script>
 
+<div class="container">
+    <div class="jumbotron">
+        <h2>Einswatch Registration for Viewer</h2>
+    </div>
+</div>
 
-<h1>Welcome to Einswatch Registration for Viewer</h1>
-
-<h2>Please fill up all fields</h2>
-
+<div class="container">
+    <div class="page-header">
+    <h2>Please fill up all fields</h2>
+    </div>
+</div>
+<div class='container'>
 <table>
     <form name='viewer_registration_form' action='php/viewer_registration_create.php' method="post"
           onsubmit="return isFormValid()">
 
-        <tr class="title_row"><td>Personal Particulars</td></tr>
+        <tr class="title_row"><td><h3>Personal Particulars</h3></td></tr>
         <tr><td>First name:</td></tr>
         <tr><td><input type='text' name='firstName' required></td></tr>
         <tr><td>Last name:</td></tr>
@@ -26,43 +35,43 @@
         <tr><td>NRIC:</td></tr>
         <tr>
             <td><input id="nric_field" type='text' name='nric' oninput="validateNric()" required></td>
-            <td><div class='feedback' id='nric_feedback'></div></td>
+            <td><div class='alert-danger' id='nric_feedback'></div></td>
         </tr>
         <tr><td>Email:</td></tr>
         <tr><td><input type='email' name='email'></td></tr>
         <tr><td>Phone number:</td></tr>
         <tr>
             <td><input type='text' name='phoneNo' oninput="validatePhoneNo()" required></td>
-            <td><div class='feedback' id='phone_no_feedback'></div></td>
+            <td><div class='alert-danger' id='phone_no_feedback'></div></td>
         </tr>
 
-        <tr><br></tr>
+        <tr></tr>
 
-        <tr class="title_row"><td>Account information</td></tr>
+        <tr class="title_row"><td><h3>Account information</h3></td></tr>
         <tr><td>Username:</td></tr>
         <tr>
-            <td><input type='text' name='username' oninput="validateUsername()" required></td>
-            <td><div class='feedback' id='username_feedback'></div></td>
+            <td><p><input type='text' name='username' oninput="validateUsername()" required></p></td>
+            <td><div class='alert-danger' id='username_feedback'></div></td>
         </tr>
         <tr><td>Viewer Type:</td></tr>
         <tr>
-            <td><input type="radio" name="rvtype" value="Family" checked required>Family
+            <td><p><input type="radio" name="rvtype" value="Family" checked required>Family
         <input type="radio" name="rvtype" value="Others" >Others
-        </td>
+            </p></td>
         </tr>
 
         <tr><td>Password:</td></tr>
         <tr>
             <td><input type='password' name='password' oninput="validatePassword()" required></td>
-            <td><div class='feedback' id="password_feedback"></div></td>
+            <td><div class='alert-danger' id="password_feedback"></div></td>
         </tr>
         <tr><td>Confirm password:</td></tr>
         <tr>
-            <td><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
-                       required></td>
-            <td><div class='feedback' id="confirm_password_feedback"></div></td>
+            <td><p><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
+                       required></p></td>
+            <td><div class='alert-danger' id="confirm_password_feedback"></div></td>
         </tr>
-        <tr><td><input type='submit' name='registerViewer' value='Register'></td></tr>
+        <tr><td><p><input type='submit' name='registerViewer' value='Register'></p></td></tr>
 
     </form>
 
@@ -71,5 +80,6 @@
     </form>
 
 </table>
+</div>
 </body>
 </html>
