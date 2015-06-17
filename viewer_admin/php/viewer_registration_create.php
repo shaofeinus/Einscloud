@@ -50,7 +50,7 @@ function process_post() {
     if(isFormValid() == true) {
         $input = new Input();
         $input->getInput();
-        echo "processing";
+        //echo "processing";
         make_sql_query($input);
     }
 }
@@ -67,25 +67,27 @@ function make_sql_query($input) {
 	VALUES('$input->firstName', '$input->lastName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->rvtype')";
 
     if(empty($input->email)) {
-        echo $query1 . "<br>";
+        //echo $query1 . "<br>";
         if(mysqli_query($connector->conn, $query1)) {
             $connector->close();
-            echo "success";
-            header("Location: ../index.html");
+            //echo "success";
+            //header("Location: ../index.html");
+            echo "<script> alert('Your registration as a viewer is successful!'); window.location.assign('../index.html')</script>";
         } else {
             $connector->close();
-            echo "error";
+            echo "<script> alert('Your registration as a viewer failed! Please try again'); window.location.assign('../viewer_registration.html')</script>";
             //header("Location: ../viewer_registration.html");
         }
     } else {
-        echo $query2 . "<br>";
+        //echo $query2 . "<br>";
         if(mysqli_query($connector->conn, $query2)) {
             $connector->close();
-            echo "success";
-            header("Location: ../index.html");
+            //echo "success";
+            //header("Location: ../index.html");
+            echo "<script> alert('Your registration as a viewer is successful!'); window.location.assign('../index.html')</script>";
         } else {
             $connector->close();
-            echo "error";
+            echo "<script> alert('Your registration as a viewer failed! Please try again'); window.location.assign('../viewer_registration.html')</script>";
             //header("Location: ../viewer_registration.html");
         }
     }

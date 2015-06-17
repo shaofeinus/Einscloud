@@ -52,7 +52,7 @@ function process_post() {
     if(isFormValid() == true) {
         $input = new Input();
         $input->getInput();
-        echo "processing";
+        //echo "processing";
         make_sql_query($input);
     }
 }
@@ -69,36 +69,28 @@ function make_sql_query($input) {
 	VALUES('$input->firstName', '$input->lastName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->birthday', '$input->gender')";
 
     if(empty($input->email)) {
-        echo $query1 . "<br>";
+        //echo $query1 . "<br>";
         if(mysqli_query($connector->conn, $query1)) {
             $connector->close();
-            echo "success";
+            //echo "success";
+            echo "<script> alert('Your registration as a user is successful!'); window.location.assign('../index.html')</script>";
         } else {
             $connector->close();
-            echo "error";
+            echo "<script> alert('Your registration as a viewer failed! Please try again'); window.location.assign('../user_registration.html')</script>";
+            //echo "error";
         }
     } else {
         echo $query2 . "<br>";
         if(mysqli_query($connector->conn, $query2)) {
             $connector->close();
-            echo "success";
+            echo "<script> alert('Your registration as a user is successful!'); window.location.assign('../index.html')</script>";
+            //echo "success";
         } else {
             $connector->close();
-            echo "error";
+            echo "<script> alert('Your registration as a viewer failed! Please try again'); window.location.assign('../user_registration.html')</script>";
+           // echo "error";
         }
     }
 }
 ?>
 
-<!DOCTYPE html>
-<html>
-	<head lang="en">
-		<title>User Registration Success</title>
-	</head
-	<p>
-	<form id="goto_login_form" action='../index.html'>
-		<input type='submit' value='Go to login page'>
-	</form>
-	</p>
-	</body>
-</html>

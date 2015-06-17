@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="jumbotron well">
-        <h1>Einswatch Registration for Viewer</h1>
+        <h1>Einswatch Registration for User</h1>
     </div>
     <div class="page-header">
         <h3>Please fill up all fields</h3>
@@ -26,37 +26,37 @@
 
         <tr class="page-header"><td><h4>Personal Particulars</h4></td></tr>
         <tr><td>First name:</td></tr>
-        <tr><td><input type='text' name='firstName' placeholder="eg: John" required></td></tr>
+        <tr><td><em><input type='text' name='firstName' placeholder="eg: John" required></em></td></tr>
         <tr><td>Last name:</td></tr>
-        <tr><td><input type='text' name='lastName' placeholder="eg: Doe" required></td></tr>
+        <tr><td><em><input type='text' name='lastName' placeholder="eg: Doe" required></em></td></tr>
         <tr><td>NRIC:</td></tr>
         <tr>
-            <td class="form_td"><input id="nric_field" type='text' name='nric' placeholder="eg: SXXXXXXXY" oninput="validateNric()" required></td>
-            <td class="form_td"><div class='alert-info' id='nric_feedback'></div></td>
+            <td><em><input id="nric_field" type='text' name='nric' placeholder="eg: SXXXXXXXY" oninput="validateNric()" required></em></td>
+            <td><div class='alert-info' id='nric_feedback'></div></td>
         </tr>
 
-        <tr><td class="form_td">Gender:</td></tr>
+        <tr><td>Gender:</td></tr>
         <tr>
-            <td class="form_td"><input id="male" type='radio' name='gender' value='M'  required>Male
+            <td><input id="male" type='radio' name='gender' value='M'  required>Male
                 <input id="female" type='radio' name='gender' value='F'  required>Female</td>
-            <td class="form_td"><div class='alert-info' id='gender_feedback'></div></td>
+            <td><div class='alert-info' id='gender_feedback'></div></td>
         </tr>
 
-        <tr><td class="form_td">Date of Birth:</td></tr>
+        <tr><td>Date of Birth:</td></tr>
         <tr>
-            <td class="form_td"><input id="birthday" type='date' name='birthday' oninput="validateBirthday()" required></td>
-            <td class="form_td"><div class='alert-info' id='birthday_feedback'></div></td>
+            <td><input id="birthday" type='date' name='birthday' oninput="validateBirthday()" required></td>
+            <td><div class='alert-info' id='birthday_feedback'></div></td>
         </tr>
 
-        <tr><td class="form_td">Email:</td></tr>
+        <tr><td>Email:</td></tr>
         <tr>
-            <td class="form_td"><input type='email' name='email' placeholder="example@example.com" oninput="validateEmail()"></td>
-            <td class="form_td"><div class='alert-info' id='email_feedback'></div></td>
+            <td><em><input type='email' name='email' placeholder="example@example.com" oninput="validateEmail()"></em></td>
+            <td><div class='alert-info' id='email_feedback'></div></td>
         </tr>
-        <tr><td class="form_td">Phone number (watch):</td></tr>
+        <tr><td>Phone number (watch):</td></tr>
         <tr>
-            <td class="form_td"><input type='text' name='phoneNo' oninput="validatePhoneNo()" required></td>
-            <td class="form_td"><div class='alert-info' id='phone_no_feedback'></div></td>
+            <td><em><input type='text' name='phoneNo' placeholder="8-digit mobile number" oninput="validatePhoneNo()" required></em></td>
+            <td><div class='alert-info' id='phone_no_feedback'></div></td>
         </tr>
 
         <tr><br></tr>
@@ -64,19 +64,19 @@
         <tr><th class="page-header"><h4>Account information</h4></th></tr>
         <tr><td class="form_td">Username:</td></tr>
         <tr>
-            <td class="form_td"><input type='text' name='username' placeholder="eg: Your desired login name" oninput="validateUsername()" required></td>
-            <td class="form_td"><div class='alert-info' id='username_feedback'></div></td>
+            <td><em><input type='text' name='username' placeholder="Your desired login name" oninput="validateUsername()" required></em></td>
+            <td><div class='alert-info' id='username_feedback'></div></td>
         </tr>
-        <tr><td class="form_td">6 digit password:</td></tr>
+        <tr><td>6 digit password:</td></tr>
         <tr>
-            <td class="form_td"><input type='password' name='password' oninput="validatePassword()" required></td>
-            <td class="form_td"><div class='alert-info' id="password_feedback"></div></td>
+            <td><em><input type='password' name='password' oninput="validatePassword()" required></em></td>
+            <td><em><div class='alert-info' id="password_feedback"></div></em></td>
         </tr>
         <tr><td>Confirm 6 digit password:</td></tr>
         <tr>
-            <td class="form_td"><p><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
-                       required></p></td>
-            <td class="form_td"><div class='alert-info' id="confirm_password_feedback"></div></td>
+            <td><em><p><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
+                       required></p></em></td>
+            <td><div class='alert-info' id="confirm_password_feedback"></div></td>
         </tr>
         <tr><td><p><input class="btn-primary" type='submit' name='registerUser' value='Register'></p></td></tr>
 
