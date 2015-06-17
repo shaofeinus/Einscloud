@@ -1,49 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <link rel="stylesheet" type="text/css" href="style/viewer_style.css">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Einswatch Viewer</title>
 </head>
 
 <body>
 <script src="script/viewer_login_validation_script.js"></script>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Welcome Einswatch Viewer</h1>
+    </div>
+    <div class="page-header">
+        <h3>Existing Einswatch Viewer</h3>
+    </div>
+</div>
 
-<h1>Welcome Einswatch Viewer<br></h1>
-<h2>Existing Einswatch Viewer</h2>
+<div class="container">
+    <table>
+        <form id="viewer_login_form" action='php/viewer_login.php' method='post' onsubmit="return isFormValid()">
 
+            <tr>
+                <td>Username:</td>
+            </tr>
 
-<table>
-    <form id="viewer_login_form" action='php/viewer_login.php' method='post' onsubmit="return isFormValid()">
+            <tr>
+                <td><input type='text' name='username' oninput="validateUsername()" required></td>
+                <td><div class='alert-info' id='username_feedback'></div></td>
+            </tr>
 
-        <tr>
-            <td>Username:</td>
-        </tr>
+            <tr>
+                <td>Password:</td>
+            </tr>
+            <tr>
+                <td><p><input type='password' name='password' oninput="validatePassword()" required></p></td>
+                <td><div class='alert-info' id='password_feedback'></div></td>
+            </tr>
 
-        <tr>
-            <td><input type='text' name='username' oninput="validateUsername()" required></td>
-            <td><div class='feedback' id='username_feedback'></div></td>
-        </tr>
+            <tr>
+                <td><input type='submit' name='loginViewer' value='Log in'></td>
+            </tr>
+        </form>
+    </table>
+</div>
 
-        <tr>
-            <td>Password:</td>
-        </tr>
-        <tr>
-            <td><input type='password' name='password' oninput="validatePassword()" required></td>
-            <td><div class='feedback' id='password_feedback'></div></td>
-        </tr>
-
-        <tr>
-            <td><input type='submit' name='loginViewer' value='Log in'></td>
-        </tr>
-    </form>
-</table>
-
-<h2>New Einswatch Viewer</h2>
+<div class="container">
+    <div class="page-header">
+        <h3>New Einswatch Viewer</h3>
+    </div>
 <table>
     <form id="goto_register_form" action='viewer_registration.html'>
         <tr><input type='submit' value='Register'></tr>
     </form>
 </table>
+</div>
 </body>
 </html>

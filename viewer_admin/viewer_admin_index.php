@@ -13,14 +13,12 @@
     <div class="container">
         <div class="jumbotron">
         <h1>Hello <?php echo $_SESSION['login_viewer'] . ','; ?></h1>
+        </div>
+        <div class="page-header">
+            <h3>You are currently viewing: </h3>
+        </div>
+    </div>
 
-        </div>
-    </div>
-    <div class="container">
-         <div class="page-header">
-        <h2>You are currently viewing: </h2>
-        </div>
-    </div>
     <?php
     require_once 'php/DB_connect/db_utility.php';
     $username = $_SESSION['login_viewer'];
@@ -45,7 +43,7 @@
             ?>
 
                     <div class="col-sm-4">
-                        <h3><?php echo $row["firstname"] . " " . $row["lastname"] ?></h3>
+                        <h4><?php echo $row["firstname"] . " " . $row["lastname"] ?></h4>
                         <table>
                             <tr>
                                 <th>Age: </th>
@@ -85,7 +83,7 @@
     ?>
     <div class="container">
         <div class="page-header">
-            <h2>Unverified Users Requiring Your Confirmation to View: </h2>
+            <h3>Unverified Users Requiring Your Confirmation to View: </h3>
         </div>
     </div>
     <?php
@@ -141,9 +139,9 @@
     else{
         ?>
         <div class = 'container'>
-            <div class ='page-header'>
-            <h3><?php echo "You have no viewers waiting for your verification";?></h3>
-            </div>
+
+            <h4><?php echo "You have no viewers waiting for your verification";?></h4>
+
         </div>
         <?php
     }
