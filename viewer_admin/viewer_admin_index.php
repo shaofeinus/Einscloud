@@ -154,11 +154,11 @@
     <div class = 'container'>
 
     <form id="edit_form" action='viewer_profile.php'>
-        <input type='submit' class="btn-primary" value='Edit my profile'>
+        <input type='submit' class="btn btn-primary" value='Edit my profile'>
     </form>
     <br>
     <form id="log_out_form" action='./php/logout.php'>
-        <input type='submit' class="btn-primary" value='Log out'>
+        <input type='submit' class="btn btn-danger" value='Log out'>
     </form>
     </div>
 
