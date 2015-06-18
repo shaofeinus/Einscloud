@@ -39,7 +39,7 @@ function displayDropMenu() {
         },
         function(data, status) {
             console.log(data);
-            var num_rwos
+            var num_rwos;
             document.getElementById('drop_menu').innerHTML = data;
         });
 }

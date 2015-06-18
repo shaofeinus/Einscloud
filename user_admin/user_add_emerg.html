@@ -1,49 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <link rel="stylesheet" type="text/css" href="style/user_resgistration_style.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="script/user_add_emerg_script.js"></script>
-    <meta charset="UTF-8">
-    <title>Einswatch add Emergency landline contacts</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet"
+		href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="script/user_add_viewer_script.js"></script>
+	<script
+		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css"
+		href="style/user_resgistration_style.css">
+	<script src="script/user_add_emerg_script.js"></script>
+	
+	<title>Einswatch add Emergency landline contacts</title>
 </head>
 
-<body>
+<body><div class="container">
 
-<script>
-    verifyLogin();
-    displayDropMenu();
-    getName();
-</script>
+	<script>
+		verifyLogin();
+		displayDropMenu();
+		getName();
+	</script>
 
-<h1>Welcome
-    <var id="user_real_name"></var>
-</h1>
+	<div class="jumbotron well"><h1>
+		Welcome,
+		<var id="user_real_name"></var>
+	</h1></div>
 
-<table class="form_table">
-    <tr>
-        <td class="form_td">
-            <form id="drop_menu" name="select_no_of_emerg_form"></form>
-        </td>
-    </tr>
+	<table class="form_table">
+		<tr>
+			<td class="form_td">
+				<form id="drop_menu" name="select_no_of_emerg_form"></form>
+			</td>
+		</tr>
 
-    <tr>
-        <td class="form_td">
-            <form action="user_admin_index.php"><input type="submit" value="Back to User admin console"></form>
-        </td>
-    </tr>
+		<tr>
+			<td class="form_td">
+				<form id="add_emerg_form" name="add_emerg_form"
+					action="php/user_add_new_emerg.php" method="post"
+					onsubmit="return validateForm()"></form>
+			</td>
+		</tr>
+		
+		<tr>
+			<td class="form_td">
+				<form action="user_admin_index.php">
+					<input type="submit" value="Back to User admin console" class="btn btn-primary"/>
+				</form>
+			</td>
+		</tr>
 
-    <tr>
-        <td class="form_td">
-            <form onsubmit="logout()"><input type="submit" value="Log out"></form>
-        </td>
-    </tr>
-
-    <tr>
-        <td class="form_td">
-            <form id="add_emerg_form" name="add_emerg_form" action="php/user_add_new_emerg.php" method="post" onsubmit="return validateForm()"></form>
-        </td>
-    </tr>
-</table>
-</body>
+		<tr>
+			<td class="form_td">
+				<form onsubmit="logout()">
+					<input type="submit" value="Log out" class="btn btn-danger"/>
+				</form>
+			</td>
+		</tr>
+	</table>
+</div></body>
 </html>

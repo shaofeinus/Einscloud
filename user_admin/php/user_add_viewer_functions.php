@@ -48,7 +48,7 @@ function displayDropMenu() {
 
         if($num_rows < 5){
             echo "How may viewers do you want to add?<br>";
-            echo "<select id='add_num_viewers' onchange='displayAddViewerForm()'>";
+            echo "<select id='add_num_viewers' onchange='displayAddViewerForm()' class='selectpicker'>";
             $num_options = 5 - $num_rows;
             $index = 1;
             echo "<option value='0'></option>";
@@ -94,14 +94,14 @@ function displayAddViewerForm($num_forms)
             "<table class='form_table'>" .
             "<tr><th class='form_th'>Viewer " . ($i + 1) . "</th><tr>" .
             "<tr><td class='form_td'>Give your Viewer a name</td></tr>" .
-            "<tr><td class='form_td'><input type='text' name='nickname_" . $i . "' required></td></tr>" .
+            "<tr class='spaceUnder'><td class='form_td'><input type='text' name='nickname_" . $i . "' required></td></tr>" .
             "<tr><td class='form_td'>Phone number</td></tr>" .
-            "<tr>" .
+            "<tr class='spaceUnder'>" .
             "<td class='form_td'><input type='text' oninput='validatePhoneNo(" . $i . ")' name='viewerPhone_" . $i . "' required></td>" .
             "<td class='form_td'><div class='feedback' id='phone_no_feedback_" . $i . "'></div></td>" .
             "</tr>" .
             "<tr><td class='form_td'>Email</td></tr>" .
-            "<tr>" .
+            "<tr class='spaceUnder'>" .
             "<td class='form_td'><input type='email' oninput='validateEmail(" . $i . ")' name='viewerEmail_".$i."'></td>" .
             "<td class='form_td'><div class='feedback' id='email_feedback_" . $i . "'></div></td>".
             "</tr>" .
@@ -111,7 +111,7 @@ function displayAddViewerForm($num_forms)
         $num_forms--;
 
         if ($num_forms == 0) {
-            $output = $output . "<input type='submit' name='addViewersSubmit' value='Add Viewers'>";
+            $output = $output . "<input type='submit' name='addViewersSubmit' value='Add Viewers' class='btn btn-primary'>";
         }
     }
 

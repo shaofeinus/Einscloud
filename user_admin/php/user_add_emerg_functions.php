@@ -86,7 +86,7 @@ function displayAddEmergForm($num_forms) {
         $num_forms--;
 
         if ($num_forms == 0) {
-            $output = $output . "<input type='submit' name='addEmergSubmit' value='Add Emergency landlines'>";
+            $output = $output . "<input type='submit' name='addEmergSubmit' value='Add Emergency landlines' class='btn btn-primary'>";
         }
     }
 
