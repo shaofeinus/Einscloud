@@ -71,8 +71,8 @@ function make_sql_query($input) {
         if(mysqli_query($connector->conn, $query1)) {
             $connector->close();
             //echo "success";
-            //header("Location: ../index.html");
-            echo "<script> alert('Your registration as a viewer is successful!'); window.location.assign('../index.html')</script>";
+            //header("Location: ../index.php");
+            echo "<script> alert('Your registration as a viewer is successful!'); window.location.assign('../index.php')</script>";
         } else {
             $connector->close();
             echo "<script> alert('Your registration as a viewer failed! Please try again'); window.location.assign('../viewer_registration.html')</script>";
@@ -83,8 +83,8 @@ function make_sql_query($input) {
         if(mysqli_query($connector->conn, $query2)) {
             $connector->close();
             //echo "success";
-            //header("Location: ../index.html");
-            echo "<script> alert('Your registration as a viewer is successful!'); window.location.assign('../index.html')</script>";
+            //header("Location: ../index.php");
+            echo "<script> alert('Your registration as a viewer is successful!'); window.location.assign('../index.php')</script>";
         } else {
             $connector->close();
             echo "<script> alert('Your registration as a viewer failed! Please try again'); window.location.assign('../viewer_registration.html')</script>";

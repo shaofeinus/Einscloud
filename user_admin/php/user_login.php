@@ -26,7 +26,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
         $_SESSION['login_phone_no'] = $row ["phone_no"];
         header("Location: ../user_admin_index.php");
     } else {
-        echo "<script> alert('Password does not match username'); window.location.assign('../index.html')</script>";
+        echo "<script> alert('Password does not match username'); window.location.assign('../index.php')</script>";
     }
 } else {
     $error_msg = "Empty field(s)";

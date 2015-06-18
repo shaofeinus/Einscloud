@@ -25,7 +25,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
         //echo $_SESSION["viewerid"];
         header("Location: ../viewer_admin_index.php");
     } else {
-        echo "<script> alert('Password does not match username'); window.location.assign('../index.html')</script>";
+        echo "<script> alert('Password does not match username'); window.location.assign('../index.php')</script>";
     }
 } else {
     $error_msg = "Empty field(s)";

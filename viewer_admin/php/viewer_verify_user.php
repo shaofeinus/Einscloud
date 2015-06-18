@@ -24,12 +24,13 @@
             $deleteQuery = "delete from UnregisteredViewer where verification_code = '$verification_code'";
             if(mysqli_query($connector->conn, $insertQuery)) {
                 if(mysqli_query($connector->conn, $deleteQuery)){
-                    header("Location: ../viewer_admin_index.php");
-                    echo "insert delete successful!";
+
+                    echo "<script> alert('Verification successful!'); window.location.assign('../viewer_admin_index.php')</script>";
+
                 }
             }
             else{
-                echo "insert query failed";
+                echo "<script> alert('Insert query failed'); window.location.assign('../viewer_admin_index.php')</script>";
             }
         }
 
@@ -37,13 +38,8 @@
     }
 
     else{
-        echo "your verification key is wrong";
+        echo "<script> alert('Sorry, you have keyed in the wrong verification code.'); window.location.assign('../viewer_admin_index.php')</script>";
     }
-?>
-    <form id="back_to_index" action='../viewer_admin_index.php'><br>
-        <input type='submit' value='Go back to Viewer Admin'>
-    </form>
-<?php
     $connector->close();
 
 ?>

@@ -59,12 +59,12 @@
 
         <tr><td>Password:</td></tr>
         <tr>
-            <td><em><input type='password' name='password' oninput="validatePassword()" required></em></td>
+            <td><em><input type='password' name='password' placeholder="At least 8 characters" oninput="validatePassword()" required></em></td>
             <td><div class='alert-info' id="password_feedback"></div></td>
         </tr>
         <tr><td>Confirm password:</td></tr>
         <tr>
-            <td><em><p><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
+            <td><em><p><input type='password' name='confirmPassword' placeholder="At least 8 characters" oninput="validateConfirmPassword()"
                        required></p></em></td>
             <td><div class='alert-info' id="confirm_password_feedback"></div></td>
         </tr>
@@ -72,7 +72,7 @@
 
     </form>
 
-    <form action="index.html">
+    <form action="index.php">
         <tr><td class="form_td"><input type="submit" class="btn btn-primary" value="Back to log in"></td></tr>
     </form>
 
