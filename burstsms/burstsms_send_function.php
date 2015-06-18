@@ -1,14 +1,15 @@
 <?php
 function sendSMS($text, $number){
-	//Test code (to avoid sms charge). To be deleted upon actual deployment.
+	/*//Test code (to avoid sms charge). To be deleted upon actual deployment.
 	require_once __DIR__.'/../user_admin/php/DB_connect/db_utility.php';
-	make_query("insert into LogInLieuOfSMS values('{$text}', {$number})");
+	make_query("insert into LogInLieuOfSMS values('{$text}', {$number})");*/
 	
-	/* Not employing since money costing.
+	// Not employing since money costing.
 	$api_key = 'e56a6a069e9b7066794bcbe264546a95';
 	$api_secret = '123456';
 
 	$CallerID = 'Einscloud';
+	$number = '65'.$number;
 	
 
 	 include'APIClient2.php';
@@ -29,5 +30,5 @@ function sendSMS($text, $number){
 	 {
 	     echo"Error: {$result->error->description}";
  	}
- 	*/
+ 	//*/
 }
