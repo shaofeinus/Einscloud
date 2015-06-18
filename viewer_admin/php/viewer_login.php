@@ -32,7 +32,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
 }
 
 function make_sql_query($username, $password) {
-    require_once __DIR__.'/DB_connect/db_connect.php';
+    require_once 'DB_connect/db_connect.php';
     $connector = new DB_CONNECT();
     $connector->connect();
 

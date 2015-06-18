@@ -8,7 +8,7 @@
     //echo $verification_code;
     //echo $_SESSION['login_viewer'] . "<br>";
 
-    require_once __DIR__.'/DB_connect/db_connect.php';
+    require_once 'DB_connect/db_connect.php';
     $connector = new DB_CONNECT();
     $connector->connect();
 

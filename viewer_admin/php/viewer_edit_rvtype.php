@@ -9,7 +9,7 @@ session_start();
 $viewer_id = $_SESSION['viewer_id'];
 $newRvtype = $_POST['rvtype'];
 //echo $viewer_id;
-require_once __DIR__.'/DB_connect/db_utility.php';
+require_once 'DB_connect/db_utility.php';
 
 $query = "update RegisteredViewer set rvtype = '$newRvtype' where id = '$viewer_id'";
 $updateResponse = make_query($query);

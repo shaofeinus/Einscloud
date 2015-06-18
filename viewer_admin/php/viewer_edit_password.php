@@ -5,7 +5,7 @@ $viewer_id = $_SESSION['viewer_id'];
 $oldPassword = md5($_POST['oldPassword']);
 $newPassword = md5($_POST['newPassword']);
 //echo $viewer_id;
-require_once __DIR__.'/DB_connect/db_utility.php';
+require_once 'DB_connect/db_utility.php';
 
 $selectQuery = "select * from RegisteredViewer where id = '$viewer_id' and password = '$oldPassword'";
 $selectResponse = make_query($selectQuery);

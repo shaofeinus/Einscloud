@@ -17,7 +17,7 @@
 <div class="container">
 <?php
     $viewer_id = $_SESSION['viewer_id'];
-    require_once __DIR__.'/php/DB_connect/db_utility.php';
+    require_once 'php/DB_connect/db_utility.php';
 
     $viewerProfileResponse = make_query("select * from RegisteredViewer where id = '$viewer_id'");
     if($viewerProfileResponse === FALSE) {
