@@ -1,14 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: CK
- * Date: 11/6/2015
- * Time: 11:49 AM
- */
 session_start();
-?>
-<html>
-<?php
+
 $viewer_id = $_SESSION['viewer_id'];
 $oldPassword = md5($_POST['oldPassword']);
 $newPassword = md5($_POST['newPassword']);
@@ -26,14 +18,11 @@ if(mysqli_num_rows($selectResponse) > 0) {
         echo "response is erroneous";
         die(mysql_error());
     }
-    echo "Password Change Successful";
+    echo "<script> alert('You have successfully changed your password!'); window.location.assign('../viewer_profile.php')</script>";
 
 }
 else {
-    echo "Wrong password";
+    echo "<script> alert('You have failed to change your password! Please try again.'); window.location.assign('../viewer_profile.php')</script>";
 }
-    ?>
-    <form id="edit_form" action='../viewer_admin_index.php'>
-        <input type='submit' value='Go back to Viewer Admin Page'>
-    </form>
-</html>
+?>
+
