@@ -1,5 +1,4 @@
 <?php session_start ();
-error_reporting(-1);
 
 	//jump to logged_out.html if there is no session data
 	if(!isset($_SESSION ["login_id"]))
@@ -11,11 +10,11 @@ error_reporting(-1);
 	require_once 'php/DB_connect/db_utility.php';
 	
 	/* Fetch viewers data */
+	// Fetch Registered Viewers of this User
+	$reg_viewers_sql_resp = make_query ( "select * from RegisteredViewer R, Caregive where user_id={$user_id} and rv_id=R.id");
+	
 	// Fetch Unregistered Viewers of this User
 	$unreg_viewers_sql_resp = make_query ( "select * from UnregisteredViewer where user_id='$user_id'" );
-	
-	// Fetch Registered Viewers of this User
-	$reg_viewers_sql_resp = make_query ( "select * from RegisteredViewer where id=(select rv_id from Caregive where user_id='$user_id')" );
 	
 	// Fetch Emergency Viewers of this User
 	$landline_sql_resp = make_query ( "select * from CallLandline where user_id='$user_id'");
@@ -23,10 +22,6 @@ error_reporting(-1);
 	
 	function generate_viewer_table($viewer_sql_resp)
     {
-    	if (false === $viewer_sql_resp) {
-    		echo mysql_error();
-    	}
-    	
     	if (mysqli_num_rows($viewer_sql_resp) > 0) {
 	        echo "<table class='table table-hover'><tr>
 				<th>Name</th>
