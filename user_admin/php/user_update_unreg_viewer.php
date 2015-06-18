@@ -49,8 +49,11 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 		//TODO validate these data
 		while ( $row = mysqli_fetch_assoc ( $viewer_sql_resp ) ) {
 			echo "<tr>";
-			echo "<td class='form_td'>" . "<input class='form-control' type='text' name='viewername[]' value='" . $row ["viewername"] . "'>" . "</td>";
-			echo "<td class='form_td'>" . "<input class='form-control' type='text' name='phone_no[]' value='" . $row ["phone_no"] . "'>" . "</td>";
+			echo "<td class='form_td'>" . "<input required class='form-control' type='text' name='viewername[]' value='" . $row ["viewername"] . "'>" . "</td>";
+			echo "<td class='form_td'>" . 
+				"<input required title='Singapore mobile number' 
+					pattern='^[8|9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$' class='form-control' type='text' name='phone_no[]' value='" . $row ["phone_no"] . "'>" . 
+				"</td>";
 			echo "<td class='form_td'>" . "<input class='form-control' placeholder='Enter password' type='email' name='email[]' value='" . $row ["email"] . "'>" . "</td>";
 			echo "</tr>";
 		}
@@ -85,13 +88,15 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
             <div class="row">
                 <div class="col-lg-4"/>
                 <div class="col-lg-6">
+                	<div class="form-group">
+                        <input type="submit" name="Update" value="Update Contacts" class="btn btn-primary"/>
+                    </div>
+                    
                     <div class="form-group">
                         <input type="submit" name="Back" value="Go Back to Admin Console" formmethod="get" formaction="../user_admin_index.php"
                         onclick="return confirm('Any modification made will be discarded. Confirm?')" class="btn btn-primary"/>
                     </div>	
-                    <div class="form-group">
-                        <input type="submit" name="Update" value="Update Contacts" class="btn btn-primary"/>
-                    </div>
+                    
                     <div class="form-group">
                         <input type='submit' value='Log out' formaction="./logout.php" class="btn btn-primary"/>
                     </div>
