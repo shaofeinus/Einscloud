@@ -1,8 +1,12 @@
 <?php
+session_start ();
+
+$user_id = $_SESSION ["login_id"];
+
+
 // import sql utility functions.
 require_once 'DB_connect/db_utility.php';
 
-//Code to delete selected Viewers (This script process its own POST submission.)
 if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 	if (! empty ( $_POST ['reg_viewer'] )) {
 		foreach ( $_POST ['reg_viewer'] as $viewer_id ) {
