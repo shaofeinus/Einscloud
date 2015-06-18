@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 <?php session_start(); ?>
+<!DOCTYPE html>
 <html>
 <head lang="en">
     <!-- <link rel="stylesheet" type="text/css" href="style/viewer_admin_style.css"> -->
