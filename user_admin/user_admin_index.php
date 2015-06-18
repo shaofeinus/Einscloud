@@ -1,4 +1,5 @@
 <?php session_start ();
+error_reporting(-1);
 
 	//jump to logged_out.html if there is no session data
 	if(!isset($_SESSION ["login_id"]))
@@ -22,6 +23,10 @@
 	
 	function generate_viewer_table($viewer_sql_resp)
     {
+    	if (false === $viewer_sql_resp) {
+    		echo mysql_error();
+    	}
+    	
     	if (mysqli_num_rows($viewer_sql_resp) > 0) {
 	        echo "<table class='table table-hover'><tr>
 				<th>Name</th>
