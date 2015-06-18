@@ -98,7 +98,7 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
                     </div>	
                     
                     <div class="form-group">
-                        <input type='submit' value='Log out' formaction="./logout.php" class="btn btn-primary"/>
+                        <input type='submit' value='Log out' formaction="./logout.php" class="btn btn-danger"/>
                     </div>
                 </div>
                 <div class="col-lg-2"/>
