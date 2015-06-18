@@ -141,7 +141,7 @@
 					
 				<input type='submit' value='Add Viewer' class="btn btn-primary" formmethod="get" formaction='user_add_viewer.html'/>
 				<input type='submit' value='Add Emergency landline contact' class="btn btn-primary" formmethod="get" formaction='user_add_emerg.html'/>
-				<input type='submit' value='Log out' class="btn btn-primary" formmethod="get" formaction='php/logout.php'/>
+				<input type='submit' value='Log out' class="btn btn-danger" formmethod="get" formaction='php/logout.php'/>
 		</form>
 		
 		
