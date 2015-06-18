@@ -14,7 +14,7 @@ if ($viewer_result->num_rows > 0) {
 		
 		//Construct the content to be sent out.
 		$text = generateText($username, $row['verification_code']);
-		sendSMS($text, $row['verification_code']);
+		sendSMS($text, $row['phone_no']);
 		
 		//Decrement the "notifications_left" column, for the 3-day auto stop.
 		$nots_left = $row['notifications_left'] - 1;
