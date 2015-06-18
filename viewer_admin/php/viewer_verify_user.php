@@ -20,7 +20,7 @@
         if($user_id === $row['user_id']){
             // do insert and delete
             $insertQuery = "insert into Caregive values ('$user_id', '$viewer_id', null)";
-            echo $insertQuery;
+            //echo $insertQuery;
             $deleteQuery = "delete from UnregisteredViewer where verification_code = '$verification_code'";
             if(mysqli_query($connector->conn, $insertQuery)) {
                 if(mysqli_query($connector->conn, $deleteQuery)){
