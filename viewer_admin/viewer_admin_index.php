@@ -101,8 +101,9 @@
                 <?php
                 while ($row = mysqli_fetch_assoc($unregisteredResponse)) {
                 ?>
+                <div class="col-sm-4">
                     <form name='viewer_verify_form' action='php/viewer_verify_user.php' method="post">
-                    <div class="col-sm-4">
+
                         <h3><?php echo $row["firstname"] . " " . $row["lastname"] ?></h3>
                         <table>
                             <tr>
@@ -130,9 +131,9 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>
-                    </form>
 
+                    </form>
+                </div>
                 <?php
                 }
                 ?>
