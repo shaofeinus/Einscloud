@@ -4,7 +4,7 @@
 
 
 function emailViewer(email, firstName, lastName){
-    $.post('../caregive_email.php',
+    $.post('../../email_viewer/caregive_email.php',
     {
         email: email,
         firstName: firstName,
