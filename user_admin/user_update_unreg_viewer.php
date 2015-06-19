@@ -1,4 +1,8 @@
 <?php 
+/*
+ * This page submit the POST form to itself.
+ */
+
 session_start ();
 if(!isset($_SESSION ["login_id"]))
     header("Location: ../logged_out.html");
@@ -6,7 +10,7 @@ if(!isset($_SESSION ["login_id"]))
 $user_id = $_SESSION ["login_id"];
 
 // import sql utility functions.
-require_once 'DB_connect/db_utility.php';
+require_once 'php/DB_connect/db_utility.php';
 
 // Fetch Unregistered Viewers of this User
 $viewers_sql_resp = make_query ( "select * from UnregisteredViewer where user_id='$user_id'" );
@@ -16,7 +20,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 	compare_and_update("phone_no", $viewers_sql_resp);
 	compare_and_update("email", $viewers_sql_resp);
 
-	header('Location: ../user_admin_index.php');
+	header('Location: user_admin_index.php');
 }
 
 function compare_and_update($column_name, $sql_result){
@@ -93,12 +97,12 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
                     </div>
                     
                     <div class="form-group">
-                        <input type="submit" name="Back" value="Go Back to Admin Console" formmethod="get" formaction="../user_admin_index.php"
+                        <input type="submit" name="Back" value="Go Back to Admin Console" formmethod="get" formaction="user_admin_index.php"
                         onclick="return confirm('Any modification made will be discarded. Confirm?')" class="btn btn-primary"/>
                     </div>	
                     
                     <div class="form-group">
-                        <input type='submit' value='Log out' formaction="./logout.php" class="btn btn-danger"/>
+                        <input type='submit' value='Log out' formaction="php/logout.php" class="btn btn-danger"/>
                     </div>
                 </div>
                 <div class="col-lg-2"/>

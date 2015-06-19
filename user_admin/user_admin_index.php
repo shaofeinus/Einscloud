@@ -127,7 +127,7 @@
 			
 			<input type="submit"
 				value="Modify Unregistered Viewer Information" formmethod="get"
-				formaction="./php/user_update_unreg_viewer.php" class="btn btn-primary"/>
+				formaction="user_update_unreg_viewer.php" class="btn btn-primary"/>
 				
 			<div class="page-header">
 				<h2>List of Emergency landline contacts viewers</h2>
