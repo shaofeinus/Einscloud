@@ -1,5 +1,5 @@
 <?php
-    require_once 'php/DB_connect/db_utility.php';
+    require_once 'user_admin/php/DB_connect/db_utility.php';
     $viewer_result = make_query("select * from UnregisteredViewer where email is not null");
 
     if(mysqli_num_rows($viewer_result) > 0){
