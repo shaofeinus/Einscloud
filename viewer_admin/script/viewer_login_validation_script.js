@@ -10,7 +10,7 @@ function validateForm() {
 }
 
 function validateUsername() {
-    var usernameInput = document.forms["viewer_login_form"]["username"].value;
+    var usernameInput = document.forms["viewer_login_form"]["username"].value.trim();
 
     if(usernameInput.trim() === "") {
         document.getElementById("username_feedback").innerHTML = "";

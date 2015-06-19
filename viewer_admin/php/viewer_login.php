@@ -11,7 +11,7 @@ session_start();
 $error_msg = "";
 
 if(!empty($_POST["username"]) && !empty($_POST["password"])) {
-    $username = $_POST["username"];
+    $username = trim($_POST["username"]);
     $password = $_POST["password"];
     $response = make_sql_query($username, $password);
     // fetch id

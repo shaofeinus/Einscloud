@@ -11,8 +11,8 @@ function validateForm() {
 }
 
 function validateUsername() {
-    var usernameInput = document.forms["user_login_form"]["username"].value;
-
+    var usernameInput = document.forms["user_login_form"]["username"].value.trim();
+    
     if(usernameInput === "") {
         document.getElementById("username_feedback").innerHTML = "";
         fieldIsValid[0] = false;
