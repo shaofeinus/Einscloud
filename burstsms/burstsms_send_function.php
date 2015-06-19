@@ -5,8 +5,8 @@ function sendSMS($text, $number){
 	make_query("insert into LogInLieuOfSMS values('{$text}', {$number})");
 	/*
 	// Not employing since money costing.
-	$api_key = 'e56a6a069e9b7066794bcbe264546a95';
-	$api_secret = '123456';
+	$api_key = '1c4365b5168a69ef4891b73ecd255540';
+	$api_secret = 'einstech';
 
 	$CallerID = 'Einscloud';
 	$number = '65'.$number;
