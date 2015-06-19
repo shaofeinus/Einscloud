@@ -44,7 +44,7 @@
 
         <tr><td>Date of Birth:</td></tr>
         <tr>
-            <td><input id="birthday" type='date' name='birthday' oninput="validateBirthday()" required></td>
+            <td><input id="birthday" type='date' name='birthday' min='1900-01-01' max='3000-12-31' oninput="validateBirthday()" required></td>
             <td><div class='alert-info' id='birthday_feedback'></div></td>
         </tr>
 

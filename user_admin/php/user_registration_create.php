@@ -80,7 +80,7 @@ function make_sql_query($input) {
             //echo "error";
         }
     } else {
-        echo $query2 . "<br>";
+        //echo $query2 . "<br>";
         if(mysqli_query($connector->conn, $query2)) {
             $connector->close();
             echo "<script> alert('Your registration as a user is successful!'); window.location.assign('../index.php')</script>";
