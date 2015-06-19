@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<script src="script/viewer_login_validation_script.js"></script>
+<script src="script/viewer_login_validation_script.js?v=1.0"></script>
 <div class="container">
     <div class="jumbotron well">
         <h1>Welcome Einswatch Viewer</h1>

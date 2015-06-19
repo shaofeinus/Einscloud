@@ -13,7 +13,7 @@
         <h1><?php echo $_SESSION['login_viewer'] . "'s Profile"; ?></h1>
     </div>
 </div>
-<script src="script/viewer_edit.js"></script>
+<script src="script/viewer_edit.js?v=1.0"></script>
 <div class="container">
 <?php
     $viewer_id = $_SESSION['viewer_id'];
