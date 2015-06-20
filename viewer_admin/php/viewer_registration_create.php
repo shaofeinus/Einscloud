@@ -8,31 +8,36 @@
 
 class Input
 {
-    public $firstName;
-    public $lastName;
-    public $nric;
+    public $fullName;
     public $phoneNo;
     public $email;
     public $username;
     public $password;
     public $confirmPassword;
-    public $rvtype;
 
+    public $rvtype;
+    public $lastName;
+    public $nric;
+    public $gender;
 
     public function getInput()
     {
-        $this->firstName = $_POST['firstName'];
-        $this->lastName = $_POST['lastName'];
+        $this->fullName = $_POST['fullName'];
+
         $this->email = $_POST['email'];
         $this->email = filter_var($this->email, FILTER_SANITIZE_EMAIL);
         if(strlen(trim($this->email)) == 0){
             $this->email = NULL;
         }
-        $this->nric = $_POST['nric'];
+
         $this->phoneNo = $_POST['phoneNo'];
         $this->username = $_POST['username'];
         $this->password = md5($_POST['password']);
-        $this->rvtype = $_POST['rvtype'];
+
+        $this->rvtype = 'Family'; // default value now as rvtype is deemed redundant
+        $this->lastName = "[no last name]"; //need to change table columns to remove non-null columns
+        $this->nric = 'S0000000A';
+        $this->gender = 'X';
     }
 }
 
@@ -60,11 +65,11 @@ function make_sql_query($input) {
     $connector = new DB_CONNECT();
     $connector->connect();
 
-    $query1 = "INSERT INTO RegisteredViewer(firstname, lastname, nric, phone_no, username, password, rvtype)
-	VALUES('$input->firstName', '$input->lastName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->rvtype')";
+    $query1 = "INSERT INTO RegisteredViewer(firstname, lastName, phone_no, username, password, rvtype, nric, gender)
+	VALUES('$input->fullName', '$input->lastName', '$input->phoneNo', '$input->username', '$input->password', '$input->rvtype', '$input->nric', '$input->gender')";
 
-    $query2 = "INSERT INTO RegisteredViewer(firstname, lastname, nric, phone_no, username, password, email, rvtype)
-	VALUES('$input->firstName', '$input->lastName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->rvtype')";
+    $query2 = "INSERT INTO RegisteredViewer(firstname, lastName, phone_no, username, password, email, rvtype, gender)
+	VALUES('$input->fullName', '$input->lastName', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->rvtype', '$input->nric', '$input->gender')";
 
     if(empty($input->email)) {
         //echo $query1 . "<br>";

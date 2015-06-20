@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <meta charset="UTF-8">
+
     <title>Einswatch Viewer Registration</title>
 </head>
 
 <body>
-<script src="script/viewer_registration_validation_script.js?v=1.0"></script>
 
+<script src="script/viewer_registration_validation_script.js?v=1.2"></script>
 <div class="container">
     <div class="jumbotron well">
         <h1>Einswatch Registration for Viewer</h1>
@@ -19,21 +21,17 @@
     </div>
 </div>
 
+
+
 <div class='container'>
 <table>
     <form name='viewer_registration_form' action='php/viewer_registration_create.php' method="post"
           onsubmit="return isFormValid()">
 
         <tr class="page-header"><td><h4>Personal Particulars</h4></td></tr>
-        <tr><td>First name:</td></tr>
-        <tr><td><em><input type='text' name='firstName' placeholder="eg: John" required></em></td></tr>
-        <tr><td>Last name:</td></tr>
-        <tr><td><em><input type='text' name='lastName' placeholder="eg: Doe" required></em></td></tr>
-        <tr><td>NRIC:</td></tr>
-        <tr>
-            <td><em><input id="nric_field" type='text' name='nric' placeholder="eg: SXXXXXXXY" oninput="validateNric()" required></em></td>
-            <td><div class='alert-info' id='nric_feedback'></div></td>
-        </tr>
+        <tr><td>Name (as of NRIC):</td></tr>
+        <tr><td><em><input type='text' name='fullName' placeholder="eg: John Lennon" required></em></td></tr>
+
         <tr><td>Email:</td></tr>
         <tr><td><em><input type='email' name='email' placeholder="example@example.com"></em></td></tr>
         <tr><td>Phone number:</td></tr>
@@ -45,38 +43,57 @@
         <tr></tr>
 
         <tr class="page-header"><td><h4>Account information</h4></td></tr>
-        <tr><td>Username:</td></tr>
+
+        <tr><td>Use default username and password?</td></tr>
         <tr>
-            <td><p><em><input type='text' name='username' placeholder="Your desired login name" oninput="validateUsername()" required></em></p></td>
+            <td><p><input type="radio" name="default_username" value="yes" onclick="defaultUserInfo()" checked required>Yes
+                <input type="radio" name="default_username" value="no" onclick= "customUserInfo()" >No
+            </p></td>
+        </tr>
+
+        <tr><td>Username:</td></tr>
+
+        <tr>
+            <td><p><em><input id='username' type='text' name='username' disabled placeholder="Your desired login name" oninput="validateUsername()" required></em></p></td>
             <td><div class='alert-info' id='username_feedback'></div></td>
         </tr>
+
+        <!-- unused radio
         <tr><td>Viewer Type:</td></tr>
         <tr>
             <td><p><input type="radio" name="rvtype" value="Family" checked required>Family
         <input type="radio" name="rvtype" value="Others" >Others
             </p></td>
         </tr>
+        -->
 
         <tr><td>Password:</td></tr>
         <tr>
-            <td><em><input type='password' name='password' placeholder="At least 8 characters" oninput="validatePassword()" required></em></td>
+            <td><em><input id='password' type='password' name='password' disabled placeholder="At least 8 characters" oninput="validatePassword()" required></em></td>
             <td><div class='alert-info' id="password_feedback"></div></td>
         </tr>
         <tr><td>Confirm password:</td></tr>
         <tr>
-            <td><em><p><input type='password' name='confirmPassword' placeholder="At least 8 characters" oninput="validateConfirmPassword()"
+            <td><em><p><input id='confirm_password' type='password' name='confirmPassword' disabled placeholder="At least 8 characters" oninput="validateConfirmPassword()"
                        required></p></em></td>
             <td><div class='alert-info' id="confirm_password_feedback"></div></td>
         </tr>
+
+
+
         <tr><td><p><input type='submit' name='registerViewer' class="btn btn-primary" value='Register'></p></td></tr>
 
     </form>
+
+
 
     <form action="index.php">
         <tr><td class="form_td"><input type="submit" class="btn btn-primary" value="Back to log in"></td></tr>
     </form>
 
 </table>
+
+
 </div>
 </body>
 </html>
