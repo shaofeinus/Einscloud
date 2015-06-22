@@ -5,18 +5,20 @@
  * Date: 11/6/2015
  * Time: 11:49 AM
  */
-session_start();
-$viewer_id = $_SESSION['viewer_id'];
-$newRvtype = $_POST['rvtype'];
-//echo $viewer_id;
-require_once 'DB_connect/db_utility.php';
-
-$query = "update RegisteredViewer set rvtype = '$newRvtype' where id = '$viewer_id'";
-$updateResponse = make_query($query);
-if($updateResponse === FALSE) {
-    echo "response is erroneous";
-    die(mysql_error());
-}
-
-header("Location: ../viewer_profile.php");
+	//start session and check for session validity
+	require_once 'DB_connect/check_session_validity.php';
+	
+	$viewer_id = $_SESSION['viewer_id'];
+	$newRvtype = $_POST['rvtype'];
+	//echo $viewer_id;
+	require_once 'DB_connect/db_utility.php';
+	
+	$query = "update RegisteredViewer set rvtype = '$newRvtype' where id = '$viewer_id'";
+	$updateResponse = make_query($query);
+	if($updateResponse === FALSE) {
+	    echo "response is erroneous";
+	    die(mysql_error());
+	}
+	
+	header("Location: ../viewer_profile.php");
 ?>

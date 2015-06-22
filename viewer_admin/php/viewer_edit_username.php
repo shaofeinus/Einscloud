@@ -5,7 +5,9 @@
  * Date: 11/6/2015
  * Time: 11:49 AM
  */
-    session_start();
+	//start session and check for session validity
+	require_once 'DB_connect/check_session_validity.php';
+	
     $viewer_id = $_SESSION['viewer_id'];
     $newUsername = $_POST['username'];
     //echo $viewer_id;

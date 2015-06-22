@@ -6,8 +6,7 @@
 // session_start ();
 // if(!isset($_SESSION ["login_id"]))
 //     header("Location: logged_out.html");
-include_once 'php/DB_connect/check_session_validity.php';
-
+require_once 'php/DB_connect/check_session_validity.php';
 
 $user_id = $_SESSION ["login_id"];
 

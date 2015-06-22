@@ -21,15 +21,22 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
         $_SESSION["login_viewer"] = $username;
         $_SESSION["viewer_id"] = $row['id'];
         $_SESSION["viewer_phone"] = $row['phone_no'];
-        //echo $_SESSION['viewer_phone'];
-        //echo $_SESSION["viewerid"];
-        header("Location: ../viewer_admin_index.php");
     } else {
         echo "<script> alert('Password does not match username'); window.location.assign('../index.php')</script>";
     }
 } else {
     $error_msg = "Empty field(s)";
 }
+
+//This section sets a custom session id and update it into database.
+include "DB_connect/db_utility.php";
+
+session_regenerate_id(true);
+$session_id = session_id();
+make_query("update RegisteredViewer set session_id='{$session_id}' where id={$_SESSION["viewer_id"]};");
+$_SESSION['last_activity'] = time();
+
+header("Location: ../viewer_admin_index.php");
 
 function make_sql_query($username, $password) {
     require_once 'DB_connect/db_connect.php';
