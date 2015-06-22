@@ -5,7 +5,6 @@
  * Date: 9/6/2015
  * Time: 6:29 PM
  */
-
 session_start();
 
 $error_msg = "";
@@ -24,13 +23,24 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
         $_SESSION['login_email'] = $row ["email"];
         $_SESSION['login_nric'] = $row ["nric"];
         $_SESSION['login_phone_no'] = $row ["phone_no"];
-        header("Location: ../user_admin_index.php");
     } else {
         echo "<script> alert('Password does not match username'); window.location.assign('../index.php')</script>";
     }
 } else {
     $error_msg = "Empty field(s)";
 }
+
+//This section sets a custom session id and update it into database.
+include "DB_connect/db_utility.php";
+
+session_regenerate_id(true);
+$session_id = session_id();
+make_query("update User set session_id='{$session_id}' where id={$_SESSION["login_id"]};");
+$_SESSION['last_activity'] = time();
+
+header("Location: ../user_admin_index.php");
+
+
 
 function make_sql_query($username, $password) {
     require_once 'DB_connect/db_connect.php';
