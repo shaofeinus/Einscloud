@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "db_utility.php";
+require_once "db_utility.php";
 $dir = __DIR__;
 //if session doesn't exist at all, go to logged_out.html
 if(!isset($_SESSION['login_id'])) header("Location: /einscloud/user_admin/logged_out.html");
@@ -19,7 +19,7 @@ if (mysqli_num_rows($resp) == 1) {
 }
 
 if($id_in_database != session_id()){
-	header("Location: ".__DIR__."/../../logged_out.html");
+	header("Location: /einscloud/user_admin/logged_in_somewhere_else.html");
 }
 
 //if session has not been active for 30 min, destroy session and go to logged_out.html;
@@ -27,6 +27,6 @@ if($id_in_database != session_id()){
 if(isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 1800){
 	session_unset();
 	session_destroy();
-	header("Location: ".__DIR__."/../../logged_out.html");
+	header("Location: /einscloud/user_admin/logged_out.html");
 }
 $_SESSION['last_activity'] =  time();
