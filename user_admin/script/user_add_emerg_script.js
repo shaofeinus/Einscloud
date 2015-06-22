@@ -7,6 +7,7 @@
 var num_emerg;
 var num_exists = [];
 var curr_form;
+var filled_form = [];
 
 function verifyLogin() {
     $.post('php/user_add_viewer_functions.php',
@@ -35,6 +36,14 @@ function getName() {
 }
 
 function displayDropMenu() {
+
+    var MAX_LANDLINE = 5;
+
+    while(MAX_LANDLINE) {
+        filled_form.push({nickname:"", phone_no:""});
+        MAX_LANDLINE--;
+    }
+
     $.post('php/user_add_emerg_functions.php',
         {
             func: 'displayDropMenu',
@@ -47,6 +56,7 @@ function displayDropMenu() {
 }
 
 function displayAddEmergForm() {
+    cacheForm();
     var output = "";
     var dropdownMenu = document.getElementById("add_num_emerg");
     num_emerg = parseInt(dropdownMenu.options[dropdownMenu.selectedIndex].value);
@@ -54,7 +64,7 @@ function displayAddEmergForm() {
     $.post('php/user_add_emerg_functions.php',
         {
             func: 'displayAddEmergForm',
-            params: num_emerg
+            params: JSON.stringify({num_emerg:num_emerg, filled_form:filled_form})
         },
         function(data, status) {
             var num_rows = num_emerg;
@@ -65,6 +75,21 @@ function displayAddEmergForm() {
             console.log(data);
             document.getElementById("add_emerg_form").innerHTML = data;
         });
+}
+
+function cacheForm() {
+    for(var i = 0; i < num_emerg; i++) {
+        if(document.getElementById("landline_" + i + "_table") !== undefined) {
+
+            var nickname_field = document.forms["add_emerg_form"].elements["nickname_" + i];
+            var phone_no_field = document.forms["add_emerg_form"].elements["landPhone_" + i];
+
+            var nickname = nickname_field===undefined?"":nickname_field.value;
+            var phone_no = phone_no_field===undefined?"":phone_no_field.value;
+
+            filled_form[i] = {nickname:nickname, phone_no:phone_no};
+        }
+    }
 }
 
 function validatePhoneNo(i) {

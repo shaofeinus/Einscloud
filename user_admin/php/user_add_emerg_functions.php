@@ -43,7 +43,7 @@ function displayDropMenu() {
         $num_rows = mysqli_num_rows($response);
         if($num_rows < 5){
             $html_output = "How may emergency landline contacts do you want to add?<br>".
-                "<select id='add_num_emerg' onchange='displayAddEmergForm()'>".
+                "<select id='add_num_emerg' class='selectpicker' onchange='displayAddEmergForm()'>".
                 "<option value='0'></option>";
             $num_options = 5 - $num_rows;
             $index = 1;
@@ -65,19 +65,36 @@ function displayDropMenu() {
 
 }
 
-function displayAddEmergForm($num_forms) {
+function displayAddEmergForm($json_object) {
+
+    $data = json_decode($json_object);
+    $num_forms = $data->num_emerg;
+    $filled_form_data = $data->filled_form;
+
+    //echo var_dump($filled_form_data);
+
     $i = 0;
     $output = "";
 
     while ($num_forms != 0) {
+
+        $nickname = "";
+        $phone_no = "";
+
+        if($filled_form_data[$i] != null){
+            $nickname = $filled_form_data[$i]->nickname;
+            $phone_no = $filled_form_data[$i]->phone_no;
+        }
+
         $output = $output .
-            "<table class='form_table'>" .
+            "<table class='form_table' name='landline_" . $i . "_table'>" .
+            "<tr class='spaceUnder'><td></td></tr>" .
             "<tr><th class='form_th'>Emergency landline contact " . ($i + 1) . "</th><tr>" .
             "<tr><td class='form_td'>Give your landline contact a name</td></tr>" .
-            "<tr><td class='form_td'><input type='text' name='nickname_" . $i . "' required></td></tr>" .
+            "<tr class='spaceUnder'><td class='form_td'><input type='text' value='$nickname' name='nickname_" . $i . "' required></td></tr>" .
             "<tr><td class='form_td'>Phone number</td></tr>" .
-            "<tr>" .
-            "<td class='form_td'><input type='text' oninput='validatePhoneNo(" . $i . ")' name='landPhone_" . $i . "' required></td>" .
+            "<tr class='spaceUnder'>" .
+            "<td class='form_td'><input type='text' value='$phone_no' oninput='validatePhoneNo(" . $i . ")' name='landPhone_" . $i . "' required></td>" .
             "<td class='form_td'><div class='feedback' id='phone_no_feedback_" . $i . "'></div></td>" .
             "</tr>" .
             "</table>";

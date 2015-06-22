@@ -108,14 +108,15 @@ function displayAddViewerForm($num_forms, $form_data) {
 
         $output = $output .
             "<table class='form_table' id='viewer_" . $i . "_table'>" .
+            "<tr class='spaceUnder'><td></td></tr>" .
             "<tr><th class='form_th'>Viewer " . ($i + 1) . "</th><tr>" .
             "<tr><td class='form_td'>Give your Viewer a name</td></tr>" .
-            "<tr class='spaceUnder'><td class='form_td'><input type='text' value='$nickname' name='nickname_" . $i . "' required></td></tr>" .
+            "<tr class='spaceUnder'>" .
+            "<td class='form_td'><input type='text' value='$nickname' name='nickname_" . $i . "' required></td></tr>" .
             "<tr><td class='form_td'>Phone number</td></tr>" .
             "<tr class='spaceUnder'>" .
             "<td class='form_td'><input type='text' value='$phone_no' oninput='validatePhoneNo(" . $i . ")' name='viewerPhone_" . $i . "' required></td>" .
-            "<td class='form_td'><div class='alert-info' id='phone_no_feedback_" . $i . "'></div></td>" .
-            "</tr>" .
+            "<td class='form_td'><div class='alert-info' id='phone_no_feedback_" . $i . "'></div></td></tr>" .
             "<tr><td class='form_td'>Email</td></tr>" .
             "<tr class='spaceUnder'>" .
             "<td class='form_td'><input type='email' value='$email' oninput='validateEmail(" . $i . ")' name='viewerEmail_".$i."'></td>" .
