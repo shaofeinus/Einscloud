@@ -1,5 +1,6 @@
 <?php
-session_start();
+//start session and check for session validity
+require_once 'DB_connect/check_session_validity.php';
 
 $viewer_id = $_SESSION['viewer_id'];
 $oldPassword = md5($_POST['oldPassword']);

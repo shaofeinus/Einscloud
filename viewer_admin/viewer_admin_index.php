@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+//start session and check for session validity
+require_once 'php/DB_connect/check_session_validity.php';
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
