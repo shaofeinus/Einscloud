@@ -4,6 +4,7 @@
 var num_viewer;
 var num_exists = [];
 var curr_form;
+var filled_form = [];
 
 function verifyLogin() {
     $.post('php/user_add_viewer_functions.php',
@@ -32,6 +33,14 @@ function getName() {
 }
 
 function displayDropMenu() {
+
+    var MAX_VIEWER = 5;
+
+    while(MAX_VIEWER) {
+        filled_form.push({nickname:"", phone_no:"", email:""});
+        MAX_VIEWER--;
+    }
+
     $.post('php/user_add_viewer_functions.php',
         {
             func: 'displayDropMenu',
@@ -39,12 +48,12 @@ function displayDropMenu() {
         },
         function(data, status) {
             console.log(data);
-            var num_rwos;
             document.getElementById('drop_menu').innerHTML = data;
         });
 }
 
 function displayAddViewerForm() {
+    cacheForm();
     var output = "";
     var dropdownMenu = document.getElementById("add_num_viewers");
     num_viewer = parseInt(dropdownMenu.options[dropdownMenu.selectedIndex].value);
@@ -52,8 +61,10 @@ function displayAddViewerForm() {
     $.post('php/user_add_viewer_functions.php',
         {
             func: 'displayAddViewerForm',
-            params: num_viewer
+            params: num_viewer,
+            params_2: JSON.stringify(filled_form)
         },
+
         function(data, status) {
             console.log(data);
             var num_rows = num_viewer;
@@ -63,6 +74,25 @@ function displayAddViewerForm() {
             }
             document.getElementById("add_viewers_form").innerHTML = data;
         });
+
+}
+
+function cacheForm() {
+    for(var i = 0; i < num_viewer; i++) {
+        if(document.getElementById("viewer_" + i + "_table") !== undefined) {
+
+            var nickname_field = document.forms["add_viewers_form"].elements["nickname_" + i];
+            var phone_no_field = document.forms["add_viewers_form"].elements["viewerPhone_" + i];
+            var email_field = document.forms["add_viewers_form"].elements["viewerEmail_" + i];
+
+            var nickname = nickname_field===undefined?"":nickname_field.value;
+            var phone_no = phone_no_field===undefined?"":phone_no_field.value;
+            var email = email_field===undefined?"":email_field.value;
+
+            filled_form[i] = {nickname:nickname, phone_no:phone_no, email:email};
+
+        }
+    }
 }
 
 function validatePhoneNo(i) {

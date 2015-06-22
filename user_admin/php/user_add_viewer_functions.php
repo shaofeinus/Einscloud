@@ -12,19 +12,20 @@ function decideFunction() {
 
     if(isset($_POST['func']) && isset($_POST['params'])) {
         $function_name = $_POST['func'];
-        $function_params = $_POST['params'];
+        $param_1 = $_POST['params'];
 
         switch($function_name) {
             case 'checkPhoneExists':
-                return checkPhoneExists($function_params);
+                return checkPhoneExists($param_1);
             case 'emailAndPhoneMatch':
-                return emailAndPhoneMatch($function_params);
+                return emailAndPhoneMatch($param_1);
             case 'displayDropMenu':
                 return displayDropMenu();
             case 'verifyLogin':
                 return verifyLogin();
             case 'displayAddViewerForm':
-                return displayAddViewerForm($function_params);
+                $form_data = $_POST['params_2'];
+                return displayAddViewerForm($param_1, $form_data);
             case 'getName':
                 return getName();
             case 'logout':
@@ -84,26 +85,41 @@ function getName() {
     echo $firstName." ".$lastName;
 }
 
-function displayAddViewerForm($num_forms)
-{
+function displayAddViewerForm($num_forms, $form_data) {
+
+    // echo $form_data;
+
+    $filled_form_data = json_decode($form_data);
+
     $i = 0;
     $output = "";
 
     while ($num_forms != 0) {
+
+        $nickname = "";
+        $phone_no = "";
+        $email = "";
+
+        if($filled_form_data[$i] != null){
+            $nickname = $filled_form_data[$i]->nickname;
+            $phone_no = $filled_form_data[$i]->phone_no;
+            $email = $filled_form_data[$i]->email;
+        }
+
         $output = $output .
-            "<table class='form_table'>" .
+            "<table class='form_table' id='viewer_" . $i . "_table'>" .
             "<tr><th class='form_th'>Viewer " . ($i + 1) . "</th><tr>" .
             "<tr><td class='form_td'>Give your Viewer a name</td></tr>" .
-            "<tr class='spaceUnder'><td class='form_td'><input type='text' name='nickname_" . $i . "' required></td></tr>" .
+            "<tr class='spaceUnder'><td class='form_td'><input type='text' value='$nickname' name='nickname_" . $i . "' required></td></tr>" .
             "<tr><td class='form_td'>Phone number</td></tr>" .
             "<tr class='spaceUnder'>" .
-            "<td class='form_td'><input type='text' oninput='validatePhoneNo(" . $i . ")' name='viewerPhone_" . $i . "' required></td>" .
-            "<td class='form_td'><div class='feedback' id='phone_no_feedback_" . $i . "'></div></td>" .
+            "<td class='form_td'><input type='text' value='$phone_no' oninput='validatePhoneNo(" . $i . ")' name='viewerPhone_" . $i . "' required></td>" .
+            "<td class='form_td'><div class='alert-info' id='phone_no_feedback_" . $i . "'></div></td>" .
             "</tr>" .
             "<tr><td class='form_td'>Email</td></tr>" .
             "<tr class='spaceUnder'>" .
-            "<td class='form_td'><input type='email' oninput='validateEmail(" . $i . ")' name='viewerEmail_".$i."'></td>" .
-            "<td class='form_td'><div class='feedback' id='email_feedback_" . $i . "'></div></td>".
+            "<td class='form_td'><input type='email' value='$email' oninput='validateEmail(" . $i . ")' name='viewerEmail_".$i."'></td>" .
+            "<td class='form_td'><div class='alert-info' id='email_feedback_" . $i . "'></div></td>".
             "</tr>" .
             "</table>";
 
