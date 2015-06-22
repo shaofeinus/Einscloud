@@ -5,7 +5,7 @@
 
 session_start ();
 if(!isset($_SESSION ["login_id"]))
-    header("Location: ../logged_out.html");
+    header("Location: logged_out.html");
 
 $user_id = $_SESSION ["login_id"];
 
