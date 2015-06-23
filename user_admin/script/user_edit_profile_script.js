@@ -2,7 +2,7 @@
  * Created by Shao Fei on 22/6/2015.
  */
 
-var formValid = {username:false, dob:false, email:false, password:false};
+var formValid = {username:false, dob:false, email:false, oldPassword:false, newPassword:false, confirmPassword:false, oldPasswordCorrect:false};
 
 function verifyLogin() {
     $.post('php/user_add_viewer_functions.php',
@@ -144,6 +144,14 @@ function editEmail() {
     var email = document.getElementById('new_email').value;
 
     validateEmail();
+    validateNewPassword();
+    validateConfirmPassword();
+
+    if(formValid.oldPassword && formValid.newPassword && formValid.confirmPassword) {
+        if(isOldPasswordCorrect()) {
+
+        }
+    }
 
     if(formValid.email) {
         $.post("php/user_edit_profile_functions.php",
@@ -185,6 +193,45 @@ function deleteEmail() {
                 alert("Error occurred when deleting email")
             }
         });
+}
+
+function changePassword() {
+    validateOldPassword();
+    validateNewPassword();
+    validateConfirmPassword();
+
+    if(formValid.oldPassword && formValid.newPassword && formValid.confirmPassword) {
+        if(formValid.oldPasswordCorrect) {
+            var newPassword = document.getElementById("new_password").value;
+            $.post("php/user_edit_profile_functions.php",
+                {
+                    func: "changePassword",
+                    params: newPassword
+
+                },
+                function(data, status) {
+                    console.log(data);
+                    var success = JSON.parse(data);
+                    if(success) {
+                        alert("Password changed");
+                        location.reload();
+                    } else {
+                        alert("Error occurred when changing password")
+                    }
+                });
+        } else {
+            alert("Old password is wrong!");
+            document.getElementById("old_password").value = "";
+            document.getElementById("new_password").value = "";
+            document.getElementById("confirm_password").value = "";
+        }
+    } else {
+        alert("Invalid password(s) entered");
+        document.getElementById("old_password").value = "";
+        document.getElementById("new_password").value = "";
+        document.getElementById("confirm_password").value = "";
+    }
+
 }
 
 function validateUsername() {
@@ -231,6 +278,74 @@ function validateEmail() {
     }
 }
 
+function validateOldPassword() {
+    var oldPassword = document.getElementById("old_password").value;
+
+    if(oldPassword === "") {
+        document.getElementById("old_password_feedback").innerHTML = "";
+        formValid.oldPassword = false;
+    } else if(!/^[0-9][0-9][0-9][0-9][0-9][0-9]$/.test(oldPassword)) {
+        document.getElementById("old_password_feedback").innerHTML = "Password not a 6 digit number";
+        formValid.oldPassword = false;
+    } else {
+        document.getElementById("old_password_feedback").innerHTML = "";
+        formValid.oldPassword = true;
+        checkOldPassword(oldPassword);
+    }
+}
+
+function checkOldPassword(oldPassword) {
+    $.post("php/user_edit_profile_functions.php",
+        {
+            func: "checkOldPassword",
+            params: oldPassword
+
+        },
+        function(data, status) {
+            console.log(data);
+            var isValid = JSON.parse(data);
+            if(isValid) {
+                formValid.oldPasswordCorrect = true;
+            } else {
+                formValid.oldPasswordCorrect = false;
+            }
+        });
+}
+
+function validateNewPassword() {
+    var newPassword = document.getElementById("new_password").value;
+
+    if(newPassword === "") {
+        document.getElementById("new_password_feedback").innerHTML = "";
+        formValid.newPassword = false;
+    } else if(!/^[0-9][0-9][0-9][0-9][0-9][0-9]$/.test(newPassword)) {
+        document.getElementById("new_password_feedback").innerHTML = "Password not a 6 digit number";
+        formValid.newPassword = false;
+    } else {
+        document.getElementById("new_password_feedback").innerHTML = "";
+        formValid.newPassword = true;
+        validateConfirmPassword();
+    }
+}
+
+function validateConfirmPassword() {
+    var newPassword = document.getElementById("new_password").value;
+    var confirmPassword = document.getElementById("confirm_password").value;
+
+    if(confirmPassword === "") {
+        document.getElementById("confirm_password_feedback").innerHTML = "";
+        formValid.confirmPassword = false;
+    } else if(!formValid.newPassword) {
+        document.getElementById("confirm_password_feedback").innerHTML = "Enter a valid new password first";
+        formValid.confirmPassword = false;
+    } else if(!/^[0-9][0-9][0-9][0-9][0-9][0-9]$/.test(confirmPassword)) {
+        document.getElementById("confirm_password_feedback").innerHTML = "Password not a 6 digit number";
+        formValid.confirmPassword = false;
+    } else {
+        document.getElementById("confirm_password_feedback").innerHTML = "";
+        formValid.confirmPassword = true;
+    }
+}
 
 
 

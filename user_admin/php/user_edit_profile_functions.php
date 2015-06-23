@@ -27,6 +27,10 @@ function decideFunction() {
                 return editEmail($param);
             case 'deleteEmail':
                 return deleteEmail();
+            case 'checkOldPassword':
+                return checkOldPassword($param);
+            case 'changePassword':
+                return changePassword($param);
             default:
                 return NULL;
         }
@@ -124,6 +128,38 @@ function deleteEmail() {
     session_start();
     $id = $_SESSION['login_id'];
     $query = "UPDATE User SET email=NULL WHERE id=$id";
+    $response = make_query($query);
+    if($response) {
+        echo json_encode(true);
+    } else {
+        echo json_encode(false);
+    }
+}
+
+function checkOldPassword($oldPassword) {
+    $encryptPassword = md5($oldPassword);
+    require_once __DIR__.'/DB_connect/db_utility.php';
+    session_start();
+    $id = $_SESSION['login_id'];
+    $query = "SELECT * FROM User WHERE id=$id AND password='$encryptPassword'";
+    $response = make_query($query);
+    if($response) {
+        if(mysqli_num_rows($response) == 1) {
+            echo json_encode(true);
+        } else {
+            echo json_encode(false);
+        }
+    } else {
+        echo json_encode(false);
+    }
+}
+
+function changePassword($newPassword) {
+    $encryptPassword = md5($newPassword);
+    require_once __DIR__.'/DB_connect/db_utility.php';
+    session_start();
+    $id = $_SESSION['login_id'];
+    $query = "UPDATE User SET password='$encryptPassword' WHERE id=$id";
     $response = make_query($query);
     if($response) {
         echo json_encode(true);

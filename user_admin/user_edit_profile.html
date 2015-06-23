@@ -81,15 +81,24 @@
         <table class="table">
             <tr>
                 <th>Old password:</th>
-                <td><input type="password" id="old_password"></td>
+                <td>
+                    <input type="password" id="old_password" oninput="validateOldPassword()">
+                    <div class="alert-info" id="old_password_feedback"></div>
+                </td>
             </tr>
             <tr>
                 <th>New password:</th>
-                <td><input type="password" id="new_password"></td>
+                <td>
+                    <input type="password" id="new_password" oninput="validateNewPassword()">
+                    <div class="alert-info" id="new_password_feedback"></div>
+                </td>
             </tr>
             <tr>
                 <th>Confirm new password:</th>
-                <td><input type="password" id="confirm_new_password" oninput="validateConfirmPassword()"></td>
+                <td>
+                    <input type="password" id="confirm_password" oninput="validateConfirmPassword()">
+                    <div class="alert-info" id="confirm_password_feedback"></div>
+                </td>
             </tr>
             <tr>
                 <td></td><td><button class="btn btn-warning" onclick="changePassword()">Change password</button></td>
