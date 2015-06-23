@@ -19,6 +19,8 @@
         echo "response is erroneous";
         die(mysql_error());
     }
+    
+    $_SESSION['login_viewer'] = $_POST['username'];
 
     header("Location: ../viewer_profile.php");
 ?>
