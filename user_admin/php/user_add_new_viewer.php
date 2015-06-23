@@ -1,4 +1,7 @@
-<?php session_start();?>
+<?php 
+//start session and check for session validity
+require_once 'DB_connect/check_session_validity.php';
+?>
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>

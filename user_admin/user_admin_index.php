@@ -141,9 +141,9 @@
 					onclick="return confirm('Are you sure that you would like to delete these contacts?')" class="btn btn-warning" />
 			</div></div>
 			<br>
-			<div class=row><div class="col-xs-12"><input type='submit' value='Add Viewer' class="btn btn-primary" formmethod="get" formaction='user_add_viewer.html'/></div></div>
+			<div class=row><div class="col-xs-12"><input type='submit' value='Add Viewer' class="btn btn-primary" formmethod="get" formaction='user_add_viewer.php'/></div></div>
 			<br>
-			<div class=row><div class="col-xs-12"><input type='submit' value='Add Emergency landline contact' class="btn btn-primary" formmethod="get" formaction='user_add_emerg.html'/></div></div>
+			<div class=row><div class="col-xs-12"><input type='submit' value='Add Emergency landline contact' class="btn btn-primary" formmethod="get" formaction='user_add_emerg.php'/></div></div>
 			<br>
 			<div class=row><div class="col-xs-12"><input type='submit' value='Log out' class="btn btn-danger" formmethod="get" formaction='php/logout.php'/></div></div>
 		</form>

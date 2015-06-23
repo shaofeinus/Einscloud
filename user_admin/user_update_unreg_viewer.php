@@ -3,9 +3,7 @@
  * This page submit the POST form to itself.
  */
 
-// session_start ();
-// if(!isset($_SESSION ["login_id"]))
-//     header("Location: logged_out.html");
+//start session and check for session validity
 require_once 'php/DB_connect/check_session_validity.php';
 
 $user_id = $_SESSION ["login_id"];
