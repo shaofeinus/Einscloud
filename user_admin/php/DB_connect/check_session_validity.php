@@ -2,7 +2,7 @@
 session_start();
 
 require_once "db_utility.php";
-$dir = __DIR__;
+
 //if session doesn't exist at all, go to logged_out.html
 if(!isset($_SESSION['login_id'])) header("Location: /einscloud/user_admin/logged_out.html");
 

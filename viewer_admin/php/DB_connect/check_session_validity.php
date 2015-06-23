@@ -15,7 +15,7 @@ if (mysqli_num_rows($resp) == 1) {
 } else {
 	//if the sql query does not return exactly 1 row of result, something's wrong. 
 	//TODO: Maybe should change this to writing to a console log file or something.
-	die('A query with a user-id from the User table returned a non-1-row result.');
+	die('A query with a viewer-id from the RegisteredViewer table returned a non-1-row result.');
 }
 
 if($id_in_database != session_id()){
