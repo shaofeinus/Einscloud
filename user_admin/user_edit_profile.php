@@ -1,3 +1,8 @@
+<?php
+//start session and check for session validity
+require_once 'php/DB_connect/check_session_validity.php';
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -104,6 +109,24 @@
                 <td></td><td><button class="btn btn-warning" onclick="changePassword()">Change password</button></td>
             </tr>
         </table>
+
+        <form>
+            <table>
+                <tr class="spaceUnder">
+                    <td>
+                        <input type="submit" class="btn btn-primary" formaction="user_admin_index.php" value="Go back to User admin">
+                    </td>
+                    <td></td>
+                </tr>
+                <tr class="spaceUnder">
+                    <td>
+                        <input type='submit' value='Log out' class="btn btn-danger" formmethod="get" formaction='php/logout.php'/>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </form>
+
     </div>
 
 </body>
