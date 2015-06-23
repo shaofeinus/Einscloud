@@ -1,11 +1,8 @@
 <?php
-session_start ();
+//start session and check for session validity
+require_once 'DB_connect/check_session_validity.php';
 
 $user_id = $_SESSION ["login_id"];
-
-
-// import sql utility functions.
-require_once 'DB_connect/db_utility.php';
 
 if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 	if (! empty ( $_POST ['reg_viewer'] )) {

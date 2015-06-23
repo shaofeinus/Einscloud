@@ -5,10 +5,12 @@
  * Date: 12/6/2015
  * Time: 3:49 PM
  */
+//start session and check for session validity
+require_once 'DB_connect/check_session_validity.php';
+
 processAddEmerg();
 
 function processAddEmerg() {
-    session_start();
     if(isset($_POST['addEmergSubmit'])) {
         $i = 0;
         $successEmerg = array();
