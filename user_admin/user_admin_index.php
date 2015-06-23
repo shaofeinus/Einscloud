@@ -145,6 +145,8 @@
 			<br>
 			<div class=row><div class="col-xs-12"><input type='submit' value='Add Emergency landline contact' class="btn btn-primary" formmethod="get" formaction='user_add_emerg.php'/></div></div>
 			<br>
+            <div class=row><div class="col-xs-12"><input type='submit' value='Edit profile' class="btn btn-primary" formmethod="get" formaction='user_edit_profile.php'/></div></div>
+            <br>
 			<div class=row><div class="col-xs-12"><input type='submit' value='Log out' class="btn btn-danger" formmethod="get" formaction='php/logout.php'/></div></div>
 		</form>
 		
