@@ -1,11 +1,16 @@
 <?php 
-session_start ();
+if(isset($_COOKIE['user_session_id'])){
+	session_id($_COOKIE['user_session_id']);
+	session_start ();
+	
+	// remove all session variables
+	session_unset();
+	
+	// destroy the session
+	session_destroy();
+	
+	setcookie('user_session_id', '', 1, '/einscloud/user_admin/');
+}
+header("Location: /einscloud/user_admin/logged_out.html");
 
-// remove all session variables
-session_unset();
-
-// destroy the session
-session_destroy();
-
-header("Location: ../logged_out.html");
 ?>

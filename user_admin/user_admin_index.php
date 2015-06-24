@@ -1,13 +1,8 @@
-<?php session_start ();
-
-	//jump to logged_out.html if there is no session data
-	if(!isset($_SESSION ["login_id"]))
-    	header("Location: logged_out.html");
+<?php 
+	//start session and check for session validity
+	require_once 'php/DB_connect/check_session_validity.php';
 
 	$user_id = $_SESSION ["login_id"];
-	
-	// import sql utility functions.
-	require_once 'php/DB_connect/db_utility.php';
 	
 	/* Fetch viewers data */
 	// Fetch Registered Viewers of this User
@@ -66,7 +61,7 @@
 			while ( $row = mysqli_fetch_assoc ( $landline_sql_resp ) ) {
 				$name = $row ['name'];
 				$landline_id = $row ['landline_id'];
-				require_once __DIR__ . '/php/DB_connect/db_utility.php';
+
 				$query = "SELECT phone_no FROM LandlineContact WHERE id=$landline_id";
 				$response = make_query ( $query );
 				$phone_no = "";

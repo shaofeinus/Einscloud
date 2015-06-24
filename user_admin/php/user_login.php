@@ -31,11 +31,13 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
 }
 
 //This section sets a custom session id and update it into database.
-include "DB_connect/db_utility.php";
+require_once "DB_connect/db_utility.php";
+$user_session_id = md5('user'.time().mt_rand());
+setcookie('user_session_id', $user_session_id, 0, '/einscloud/user_admin/');
 
-session_regenerate_id(true);
-$session_id = session_id();
-make_query("update User set session_id='{$session_id}' where id={$_SESSION["login_id"]};");
+session_id($user_session_id);
+
+make_query("update User set session_id='{$user_session_id}' where id={$_SESSION["login_id"]};");
 $_SESSION['last_activity'] = time();
 
 header("Location: ../user_admin_index.php");

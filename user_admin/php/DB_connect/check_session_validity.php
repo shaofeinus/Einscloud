@@ -1,4 +1,8 @@
 <?php
+if(!isset($_COOKIE['user_session_id'])){
+	header("Location: /einscloud/user_admin/logged_out.html");
+}
+session_id($_COOKIE['user_session_id']);
 session_start();
 
 require_once "db_utility.php";
