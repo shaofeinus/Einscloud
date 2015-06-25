@@ -5,47 +5,63 @@ var START_CROP_X = 500;
 var START_CROP_Y = 500;
 var CROP_WIDTH = 800;
 var CROP_HEIGHT = 800;
-var POSITION_X = 200;
-var POSITION_Y = 200;
-var WIDTH = 800;
-var HEIGHT = 800;
+var POSITION_X = 0;
+var POSITION_Y = 0;
+var IMAGE_WIDTH = 800;
+var IMAGE_HEIGHT = 800;
+var CANVAS_WIDTH = 800;
+var CANVAS_HEIGHT = 800;
 
 function cropAndSave() {
-
-    /* Obtain orientation of image */
-    loadImage.parseMetaData (
-        document.getElementById("input_image").files[0],
-        function (data) {
-            var orientation = data.exif.get("Orientation");
-        }
-    )
 
     // Loads image from input and returns a <img> element
     loadImage(
         document.getElementById("input_image").files[0],
         function (img) {
-            var croppedImgData = crop(img);
-            postImage(croppedImgData);
+            process(img);
+
         }
     )
-
-
 }
-function crop(img) {
+
+function drawImage(canvas, img) {
+    /* Obtain orientation of image */
+     loadImage.parseMetaData (
+         document.getElementById("input_image").files[0],
+         function (data) {
+             var orientation = data.exif.get("Orientation");
+
+             var context = canvas.getContext('2d');
+             context.translate(250, 250);
+
+             if(orientation === 6) {
+                 context.rotate(Math.PI/2);
+             }
+
+             context.translate(-250, -250);
+
+             //context.drawImage(img, 0, 0, 100, 100);
+             //context.drawImage(img, 0, 0);
+             context.drawImage(img, START_CROP_X,START_CROP_Y,CROP_WIDTH,CROP_HEIGHT,POSITION_X,POSITION_Y,IMAGE_WIDTH,IMAGE_HEIGHT);
+
+             postImage(canvas);
+         }
+     );
+}
+
+function process(img) {
 
     var canvas = document.createElement("CANVAS");
-    canvas.setAttribute("width", 1000);
-    canvas.setAttribute("height", 1000);
-    var context = canvas.getContext('2d');
+    canvas.setAttribute("id", "crop_canvas");
+    canvas.setAttribute("width", CANVAS_WIDTH);
+    canvas.setAttribute("height", CANVAS_HEIGHT);
 
-    //context.drawImage(img, 0, 0, 100, 100);
-    //context.drawImage(img, 0, 0);
-    context.drawImage(img, START_CROP_X,START_CROP_Y,CROP_WIDTH,CROP_HEIGHT,POSITION_X,POSITION_Y,WIDTH,HEIGHT);
-    //document.getElementById("img_aft").src = canvas.toDataURL("image/png");
-    return canvas.toDataURL("image/png");
+    drawImage(canvas, img);
 }
 
-function postImage(imgData) {
+function postImage(canvas) {
+
+    var imgData = canvas.toDataURL("image/jpeg", 0.1);
 
     $.post('save_cropped_img.php',
         {
