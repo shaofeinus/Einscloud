@@ -1,4 +1,7 @@
 <?php
+if(isset($_COOKIE['user_session_id'])){
+	session_id($_COOKIE['user_session_id']);
+}
 session_start();
 
 //check if the user has already logged in and the session is still valid,

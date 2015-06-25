@@ -1,4 +1,7 @@
 <?php
+if(isset($_COOKIE['viewer_session_id'])){
+	session_id($_COOKIE['viewer_session_id']);
+}
 session_start();
 
 //check if the viewer has already logged in and the session is still valid,

@@ -1,8 +1,11 @@
 <?php
+if(!isset($_COOKIE['viewer_session_id'])){
+	header("Location: /einscloud/viewer_admin/logged_out.html");
+}
+session_id($_COOKIE['viewer_session_id']);
 session_start();
 
 require_once "db_utility.php";
-$dir = __DIR__;
 //if session doesn't exist at all, go to logged_out.html
 if(!isset($_SESSION['viewer_id'])) header("Location: /einscloud/viewer_admin/logged_out.html");
 
