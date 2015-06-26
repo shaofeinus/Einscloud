@@ -6,17 +6,26 @@
  * Time: 2:24 PM
  */
 
+define('CONVERT_TRIM_PART_CMD', " -bordercolor \"#000000\" -border 1X1 -fuzz 80% -trim +repage ");
+define("X_OFFSET", "xOffset");
+define("Y_OFFSET", "yOffset");
+define('HEIGHT', "height");
+define('WIDTH', "width");
+
+define('IC', "IC");
+define('ADDRESS', "address");
+define('GENDER', "gender");
+define('DOB', "dob");
+define('RACE', "race");
+define('NAME', "name");
+define('NRIC', "nric");
+
 define("IMG_PATH", "img/");
 define("TXT_PATH", "txt/");
 define("IMG_EXT", ".jpg");
 define("TXT_EXT", ".txt");
-define("NRIC_EXT", "_nric");
-define("NAME_EXT", "_name");
-define("RACE_EXT", "_race");
-define("DOB_EXT", "_dob");
-define("GENDER_EXT", "_gender");
-define("ADDRESS_EXT", "_address");
-define("CONVER_BW_PART_CMD", " -type grayscale -clone 0 -type grayscale -negate -lat 20x20+10% -compose copy_opacity -composite -negate -auto-orient ");
+
+define("CONVERT_BW_PART_CMD", " -type grayscale -clone 0 -type grayscale -negate -lat 20x20+10% -compose copy_opacity -composite -negate -auto-orient ");
 
 if(isset($_POST['img']) && isset($_POST['side'])) {
     $side = $_POST['side'];
@@ -31,10 +40,7 @@ if(isset($_POST['img']) && isset($_POST['side'])) {
 }
 
 function trimImage($fileID) {
-    $command = "convert ".
-        IMG_PATH . $fileID . IMG_EXT .
-        " -bordercolor \"#000000\" -border 1X1 -fuzz 80% -trim +repage ".
-        IMG_PATH . $fileID . IMG_EXT;
+    $command = "convert ". IMG_PATH . $fileID . IMG_EXT . CONVERT_TRIM_PART_CMD . IMG_PATH . $fileID . IMG_EXT;
     exec($command);
 }
 
@@ -49,173 +55,59 @@ function processImage($fileID, $side) {
 function cropSections($fileID, $side)
 {
     if ($side == "front") {
-        crop("nric", $fileID);
-        crop("name", $fileID);
-        crop("race", $fileID);
-        crop("dob", $fileID);
-        crop("gender", $fileID);
+        crop(NRIC, $fileID);
+        crop(NAME, $fileID);
+        crop(RACE, $fileID);
+        crop(DOB, $fileID);
+        crop(GENDER, $fileID);
     }
 
     if ($side == "back") {
-        crop("address", $fileID);
+        crop(ADDRESS, $fileID);
     }
 }
 
 function crop($section, $fileID) {
 
-    // Constants
-    $IC_SPECS = array("width" => 9.8, "height" => 6.2);
-    $NRIC_SPECS = array("width" => 3.0, "height" => 0.6, "xOffset" => 3.6, "yOffset" => 0.7);
-    $NAME_SPECS = array("width" => 6.0, "height" => 0.5, "xOffset" => 3.4, "yOffset" => 2.3);
-    $RACE_SPECS = array("width" => 4.0, "height" => 0.4, "xOffset" => 3.4, "yOffset" => 4.1);
-    $DOB_SPECS = array("width" => 2.0, "height" => 0.4, "xOffset" => 3.4, "yOffset" => 4.7);
-    $GENDER_SPECS = array("width" => 0.5, "height" => 0.4, "xOffset" => 5.4, "yOffset" => 4.7);
-    $ADDRESS_SPECS = array("width" => 7.0, "height" => 1.2, "xOffset" => 0.7, "yOffset" => 4.9);
+    // Specs for each section
+    $SPECS = array();
+    $SPECS[IC] = array(WIDTH => 9.8, HEIGHT => 6.2);
+    $SPECS[NRIC] = array(WIDTH => 3.0, HEIGHT => 0.6, X_OFFSET => 3.6, Y_OFFSET => 0.7);
+    $SPECS[NAME] = array(WIDTH => 6.0, HEIGHT => 0.5, X_OFFSET => 3.4, Y_OFFSET => 2.3);
+    $SPECS[RACE] = array(WIDTH => 4.0, HEIGHT => 0.4, X_OFFSET => 3.4, Y_OFFSET => 4.1);
+    $SPECS[DOB] = array(WIDTH => 2.0, HEIGHT => 0.4, X_OFFSET => 3.4, Y_OFFSET => 4.7);
+    $SPECS[GENDER] = array(WIDTH => 0.5, HEIGHT => 0.4, X_OFFSET => 5.4, Y_OFFSET => 4.7);
+    $SPECS[ADDRESS] = array(WIDTH => 7.0, HEIGHT => 1.2, X_OFFSET => 0.7, Y_OFFSET => 4.9);
 
+    // Dimension of current image
     $dimension = getimagesize(IMG_PATH . $fileID . IMG_EXT);
     $img_width = $dimension[0];
     $img_height = $dimension[1];
 
-    switch($section) {
-        case "nric":
+    // Factors to arrive at crop specs
+    $widthFactor = $img_width / $SPECS[IC][WIDTH];
+    $heightFactor = $img_height / $SPECS[IC][HEIGHT];
 
-            $cropWidth = round($NRIC_SPECS["width"]/$IC_SPECS["width"]*$img_width);
-            $cropHeight = round($NRIC_SPECS["height"]/$IC_SPECS["height"]*$img_height);
-            $xOffset = round($NRIC_SPECS["xOffset"]/$IC_SPECS["width"]*$img_width);
-            $yOffset = round($NRIC_SPECS["yOffset"]/$IC_SPECS["height"]*$img_height);
+    // Obtain crop specs for section
+    $cropWidth = round($SPECS[$section][WIDTH] * $widthFactor);
+    $cropHeight = round($SPECS[$section][HEIGHT] * $heightFactor);
+    $xOffset = round($SPECS[$section][X_OFFSET] * $widthFactor);
+    $yOffset = round($SPECS[$section][Y_OFFSET] * $heightFactor);
 
-            $command = "convert " .
-                IMG_PATH . $fileID . IMG_EXT .
-                " +repage -crop " .
-                $cropWidth . "x" . $cropHeight . "+" . $xOffset . "+" . $yOffset .
-                " +repage " .
-                IMG_PATH . $fileID . NRIC_EXT . IMG_EXT;
+    $command = "convert " .
+        IMG_PATH . $fileID . IMG_EXT .
+        " +repage -crop " .
+        $cropWidth . "x" . $cropHeight . "+" . $xOffset . "+" . $yOffset .
+        " +repage " .
+        IMG_PATH . $fileID . $section . IMG_EXT;
 
-            exec($command);
+    exec($command);
 
-            $command = "convert " .
-                IMG_PATH . $fileID . NRIC_EXT . IMG_EXT . CONVER_BW_PART_CMD . IMG_PATH . $fileID . NRIC_EXT . IMG_EXT;
+    $command = "convert " .
+        IMG_PATH . $fileID . $section . IMG_EXT . CONVERT_BW_PART_CMD . IMG_PATH . $fileID . $section . IMG_EXT;
 
-            exec($command);
+    exec($command);
 
-            break;
-
-        case "name":
-
-            $cropWidth = round($NAME_SPECS["width"]/$IC_SPECS["width"]*$img_width);
-            $cropHeight = round($NAME_SPECS["height"]/$IC_SPECS["height"]*$img_height);
-            $xOffset = round($NAME_SPECS["xOffset"]/$IC_SPECS["width"]*$img_width);
-            $yOffset = round($NAME_SPECS["yOffset"]/$IC_SPECS["height"]*$img_height);
-
-            $command = "convert " .
-                IMG_PATH . $fileID . IMG_EXT .
-                " +repage -crop " .
-                $cropWidth . "x" . $cropHeight . "+" . $xOffset . "+" . $yOffset .
-                " +repage " .
-                IMG_PATH . $fileID . NAME_EXT . IMG_EXT;
-
-            exec($command);
-
-            $command = "convert " .
-                IMG_PATH . $fileID . NAME_EXT . IMG_EXT . CONVER_BW_PART_CMD . IMG_PATH . $fileID . NAME_EXT . IMG_EXT;
-
-            exec($command);
-
-            break;
-        case "race":
-
-            $cropWidth = round($RACE_SPECS["width"]/$IC_SPECS["width"]*$img_width);
-            $cropHeight = round($RACE_SPECS["height"]/$IC_SPECS["height"]*$img_height);
-            $xOffset = round($RACE_SPECS["xOffset"]/$IC_SPECS["width"]*$img_width);
-            $yOffset = round($RACE_SPECS["yOffset"]/$IC_SPECS["height"]*$img_height);
-
-            $command = "convert " .
-                IMG_PATH . $fileID . IMG_EXT .
-                " +repage -crop " .
-                $cropWidth . "x" . $cropHeight . "+" . $xOffset . "+" . $yOffset .
-                " +repage " .
-                IMG_PATH . $fileID . RACE_EXT . IMG_EXT;
-
-            exec($command);
-
-            $command = "convert " .
-                IMG_PATH . $fileID . RACE_EXT . IMG_EXT . CONVER_BW_PART_CMD . IMG_PATH . $fileID . RACE_EXT . IMG_EXT;
-
-            exec($command);
-
-            break;
-
-        case "dob":
-
-            $cropWidth = round($DOB_SPECS["width"]/$IC_SPECS["width"]*$img_width);
-            $cropHeight = round($DOB_SPECS["height"]/$IC_SPECS["height"]*$img_height);
-            $xOffset = round($DOB_SPECS["xOffset"]/$IC_SPECS["width"]*$img_width);
-            $yOffset = round($DOB_SPECS["yOffset"]/$IC_SPECS["height"]*$img_height);
-
-            $command = "convert " .
-                IMG_PATH . $fileID . IMG_EXT .
-                " +repage -crop " .
-                $cropWidth . "x" . $cropHeight . "+" . $xOffset . "+" . $yOffset .
-                " +repage " .
-                IMG_PATH . $fileID . DOB_EXT . IMG_EXT;
-
-            exec($command);
-
-            $command = "convert " .
-                IMG_PATH . $fileID . DOB_EXT . IMG_EXT . CONVER_BW_PART_CMD . IMG_PATH . $fileID . DOB_EXT . IMG_EXT;
-
-            exec($command);
-
-            break;
-
-        case "gender":
-
-            $cropWidth = round($GENDER_SPECS["width"]/$IC_SPECS["width"]*$img_width);
-            $cropHeight = round($GENDER_SPECS["height"]/$IC_SPECS["height"]*$img_height);
-            $xOffset = round($GENDER_SPECS["xOffset"]/$IC_SPECS["width"]*$img_width);
-            $yOffset = round($GENDER_SPECS["yOffset"]/$IC_SPECS["height"]*$img_height);
-
-            $command = "convert " .
-                IMG_PATH . $fileID . IMG_EXT .
-                " +repage -crop " .
-                $cropWidth . "x" . $cropHeight . "+" . $xOffset . "+" . $yOffset .
-                " +repage " .
-                IMG_PATH . $fileID . GENDER_EXT . IMG_EXT;
-
-            exec($command);
-
-            $command = "convert " .
-                IMG_PATH . $fileID . GENDER_EXT . IMG_EXT . CONVER_BW_PART_CMD . IMG_PATH . $fileID . GENDER_EXT . IMG_EXT;
-
-            exec($command);
-
-            break;
-
-        case "address":
-
-            $cropWidth = round($ADDRESS_SPECS["width"]/$IC_SPECS["width"]*$img_width);
-            $cropHeight = round($ADDRESS_SPECS["height"]/$IC_SPECS["height"]*$img_height);
-            $xOffset = round($ADDRESS_SPECS["xOffset"]/$IC_SPECS["width"]*$img_width);
-            $yOffset = round($ADDRESS_SPECS["yOffset"]/$IC_SPECS["height"]*$img_height);
-
-            $command = "convert " .
-                IMG_PATH . $fileID . IMG_EXT .
-                " +repage -crop " .
-                $cropWidth . "x" . $cropHeight . "+" . $xOffset . "+" . $yOffset .
-                " +repage " .
-                IMG_PATH . $fileID . ADDRESS_EXT . IMG_EXT;
-
-            exec($command);
-
-            $command = "convert " .
-                IMG_PATH . $fileID . ADDRESS_EXT . IMG_EXT . CONVER_BW_PART_CMD . IMG_PATH . $fileID . ADDRESS_EXT . IMG_EXT;
-
-            exec($command);
-
-            break;
-        default:
-            break;
-    }
 }
 
 function interpretSections($fileID, $side) {
@@ -223,50 +115,23 @@ function interpretSections($fileID, $side) {
     $results = array();
 
     if($side == "front") {
-        $results["nric"] = interpret("nric", $fileID);
-        $results["name"] = interpret("name", $fileID);
-        $results["race"] = interpret("race", $fileID);
-        $results["dob"] = interpret("dob", $fileID);
-        $results["gender"] = interpret("gender", $fileID);
+        $results[NRIC] = interpret(NRIC, $fileID);
+        $results[NAME] = interpret(NAME, $fileID);
+        $results[RACE] = interpret(RACE, $fileID);
+        $results[DOB] = interpret(DOB, $fileID);
+        $results[GENDER] = interpret(GENDER, $fileID);
     }
 
     if($side == "back") {
-        $results["address"] = interpret("address", $fileID);
+        $results[ADDRESS] = interpret(ADDRESS, $fileID);
     }
 
     return $results;
 }
 
 function interpret($section, $fileID) {
-    switch($section) {
-        case "nric":
-            $command = "tesseract " . IMG_PATH . $fileID . NRIC_EXT . IMG_EXT . " " . TXT_PATH . $fileID;
-            exec($command);
-            break;
-        case "name":
-            $command = "tesseract " . IMG_PATH . $fileID . NAME_EXT . IMG_EXT . " " . TXT_PATH . $fileID;
-            exec($command);
-            break;
-        case "race":
-            $command = "tesseract " . IMG_PATH . $fileID . RACE_EXT . IMG_EXT . " " . TXT_PATH . $fileID;
-            exec($command);
-            break;
-        case "dob":
-            $command = "tesseract " . IMG_PATH . $fileID . DOB_EXT . IMG_EXT . " " . TXT_PATH . $fileID;
-            exec($command);
-            break;
-        case "gender":
-            $command = "tesseract " . IMG_PATH . $fileID . GENDER_EXT . IMG_EXT . " " . TXT_PATH . $fileID;
-            exec($command);
-            break;
-        case "address":
-            $command = "tesseract " . IMG_PATH . $fileID . ADDRESS_EXT . IMG_EXT . " " . TXT_PATH . $fileID ;
-            exec($command);
-            break;
-        default:
-            break;
-    }
-
+    $command = "tesseract " . IMG_PATH . $fileID . $section . IMG_EXT . " " . TXT_PATH . $fileID ;
+    exec($command);
     return readTxtFile($fileID);
 }
 
@@ -300,46 +165,21 @@ function removeImgFiles($fileID, $side) {
     unlink(IMG_PATH . $fileID . IMG_EXT);
 
     if ($side == "front") {
-        removeImage("nric", $fileID);
-        removeImage("name", $fileID);
-        removeImage("race", $fileID);
-        removeImage("dob", $fileID);
-        removeImage("gender", $fileID);
+        removeImage(NRIC, $fileID);
+        removeImage(NAME, $fileID);
+        removeImage(RACE, $fileID);
+        removeImage(DOB, $fileID);
+        removeImage(GENDER, $fileID);
     }
 
     if ($side == "back") {
-        removeImage("address", $fileID);
+        removeImage(ADDRESS, $fileID);
     }
 }
 
 function removeImage($section, $fileID) {
-    switch ($section) {
-        case "nric":
-            $filePath = IMG_PATH . $fileID . NRIC_EXT . IMG_EXT;
-            break;
-        case "name":
-            $filePath = IMG_PATH . $fileID . NAME_EXT . IMG_EXT;
-            break;
-        case "race":
-            $filePath = IMG_PATH . $fileID . RACE_EXT . IMG_EXT;
-            break;
-        case "dob":
-            $filePath = IMG_PATH . $fileID . DOB_EXT . IMG_EXT;
-            break;
-        case "gender":
-            $filePath = IMG_PATH . $fileID . GENDER_EXT . IMG_EXT;
-            break;
-        case "address":
-            $filePath = IMG_PATH . $fileID . ADDRESS_EXT . IMG_EXT;
-            break;
-        default:
-            $filePath = "";
-            break;
-    }
-
-    if(!empty($filePath)) {
-        unlink($filePath);
-    }
+    $filePath = IMG_PATH . $fileID . $section . IMG_EXT;
+    unlink($filePath);
 }
 
 ?>
