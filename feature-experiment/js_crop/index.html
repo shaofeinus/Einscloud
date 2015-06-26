@@ -2,7 +2,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>IC OCR</title>
     <script src="process_ic_image_script.js?v=1"></script>
     <script src="lib/load-image.all.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -14,5 +14,7 @@ Picture of front of IC:
 Picture of back of IC:
 <input id="ic_back" type="file" value="Capture" onchange="processICImage('back')">
 <br>
+<div id="front_fields"></div>
+<div id="back_fields"></div>
 </body>
 </html>

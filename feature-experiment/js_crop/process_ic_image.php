@@ -6,9 +6,9 @@
  * Time: 2:24 PM
  */
 
-define('CONVERT_TRIM_PART_CMD', " -bordercolor \"#000000\" -border 1X1 -fuzz 80% -trim +repage ");
-define("X_OFFSET", "xOffset");
-define("Y_OFFSET", "yOffset");
+
+define('X_OFFSET', "xOffset");
+define('Y_OFFSET', "yOffset");
 define('HEIGHT', "height");
 define('WIDTH', "width");
 
@@ -25,7 +25,9 @@ define("TXT_PATH", "txt/");
 define("IMG_EXT", ".jpg");
 define("TXT_EXT", ".txt");
 
-define("CONVERT_BW_PART_CMD", " -type grayscale -clone 0 -type grayscale -negate -lat 20x20+10% -compose copy_opacity -composite -negate -auto-orient ");
+define('CONVERT_TRIM_PART_CMD', " -bordercolor \"#000000\" -border 1X1 -fuzz 80% -trim +repage ");
+define('CONVERT_BW_PART_CMD_1', " -type grayscale -clone 0 -type grayscale -negate -lat 20x20+10% -compose copy_opacity -composite -negate -auto-orient ");
+define('CONVERT_BW_PART_CMD_2', " -threshold 50% ");
 
 if(isset($_POST['img']) && isset($_POST['side'])) {
     $side = $_POST['side'];
@@ -40,7 +42,9 @@ if(isset($_POST['img']) && isset($_POST['side'])) {
 }
 
 function trimImage($fileID) {
-    $command = "convert ". IMG_PATH . $fileID . IMG_EXT . CONVERT_TRIM_PART_CMD . IMG_PATH . $fileID . IMG_EXT;
+    //$command = "convert " . IMG_PATH . $fileID . IMG_EXT . CONVERT_BW_PART_CMD_2 . IMG_PATH . $fileID . IMG_EXT;
+    //exec($command);
+    $command = "convert " . IMG_PATH . $fileID . IMG_EXT . CONVERT_TRIM_PART_CMD . IMG_PATH . $fileID . IMG_EXT;
     exec($command);
 }
 
@@ -95,16 +99,16 @@ function crop($section, $fileID) {
     $yOffset = round($SPECS[$section][Y_OFFSET] * $heightFactor);
 
     $command = "convert " .
+        IMG_PATH . $fileID . $section . IMG_EXT . CONVERT_BW_PART_CMD_1 . IMG_PATH . $fileID . $section . IMG_EXT;
+
+    exec($command);
+
+    $command = "convert " .
         IMG_PATH . $fileID . IMG_EXT .
         " +repage -crop " .
         $cropWidth . "x" . $cropHeight . "+" . $xOffset . "+" . $yOffset .
         " +repage " .
         IMG_PATH . $fileID . $section . IMG_EXT;
-
-    exec($command);
-
-    $command = "convert " .
-        IMG_PATH . $fileID . $section . IMG_EXT . CONVERT_BW_PART_CMD . IMG_PATH . $fileID . $section . IMG_EXT;
 
     exec($command);
 
