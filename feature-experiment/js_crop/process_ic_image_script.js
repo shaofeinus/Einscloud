@@ -2,7 +2,8 @@
  * Created by Shao Fei on 26/6/2015.
  */
 
-COMPRESS_RATIO = 0.7;
+// Factor to compress image
+COMPRESS_FACTOR = 0.7;
 
 function processICImage(side) {
 
@@ -38,8 +39,6 @@ function processICImage(side) {
 
 function fillInForms(results, side) {
 
-    var formField = document.createElement("DIV");
-
     if(side === "front") {
         var nric = document.createElement("p");
         nric.innerHTML = "NRIC: " + results.nric;
@@ -51,29 +50,32 @@ function fillInForms(results, side) {
         dob.innerHTML = "Date of birth: " + results.dob;
         var gender = document.createElement("p");
         gender.innerHTML = "Gender: " + results.gender;
-        formField.appendChild(nric);
-        formField.appendChild(name);
-        formField.appendChild(race);
-        formField.appendChild(dob);
-        formField.appendChild(gender);
+
+        var frontFields = document.getElementById("front_fields");
+        frontFields.innerHTML = "";
+        frontFields.appendChild(nric);
+        frontFields.appendChild(name);
+        frontFields.appendChild(race);
+        frontFields.appendChild(dob);
+        frontFields.appendChild(gender);
     }
 
     if(side === "back") {
         var address = document.createElement("p");
         address.innerHTML = "Address: " + results.address;
-        formField.appendChild(address);
+        var backFields = document.getElementById("back_fields");
+        backFields.innerHTML = "";
+        backFields.appendChild(address);
     }
-
-    document.body.appendChild(formField);
 }
 
 function compressImage(img) {
     var canvasFullIC = document.createElement("CANVAS");
-    canvasFullIC.setAttribute("width", img.width * COMPRESS_RATIO);
-    canvasFullIC.setAttribute("height", img.height * COMPRESS_RATIO);
+    canvasFullIC.setAttribute("width", img.width * COMPRESS_FACTOR);
+    canvasFullIC.setAttribute("height", img.height * COMPRESS_FACTOR);
     var contextFullIC = canvasFullIC.getContext("2d");
 
-    contextFullIC.drawImage(img, 0, 0, img.width * COMPRESS_RATIO, img.height * COMPRESS_RATIO);
+    contextFullIC.drawImage(img, 0, 0, img.width * COMPRESS_FACTOR, img.height * COMPRESS_FACTOR);
 
     var compressedImage = new Image();
     compressedImage.src = canvasFullIC.toDataURL("image/jpeg");
