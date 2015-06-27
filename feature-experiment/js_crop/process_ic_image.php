@@ -98,17 +98,19 @@ function crop($section, $fileID) {
     $xOffset = round($SPECS[$section][X_OFFSET] * $widthFactor);
     $yOffset = round($SPECS[$section][Y_OFFSET] * $heightFactor);
 
-    $command = "convert " .
-        IMG_PATH . $fileID . $section . IMG_EXT . CONVERT_BW_PART_CMD_1 . IMG_PATH . $fileID . $section . IMG_EXT;
-
-    exec($command);
-
+    // Crops out sections of the image
     $command = "convert " .
         IMG_PATH . $fileID . IMG_EXT .
         " +repage -crop " .
         $cropWidth . "x" . $cropHeight . "+" . $xOffset . "+" . $yOffset .
         " +repage " .
         IMG_PATH . $fileID . $section . IMG_EXT;
+
+    exec($command);
+
+    // Make image B/W
+    $command = "convert " .
+        IMG_PATH . $fileID . $section . IMG_EXT . CONVERT_BW_PART_CMD_1 . IMG_PATH . $fileID . $section . IMG_EXT;
 
     exec($command);
 
