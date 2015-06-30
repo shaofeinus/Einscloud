@@ -52,7 +52,7 @@ function loadProfile() {
         if(mysqli_num_rows($response) == 1) {
             $row = mysqli_fetch_assoc($response);
             $result['username'] = $row['username'];
-            $result['name'] = $row['firstname'] . " " . $row['lastname'];
+            $result['name'] = $row['fullname'];
             $result['email'] =  $row['email'];
             $result['nric'] =  $row['nric'];
             $result['phone_no'] =  $row['phone_no'];
