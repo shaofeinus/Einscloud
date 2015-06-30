@@ -4,7 +4,6 @@
 
 var fieldIsValid = [false, false,false, false, false];
 var finalUserName;
-var appendNum = 100;
 var uniqueCondition;
 
 function validateForm() {
@@ -209,20 +208,23 @@ function generateDefaultUserName(){
 }
 
 function generateDefaultUserName2(username, container){
-    if(uniqueCondition == false || username.length < 4){
+    if(username.trim() === ""){
+        document.getElementById('username').value = "";
+    }
+    else if(uniqueCondition == false || username.length < 4){
+        var appendNum = Math.floor(Math.random()*900) + 100;
         var stringNum = String(appendNum)
         username = username.concat(stringNum);
         //document.getElementById('username').value = username;
-        appendNum++;
-        console.log("this is concat name: ");
-        console.log(username);
+        //console.log("this is concat name: ");
+        //console.log(username);
         checkUsernameExists(username, container);
     }
 
     if(uniqueCondition == true){
         finalUserName = username;
-        console.log("unique condition is true now final username is: ");
-        console.log(finalUserName);
+        //console.log("unique condition is true now final username is: ");
+        //console.log(finalUserName);
         document.getElementById('username').value = finalUserName;
 
 
