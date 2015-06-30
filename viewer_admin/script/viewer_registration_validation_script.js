@@ -3,6 +3,9 @@
  */
 
 var fieldIsValid = [false, false,false, false, false];
+var finalUserName;
+var appendNum = 100;
+var uniqueCondition;
 
 function validateForm() {
     var fullNameInput = document.forms["viewer_registration_form"]["fullName"].value;
@@ -24,8 +27,9 @@ function validateForm() {
 
 function validatePhoneNo() {
     var phoneNoInput = document.forms["viewer_registration_form"]["phoneNo"].value;
+    var useDefaultRadio = document.forms["viewer_registration_form"]["default_username"].value;
 
-    if(phoneNoInput.trim() === "") {
+    if (phoneNoInput.trim() === "") {
         document.getElementById("phone_no_feedback").innerHTML = "";
         fieldIsValid[1] = false;
     } else if (!/^[8|9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/.test(phoneNoInput)) {
@@ -35,7 +39,9 @@ function validatePhoneNo() {
         document.getElementById("phone_no_feedback").innerHTML = "";
         fieldIsValid[1] = true;
     }
-
+    if (useDefaultRadio == 'yes') {
+        generateDefaultPassword();
+    }
     console.log(fieldIsValid);
 }
 
@@ -101,6 +107,7 @@ function validateConfirmPassword() {
 function checkUsernameExists(usernameInput, container) {
 
     var xmlhttp;
+    var useDefaultRadio = document.forms["viewer_registration_form"]["default_username"].value;
 
     if(window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
@@ -114,9 +121,15 @@ function checkUsernameExists(usernameInput, container) {
             if(response == 1) {
                 container.innerHTML = "Username already exists";
                 fieldIsValid[2] = false;
+                uniqueCondition = false;
+
             } else {
                 container.innerHTML = "";
                 fieldIsValid[2] = true;
+                uniqueCondition = true;
+            }
+            if(useDefaultRadio == 'yes') {
+                generateDefaultUserName2(usernameInput, container);
             }
         } /*else {
             container.innerHTML = "";
@@ -140,7 +153,7 @@ function isFormValid() {
         }
     }
 
-    if(!formIsValid) {
+    if(!formIsValid || !uniqueCondition) {
         alert("Form is incomplete/contains invalid fields");
         return false;
     } else {
@@ -152,24 +165,88 @@ function isFormValid() {
 function defaultUserInfo() {
 
 
-    document.getElementById('username').disabled = true;
-    document.getElementById('password').disabled = true;
-    document.getElementById('confirm_password').disabled = true;
+    document.getElementById('username').readOnly = true;
+    document.getElementById('password').readOnly = true;
+    document.getElementById('confirm_password').readOnly = true;
+    document.getElementById('username').style.backgroundColor = '#dddddd';
+    document.getElementById('password').style.backgroundColor = '#dddddd';
+    document.getElementById('confirm_password').style.backgroundColor = '#dddddd';
     document.getElementById('username').value = '';
     document.getElementById('password').value = '';
     document.getElementById('confirm_password').value = '';
 
     //TO-DO: call function to generate default username and password
+    generateDefaultUserName();
+    generateDefaultPassword();
+
 }
 
 function customUserInfo() {
 
-    document.getElementById('username').disabled = false;
-    document.getElementById('password').disabled = false;
-    document.getElementById('confirm_password').disabled = false;
+    document.getElementById('username').readOnly = false;
+    document.getElementById('password').readOnly = false;
+    document.getElementById('confirm_password').readOnly = false;
+    document.getElementById('username').style.backgroundColor = '#ffffff';
+    document.getElementById('password').style.backgroundColor = '#ffffff';
+    document.getElementById('confirm_password').style.backgroundColor = '#ffffff';
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('confirm_password').value = '';
 }
 
-//unused validateNric()
+function generateDefaultUserName(){
+
+    var useDefaultRadio = document.forms["viewer_registration_form"]["default_username"].value;
+    if(useDefaultRadio == 'yes') {
+        var username = document.forms["viewer_registration_form"]["fullName"].value;
+        var container = document.getElementById("username_feedback");
+
+        username = username.replace(/\s+/g, '');
+        username = username.toLowerCase();
+        checkUsernameExists(username, container);
+    }
+
+}
+
+function generateDefaultUserName2(username, container){
+    if(uniqueCondition == false || username.length < 4){
+        var stringNum = String(appendNum)
+        username = username.concat(stringNum);
+        //document.getElementById('username').value = username;
+        appendNum++;
+        console.log("this is concat name: ");
+        console.log(username);
+        checkUsernameExists(username, container);
+    }
+
+    if(uniqueCondition == true){
+        finalUserName = username;
+        console.log("unique condition is true now final username is: ");
+        console.log(finalUserName);
+        document.getElementById('username').value = finalUserName;
+
+
+    }
+}
+
+function generateDefaultPassword(){
+    var phoneNo = document.forms["viewer_registration_form"]["phoneNo"].value;
+    document.getElementById('password').value = phoneNo;
+    document.getElementById('confirm_password').value = phoneNo;
+    validatePassword();
+    validateConfirmPassword();
+    console.log(phoneNo);
+}
+
+
+
+
+
+
+
+
+
+//unused validateNric() function
 function validateNric() {
     var viewerNricInput = document.forms["viewer_registration_form"]["nric"].value;
 

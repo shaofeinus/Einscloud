@@ -9,7 +9,7 @@ require_once 'php/DB_connect/check_session_validity.php';
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Viewer Admin</title>
+    <title>Caregiver Admin</title>
 </head>
 <body>
 
@@ -34,7 +34,7 @@ require_once 'php/DB_connect/check_session_validity.php';
         $viewer_phone = $_SESSION['viewer_phone'];
 
 
-        $caregiveQuery = "SELECT firstname, lastname, birthday, gender, nric, phone_no FROM User, Caregive WHERE rv_id = '$viewer_id' AND user_id = User.id";
+        $caregiveQuery = "SELECT fullname, birthday, gender, nric, phone_no FROM User, Caregive WHERE rv_id = '$viewer_id' AND user_id = User.id";
         $caregiveResponse = make_query($caregiveQuery);
 
         if($caregiveResponse === FALSE) {
@@ -81,7 +81,7 @@ require_once 'php/DB_connect/check_session_validity.php';
         else {
             ?>
                 <div class ='page-header'>
-                    <h4><?php echo "You have no viewers";?></h4>
+                    <h4><?php echo "You are not a caregiver of anyone";?></h4>
                 </div>
 
         <?php
@@ -96,7 +96,7 @@ require_once 'php/DB_connect/check_session_validity.php';
         </div>
 
         <?php
-        $unregisteredQuery = "select id, firstname, lastname, U.phone_no, gender, birthday from UnregisteredViewer, User U where '$viewer_phone' = UnregisteredViewer.phone_no AND user_id = U.id";
+        $unregisteredQuery = "select id, fullname, U.phone_no, gender, birthday from UnregisteredViewer, User U where '$viewer_phone' = UnregisteredViewer.phone_no AND user_id = U.id";
 
         $unregisteredResponse = make_query($unregisteredQuery);
 
@@ -148,7 +148,7 @@ require_once 'php/DB_connect/check_session_validity.php';
         else{
             ?>
             <div class = 'page-header'>
-                <h4><?php echo "You have no viewers waiting for your verification";?></h4>
+                <h4><?php echo "You have no users waiting for your verification";?></h4>
             </div>
 
             <?php
