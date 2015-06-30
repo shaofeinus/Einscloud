@@ -8,8 +8,7 @@
 
 class Input
 {
-    public $firstName;
-    public $lastName;
+    public $fullName;
     public $nric;
     public $phoneNo;
     public $email;
@@ -18,12 +17,12 @@ class Input
     public $confirmPassword;
     public $birthday;
     public $gender;
-
+    public $address;
+    public $race;
 
     public function getInput()
     {
-        $this->firstName = $_POST['firstName'];
-        $this->lastName = $_POST['lastName'];
+        $this->fullName = $_POST['fullName'];
         $this->email = $_POST['email'];
         $this->email = filter_var($this->email, FILTER_SANITIZE_EMAIL);
         if(strlen(trim($this->email)) == 0){
@@ -35,6 +34,8 @@ class Input
         $this->password = md5($_POST['password']);
         $this->birthday = $_POST['birthday'];
         $this->gender = $_POST['gender'];
+        $this->address = $_POST['address'];
+        $this->race = $_POST['select_race'] === 'otherRaces' ? $_POST['otherRace'] : $_POST['select_race'];
     }
 }
 
@@ -62,11 +63,11 @@ function make_sql_query($input) {
     $connector = new DB_CONNECT();
     $connector->connect();
 
-    $query1 = "INSERT INTO User(firstname, lastname, nric, phone_no, username, password, birthday, gender)
-	VALUES('$input->firstName', '$input->lastName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->birthday', '$input->gender')";
+    $query1 = "INSERT INTO User(fullname, nric, phone_no, username, password, birthday, gender, address, race)
+	VALUES('$input->fullName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->birthday', '$input->gender', '$input->address', '$input->race')";
 
-    $query2 = "INSERT INTO User(firstname, lastname, nric, phone_no, username, password, email, birthday, gender)
-	VALUES('$input->firstName', '$input->lastName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->birthday', '$input->gender')";
+    $query2 = "INSERT INTO User(fullname, nric, phone_no, username, password, email, birthday, gender, address, race)
+	VALUES('$input->fullName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->birthday', '$input->gender', '$input->address', '$input->race')";
 
     if(empty($input->email)) {
         //echo $query1 . "<br>";
@@ -76,7 +77,7 @@ function make_sql_query($input) {
             echo "<script> alert('Your registration as a user is successful!'); window.location.assign('../index.php')</script>";
         } else {
             $connector->close();
-            echo "<script> alert('Your registration as a viewer failed! Please try again'); window.location.assign('../user_registration.html')</script>";
+            echo "<script> alert('Your registration as a user failed! Please try again'); window.location.assign('../user_registration.html')</script>";
             //echo "error";
         }
     } else {
@@ -87,7 +88,7 @@ function make_sql_query($input) {
             //echo "success";
         } else {
             $connector->close();
-            echo "<script> alert('Your registration as a viewer failed! Please try again'); window.location.assign('../user_registration.html')</script>";
+            echo "<script> alert('Your registration as a user failed! Please try again'); window.location.assign('../user_registration.html')</script>";
            // echo "error";
         }
     }

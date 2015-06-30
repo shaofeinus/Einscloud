@@ -8,7 +8,31 @@
 </head>
 
 <body>
+
+<style>
+    .top-buffer { margin-top:20px; }
+    .btn {margin-right: 10px; }
+</style>
+
 <script src="script/user_registration_validation_script.js?v=1"></script>
+<script src="../feature-experiment/js_crop/lib/load-image.all.min.js"></script>
+<script src="script/process_ic_image_script.js?v=1"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script>
+    function displayOthersInput() {
+        validateRace();
+        if(document.getElementById("race").value === "otherRaces") {
+            document.getElementById("otherRaceInput").setAttribute("style", "display:inline");
+        } else {
+            document.getElementById("otherRaceInput").setAttribute("style", "display:none");
+        }
+    }
+
+    function showImageCaptureMenu() {
+        document.getElementById("imageCaptureButtons").setAttribute("style", "display:inline")
+    }
+</script>
 
 <div class="container">
     <div class="jumbotron well">
@@ -25,10 +49,10 @@
           onsubmit="return isFormValid()">
 
         <tr class="page-header"><td><h4>Personal Particulars</h4></td></tr>
-        <tr><td>First name:</td></tr>
-        <tr><td><em><input type='text' name='firstName' placeholder="eg: John" required></em></td></tr>
-        <tr><td>Last name:</td></tr>
-        <tr><td><em><input type='text' name='lastName' placeholder="eg: Doe" required></em></td></tr>
+
+        <tr><td>Full name:</td></tr>
+        <tr><td><em><input id="fullname" type='text' name='fullName' placeholder="eg: John Doe" required></em></td></tr>
+
         <tr><td>NRIC:</td></tr>
         <tr>
             <td><em><input id="nric_field" type='text' name='nric' placeholder="eg: SXXXXXXXY" oninput="validateNric()" required></em></td>
@@ -37,8 +61,10 @@
 
         <tr><td>Gender:</td></tr>
         <tr>
-            <td><input id="male" type='radio' name='gender' value='M'  required>Male
-                <input id="female" type='radio' name='gender' value='F'  required>Female</td>
+            <td>
+                <input id="male" type='radio' name='gender' value='M'  required>Male
+                <input id="female" type='radio' name='gender' value='F'  required>Female
+            </td>
             <td><div class='alert-info' id='gender_feedback'></div></td>
         </tr>
 
@@ -47,37 +73,83 @@
             <td><input id="birthday" type='date' name='birthday' min='1900-01-01' max='3000-12-31' oninput="validateBirthday()" required></td>
             <td><div class='alert-info' id='birthday_feedback'></div></td>
         </tr>
+        <tr><td>Race: </td></tr>
+        <tr>
+            <td>
+                <select id='race' name="select_race" onchange='displayOthersInput()' class='selectpicker'>
+                    <option id='chinese' value='chinese'>Chinese</option>
+                    <option id='malay' value='malay'>Malay</option>
+                    <option id='indian' value='indian'>Indian</option>
+                    <option value='otherRaces'>Others</option>
+                </select>
+            </td>
+            <td>
+                <div id="otherRaceInput" style="display:none">
+                    If others, please specify: <input type='text' name='otherRace' oninput="validateRace()">
+                </div>
+            </td>
+            <td><div class='alert-info' id='race_feedback'></div></td>
+        </tr>
 
         <tr><td>Email:</td></tr>
         <tr>
             <td><em><input type='email' name='email' placeholder="example@example.com" oninput="validateEmail()"></em></td>
             <td><div class='alert-info' id='email_feedback'></div></td>
         </tr>
+
         <tr><td>Phone number (watch):</td></tr>
         <tr>
             <td><em><input type='text' name='phoneNo' placeholder="8-digit mobile number" oninput="validatePhoneNo()" required></em></td>
             <td><div class='alert-info' id='phone_no_feedback'></div></td>
         </tr>
 
-        <tr><br></tr>
+        <tr class="page-header"><td>Home address:</td></tr>
+        <tr>
+            <td><em><input type='text' name='address' placeholder="eg. 123 Abc Street, S123456" required></em></td>
+        </tr>
 
-        <tr><th class="page-header"><h4>Account information</h4></th></tr>
-        <tr><td class="form_td">Username:</td></tr>
+        <tr>
+            <td><p><div class="btn btn-danger" onclick="showImageCaptureMenu()">Take picture of IC</div></p></td>
+        </tr>
+
+        <tr id="imageCaptureButtons" style="display: none;">
+            <td>
+                <p>
+                    <label class="btn btn-primary" for="ic_front">Front of IC</label>
+                </p>
+                <input id="ic_front" type="file" value="Capture" onchange="processICImage('front')" style="display: none;">
+            </td>
+            <td>
+                <p>
+                    <label class="btn btn-primary" for="ic_back">Back of IC</label>
+                </p>
+                <input id="ic_back" type="file" value="Capture" onchange="processICImage('back')" style="display: none;">
+            </td>
+        </tr>
+
+        <tr><td><div class="top-buffer"></div></td></tr>
+
+        <tr class="page-header"><td><h4>Account information</h4></td></tr>
+
+        <tr><td>Username:</td></tr>
         <tr>
             <td><em><input type='text' name='username' placeholder="Your desired login name" oninput="validateUsername()" required></em></td>
             <td><div class='alert-info' id='username_feedback'></div></td>
         </tr>
+
         <tr><td>6 digit password:</td></tr>
         <tr>
             <td><em><input type='password' name='password' oninput="validatePassword()" required></em></td>
             <td><em><div class='alert-info' id="password_feedback"></div></em></td>
         </tr>
+
         <tr><td>Confirm 6 digit password:</td></tr>
         <tr>
             <td><em><p><input type='password' name='confirmPassword' oninput="validateConfirmPassword()"
                        required></p></em></td>
             <td><div class='alert-info' id="confirm_password_feedback"></div></td>
         </tr>
+
         <tr><td><p><input class="btn btn-primary" type='submit' name='registerUser' value='Register'></p></td></tr>
 
     </form>

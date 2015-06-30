@@ -23,17 +23,15 @@ function processICImage(side) {
             // Compress image to send to server
             var compressedImage = compressImage(img);
 
-            var directory = window.location.pathname.substring(0,  window.location.pathname.lastIndexOf('/'));
-
-            $.post('process_ic_image.php',
+            $.post('../feature-experiment/js_crop/process_ic_image.php',
                 {
                     side: side,
                     img: compressedImage.src
                 },
                 function(data, status) {
                     var results = JSON.parse(data);
-                    fillInForms(results, side);
                     console.log(data);
+                    fillInForms(results, side);
                 });
         }
     )
@@ -57,32 +55,32 @@ function fillInForms(results, side) {
     if(side === "front") {
 
         var fullNameField = document.forms["user_registration_form"]["fullname"];
-        fullNameField.value = results.nric;
+        fullNameField.value = results.name.replace(/\n/g, "");
 
         var nricField = document.forms["user_registration_form"]["nric"];
-        nricField.value = results.name;
+        nricField.value = results.nric.replace(/\n/g, "");;
 
         var dobField = document.forms["user_registration_form"]["birthday"];
-        dobField.value = convertDateString(results.dob);
+        dobField.value = convertDateString(results.dob.replace(/\n/g, ""));
 
-        fillGender(results.gender);
+        fillGender(results.gender.replace(/\n/g, ""));
 
-        fillRace(results.race);
+        fillRace(results.race.replace(/\n/g, ""));
     }
 
     if(side === "back") {
         var addressField = document.forms["user_registration_form"]["address"];
-        address.innerHTML = results.address;
+        addressField.value = results.address.replace(/\n/g, " ");
     }
 }
 
 function convertDateString(dateStringDDMMYYYY) {
     var dateData = dateStringDDMMYYYY.split("-");
-    var day = dateData[0];
-    var month = dateData[1];
-    var year = dateData[2];
-    var convertedDate = new Date(year, month, day);
-    return convertedDate.toDateString();
+    var day = parseInt(dateData[0].replace("0", ""))+1;
+    var month = parseInt(dateData[1].replace("0", ""))-1;
+    var year = parseInt(dateData[2]);
+    var convertedDate = new Date(year, month, day, 0, 0, 0);
+    return convertedDate.toISOString().substring(0, 10);
 }
 
 function fillGender(gender) {
@@ -97,14 +95,16 @@ function fillGender(gender) {
 
 function fillRace(race) {
     var raceSelect = document.getElementById("race");
+    console.log(race);
     if(race === "CHINESE") {
-        raceSelect.selectedIndex = 1;
+        raceSelect.selectedIndex = 0;
     } else if(race === "MALAY") {
-        raceSelect.selectedIndex = 2;
+        raceSelect.selectedIndex = 1;
     } else if(race === "INDIAN") {
-        raceSelect.selectedIndex = 3;
+        raceSelect.selectedIndex = 2;
     } else {
-        raceSelect.selectedIndex = 4;
+        raceSelect.selectedIndex = 3;
+        displayOthersInput();
         document.getElementById("otherRaceInput").value = race;
     }
 }

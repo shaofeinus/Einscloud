@@ -2,18 +2,9 @@
  * Created by Shao Fei on 8/6/2015.
  */
 
-var fieldIsValid = [false, false, false, false, false, false, false, false];
+var fieldIsValid = [true, false, false, false, false, false, false, false];
 
 function validateForm() {
-    var firstNameInput = document.forms["user_registration_form"]["firstName"].value;
-    var lastNameInput = document.forms["user_registration_form"]["lastName"].value;
-
-    if(firstNameInput.trim() === "" || lastNameInput.trim() === "") {
-        fieldIsValid[0] = false;
-    } else {
-        fieldIsValid[0] = true;
-    }
-
     validateNric();
     validatePhoneNo();
     validateUsername();
@@ -21,6 +12,7 @@ function validateForm() {
     validateConfirmPassword();
     validateEmail();
     validateBirthday();
+    validateRace()
     console.log(fieldIsValid);
 }
 
@@ -28,7 +20,7 @@ function validateNric() {
     var userNricInput = document.forms["user_registration_form"]["nric"].value;
 
     if(userNricInput.trim() === "") {
-        document.getElementById("nric_feedback").innerHTML = "blank";
+        document.getElementById("nric_feedback").innerHTML = "";
         fieldIsValid[1] = false;
     } else if(!/^(s|t|g|f)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][a-z]$/i.test(userNricInput)){
         document.getElementById("nric_feedback").innerHTML = "NRIC invalid";
@@ -58,6 +50,25 @@ function validatePhoneNo() {
         fieldIsValid[2] = true;
     }
 
+    console.log(fieldIsValid);
+}
+
+function validateRace() {
+    var otherRaceInput = document.forms["user_registration_form"]["otherRace"].value;
+    var presetRaceInput = document.getElementById("race").value;
+
+    if(presetRaceInput !== "otherRaces") {
+        fieldIsValid[7] = true;
+    } else if(otherRaceInput === "") {
+        document.getElementById("race_feedback").innerHTML = "";
+        fieldIsValid[7] = false;
+    } else if(/\d/.test(otherRaceInput)) {
+        document.getElementById("race_feedback").innerHTML = "Race cannot contain numbers";
+        fieldIsValid[7] = false;
+    } else {
+        document.getElementById("race_feedback").innerHTML = "";
+        fieldIsValid[7] = true;
+    }
     console.log(fieldIsValid);
 }
 
@@ -241,6 +252,7 @@ function isFormValid() {
         console.log(fieldIsValid[i]);
         if(!fieldIsValid[i]) {
             formIsValid = false;
+            break;
         }
     }
 
