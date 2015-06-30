@@ -3,6 +3,7 @@
  */
 
 var fieldIsValid = [true, false, false, false, false, false, false, false];
+var finalUsername;
 
 function validateForm() {
     validateNric();
@@ -48,6 +49,7 @@ function validatePhoneNo() {
     } else {
         document.getElementById("phone_no_feedback").innerHTML = "";
         fieldIsValid[2] = true;
+        generateDefaultPassword();
     }
 
     console.log(fieldIsValid);
@@ -86,7 +88,7 @@ function validateUsername() {
         fieldIsValid[3] = false;
     } else {
         var container = document.getElementById("username_feedback");
-        checkUsernameExists(usernameInput, container);
+        checkUsernameExists(usernameInput, container, "user");
     }
 
     console.log(fieldIsValid);
@@ -184,7 +186,7 @@ function validateBirthday() {
 }
 
 
-function checkUsernameExists(usernameInput, container) {
+function checkUsernameExists(usernameInput, container, caller) {
 
     var xmlhttp;
 
@@ -197,12 +199,22 @@ function checkUsernameExists(usernameInput, container) {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var response = parseInt(xmlhttp.responseText);
-            if(response == 1) {
-                container.innerHTML = "Username already exists";
-                fieldIsValid[3] = false;
-            } else {
-                container.innerHTML = "";
-                fieldIsValid[3] = true;
+            if (caller === "user") {
+                if (response == 1) {
+                    container.innerHTML = "Username already exists";
+                    fieldIsValid[3] = false;
+                } else {
+                    container.innerHTML = "";
+                    fieldIsValid[3] = true;
+                }
+            } else if (caller === "system") {
+                if(response === 1) {
+                    fieldIsValid[3] = false;
+                    generateDefaultUserName2(usernameInput);
+                } else {
+                    fieldIsValid[3] = true;
+                    document.getElementById('username').value = usernameInput;
+                }
             }
         } /*else {
             container.innerHTML = "";
@@ -262,5 +274,72 @@ function isFormValid() {
     } else {
         return true;
     }
+}
+
+function defaultUserInfo() {
+    document.getElementById('username').readOnly = true;
+    document.getElementById('password').readOnly = true;
+    document.getElementById('confirm_password').readOnly = true;
+    document.getElementById('username').style.backgroundColor = '#dddddd';
+    document.getElementById('password').style.backgroundColor = '#dddddd';
+    document.getElementById('confirm_password').style.backgroundColor = '#dddddd';
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('confirm_password').value = '';
+
+    //TO-DO: call function to generate default username and password
+    generateDefaultUserName();
+    generateDefaultPassword();
+}
+
+function customUserInfo() {
+    document.getElementById('username').readOnly = false;
+    document.getElementById('password').readOnly = false;
+    document.getElementById('confirm_password').readOnly = false;
+    document.getElementById('username').style.backgroundColor = '#ffffff';
+    document.getElementById('password').style.backgroundColor = '#ffffff';
+    document.getElementById('confirm_password').style.backgroundColor = '#ffffff';
+}
+
+function generateDefaultAccount() {
+    var defaultOption = document.forms["user_registration_form"]["default_username"].value;
+    if (defaultOption === "yes") {
+        generateDefaultUserName();
+        generateDefaultPassword();
+    }
+}
+
+function generateDefaultUserName() {
+
+    var defaultOption = document.forms["user_registration_form"]["default_username"].value;
+    if (defaultOption === "yes") {
+        var username = document.forms["user_registration_form"]["fullName"].value;
+        username = username.replace(/\s+/g, '');
+        username = username.toLowerCase();
+        if(username.length < 4 && username.length > 0) {
+            var appendNum = Math.floor(Math.random()*900) + 100;
+            var stringNum = String(appendNum);
+            username = username.concat(stringNum);
+        }
+        checkUsernameExists(username, null, "system");
+    }
+}
+
+function generateDefaultUserName2(username){
+    if(username.trim() === ""){
+        username = "";
+        document.getElementById('username').value = username;
+    } else {
+        var appendNum = Math.floor(Math.random()*900) + 100;
+        var stringNum = String(appendNum);
+        username = username.concat(stringNum);
+        checkUsernameExists(username, null, "system");
+    }
+}
+
+function generateDefaultPassword(){
+    var phoneNo = document.forms["user_registration_form"]["phoneNo"].value;
+    document.getElementById('password').value = phoneNo;
+    document.getElementById('confirm_password').value = phoneNo;
 }
 

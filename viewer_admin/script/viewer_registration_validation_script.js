@@ -226,12 +226,11 @@ function generateDefaultUserName2(username, container){
         //console.log("unique condition is true now final username is: ");
         //console.log(finalUserName);
         document.getElementById('username').value = finalUserName;
-
-
     }
 }
 
 function generateDefaultPassword(){
+
     var phoneNo = document.forms["viewer_registration_form"]["phoneNo"].value;
     document.getElementById('password').value = phoneNo;
     document.getElementById('confirm_password').value = phoneNo;

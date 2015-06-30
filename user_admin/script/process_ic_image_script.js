@@ -54,7 +54,7 @@ function fillInForms(results, side) {
 
     if(side === "front") {
 
-        var fullNameField = document.forms["user_registration_form"]["fullname"];
+        var fullNameField = document.forms["user_registration_form"]["fullName"];
         fullNameField.value = results.name.replace(/\n/g, "");
 
         var nricField = document.forms["user_registration_form"]["nric"];
@@ -72,6 +72,8 @@ function fillInForms(results, side) {
         var addressField = document.forms["user_registration_form"]["address"];
         addressField.value = results.address.replace(/\n/g, " ");
     }
+
+    generateDefaultUserName();
 }
 
 function convertDateString(dateStringDDMMYYYY) {
