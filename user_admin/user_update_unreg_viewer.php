@@ -83,7 +83,7 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 	<body>
 	<div class="container">
 		<div class="jumbotron well">
-			<h1> Hello, <?php echo $_SESSION['login_firstname'].' '.$_SESSION['login_lastname']; ?></h1>
+			<h1> Hello, <?php echo $_SESSION['login_fullname']; ?></h1>
 			<p>listed below are your unregistered viewers</p>
 		</div>
         <form id="unreg_viewer_update_form" method='post' class="form-horizontal" role="form">

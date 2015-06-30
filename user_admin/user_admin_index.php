@@ -29,7 +29,7 @@
             while ($row = mysqli_fetch_assoc($viewer_sql_resp)) {
                 echo "<tr>";
                 if (isset ($row ["id"]))
-                    echo "<td>" . $row ["firstname"] . " " . $row ["lastname"] . "</td>";
+                    echo "<td>" . $row ["fullname"] . "</td>";
                 else
                     echo "<td>" . $row ["viewername"] . "</td>";
                 echo "<td>" . $row ["phone_no"] . "</td>";
@@ -103,7 +103,7 @@
 <body>
 	<div class="container">
 		<div class="jumbotron  well">
-			<h1> Hello, <?php echo $_SESSION['login_firstname'].' '.$_SESSION['login_lastname']; ?></h1>
+			<h1> Hello, <?php echo $_SESSION['login_fullname']; ?></h1>
 		</div>
 
 		<form id="viewer_management_form" method='post'

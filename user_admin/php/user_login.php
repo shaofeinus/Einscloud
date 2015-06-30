@@ -18,8 +18,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
         $row = mysqli_fetch_assoc($response);
     	$_SESSION["login_id"] =  $row ["id"];
         $_SESSION["login_user"] = $username;
-        $_SESSION['login_firstname'] =  $row ["firstname"];
-        $_SESSION['login_lastname'] = $row ["lastname"];
+        $_SESSION['login_fullname'] =  $row ["fullname"];
         $_SESSION['login_email'] = $row ["email"];
         $_SESSION['login_nric'] = $row ["nric"];
         $_SESSION['login_phone_no'] = $row ["phone_no"];

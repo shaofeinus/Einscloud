@@ -17,7 +17,7 @@ require_once 'php/DB_connect/check_session_validity.php';
 
     <div class="container">
         <div class="jumbotron well">
-        <h1>Hello <?php echo $_SESSION['login_viewer'] . ','; ?></h1>
+        <h1>Hello <?php echo $_SESSION['viewer_name'] . ','; ?></h1>
         </div>
     </div>
 
@@ -51,7 +51,7 @@ require_once 'php/DB_connect/check_session_validity.php';
                 ?>
 
                         <div class="col-sm-4">
-                            <h4><?php echo $row["firstname"] . " " . $row["lastname"] ?></h4>
+                            <h4><?php echo $row["fullname"]?></h4>
                             <table>
                                 <tr>
                                     <th>Age: </th>
@@ -109,7 +109,7 @@ require_once 'php/DB_connect/check_session_validity.php';
                 <div class="col-sm-4">
                     <form name='viewer_verify_form' action='php/viewer_verify_user.php' method="post">
 
-                        <h3><?php echo $row["firstname"] . " " . $row["lastname"] ?></h3>
+                        <h3><?php echo $row["fullname"]?></h3>
                         <table>
                             <tr>
                                 <th>Age: </th>

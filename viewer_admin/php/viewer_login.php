@@ -21,6 +21,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
         $_SESSION["login_viewer"] = $username;
         $_SESSION["viewer_id"] = $row['id'];
         $_SESSION["viewer_phone"] = $row['phone_no'];
+        $_SESSION["viewer_name"] = $row['fullname'];
     } else {
         echo "<script> alert('Password does not match username'); window.location.assign('../index.php')</script>";
     }
