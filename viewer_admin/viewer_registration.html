@@ -6,7 +6,7 @@
 
     <meta charset="UTF-8">
 
-    <title>Einswatch Viewer Registration</title>
+    <title>Einswatch Caregiver Registration</title>
 </head>
 
 <body>
@@ -14,7 +14,7 @@
 <script src="script/viewer_registration_validation_script.js?v=1.2"></script>
 <div class="container">
     <div class="jumbotron well">
-        <h1>Einswatch Registration for Viewer</h1>
+        <h1>Einswatch Registration for Caregiver</h1>
     </div>
     <div class="page-header">
         <h3>Please fill up all fields</h3>
@@ -30,7 +30,7 @@
 
         <tr class="page-header"><td><h4>Personal Particulars</h4></td></tr>
         <tr><td>Name (as of NRIC):</td></tr>
-        <tr><td><em><input type='text' name='fullName' placeholder="eg: John Lennon" required></em></td></tr>
+        <tr><td><em><input type='text' name='fullName' placeholder="eg: John Lennon" oninput="generateDefaultUserName()" required></em></td></tr>
 
         <tr><td>Email:</td></tr>
         <tr><td><em><input type='email' name='email' placeholder="example@example.com"></em></td></tr>
@@ -54,7 +54,7 @@
         <tr><td>Username:</td></tr>
 
         <tr>
-            <td><p><em><input id='username' type='text' name='username' disabled placeholder="Your desired login name" oninput="validateUsername()" required></em></p></td>
+            <td><p><em><input id='username' style ="background-color: #dddddd" type='text' name='username' readonly placeholder="Your desired login name" oninput="validateUsername()" required></em></p></td>
             <td><div class='alert-info' id='username_feedback'></div></td>
         </tr>
 
@@ -69,12 +69,12 @@
 
         <tr><td>Password:</td></tr>
         <tr>
-            <td><em><input id='password' type='password' name='password' disabled placeholder="At least 8 characters" oninput="validatePassword()" required></em></td>
+            <td><em><input id='password' style ="background-color: #dddddd" type='password' name='password' readonly placeholder="At least 8 characters" oninput="validatePassword()" required></em></td>
             <td><div class='alert-info' id="password_feedback"></div></td>
         </tr>
         <tr><td>Confirm password:</td></tr>
         <tr>
-            <td><em><p><input id='confirm_password' type='password' name='confirmPassword' disabled placeholder="At least 8 characters" oninput="validateConfirmPassword()"
+            <td><em><p><input id='confirm_password' style ="background-color: #dddddd" type='password' name='confirmPassword' readonly placeholder="At least 8 characters" oninput="validateConfirmPassword()"
                        required></p></em></td>
             <td><div class='alert-info' id="confirm_password_feedback"></div></td>
         </tr>

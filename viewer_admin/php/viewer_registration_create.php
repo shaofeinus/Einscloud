@@ -16,14 +16,12 @@ class Input
     public $confirmPassword;
 
     public $rvtype;
-    public $lastName;
     public $nric;
     public $gender;
 
     public function getInput()
     {
         $this->fullName = $_POST['fullName'];
-
         $this->email = $_POST['email'];
         $this->email = filter_var($this->email, FILTER_SANITIZE_EMAIL);
         if(strlen(trim($this->email)) == 0){
@@ -35,9 +33,8 @@ class Input
         $this->password = md5($_POST['password']);
 
         $this->rvtype = 'Family'; // default value now as rvtype is deemed redundant
-        $this->lastName = "[no last name]"; //need to change table columns to remove non-null columns
-        $this->nric = 'S0000000A';
-        $this->gender = 'X';
+        //$this->nric = 'S0000000A'; //dummy value
+        //$this->gender = 'X'; //dummy value
     }
 }
 
@@ -65,22 +62,27 @@ function make_sql_query($input) {
     $connector = new DB_CONNECT();
     $connector->connect();
 
-    $query1 = "INSERT INTO RegisteredViewer(firstname, lastName, phone_no, username, password, rvtype, nric, gender)
-	VALUES('$input->fullName', '$input->lastName', '$input->phoneNo', '$input->username', '$input->password', '$input->rvtype', '$input->nric', '$input->gender')";
+    $query1 = "INSERT INTO RegisteredViewer(fullname, phone_no, username, password, rvtype)
+	VALUES('$input->fullName', '$input->phoneNo', '$input->username', '$input->password', '$input->rvtype')";
 
-    $query2 = "INSERT INTO RegisteredViewer(firstname, lastName, phone_no, username, password, email, rvtype, gender)
-	VALUES('$input->fullName', '$input->lastName', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->rvtype', '$input->nric', '$input->gender')";
+    $query2 = "INSERT INTO RegisteredViewer(fullname, phone_no, username, password, email, rvtype)
+	VALUES('$input->fullName', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->rvtype')";
 
+    $responseString = "Your registration as a caregiver is successful! Your username is '" . $input->username . "' and your password is '" . $input->phoneNo . "'.'";
     if(empty($input->email)) {
         //echo $query1 . "<br>";
         if(mysqli_query($connector->conn, $query1)) {
             $connector->close();
             //echo "success";
             //header("Location: ../index.php");
-            echo "<script> alert('Your registration as a viewer is successful!'); window.location.assign('../index.php')</script>";
+            ?>
+                    <script> alert("Your registration as a caregiver is successful! Your username is '<?php echo $input->username ?>' and your password is your phone number.");
+                window.location.assign('../index.php')</script>
+            <?php
+
         } else {
             $connector->close();
-            echo "<script> alert('Your registration as a viewer failed! Please try again'); window.location.assign('../viewer_registration.html')</script>";
+            echo "<script> alert('Your registration as a caregiver failed! Please try again'); window.location.assign('../viewer_registration.html')</script>";
             //header("Location: ../viewer_registration.html");
         }
     } else {
@@ -89,10 +91,13 @@ function make_sql_query($input) {
             $connector->close();
             //echo "success";
             //header("Location: ../index.php");
-            echo "<script> alert('Your registration as a viewer is successful!'); window.location.assign('../index.php')</script>";
+            ?>
+            <script> alert("Your registration as a caregiver is successful! Your username is '<?php echo $input->username ?>' and your password is your phone number.");
+                window.location.assign('../index.php')</script>
+        <?php
         } else {
             $connector->close();
-            echo "<script> alert('Your registration as a viewer failed! Please try again'); window.location.assign('../viewer_registration.html')</script>";
+            echo "<script> alert('Your registration as a caregiver failed! Please try again'); window.location.assign('../viewer_registration.html')</script>";
             //header("Location: ../viewer_registration.html");
         }
     }

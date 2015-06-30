@@ -32,11 +32,10 @@ require_once 'php/DB_connect/check_session_validity.php';
             echo '<table class="table">
             <tr>
                 <th>Name: </th>';
-            echo "<td>" . $row["firstname"] . " " . $row["lastname"] . "</td></tr>";
+            echo "<td>" . $row["fullname"] . "</td></tr>";
 
-            echo '<tr>
-                <th>NRIC: </th>';
-            echo "<td>" . $row["nric"] . "</td></tr>";
+            //echo '<tr><th>NRIC: </th>';
+            //echo "<td>" . $row["nric"] . "</td></tr>";
 
             echo '<tr>
                 <th>Username: </th>';
@@ -85,7 +84,7 @@ require_once 'php/DB_connect/check_session_validity.php';
             <?php
 
             echo '<tr>
-                <th>Viewer Type: </th>';
+                <th>Caregiver Type: </th>';
             echo "<td>" . $row["rvtype"];
             ?>
 
@@ -123,7 +122,7 @@ require_once 'php/DB_connect/check_session_validity.php';
     </form>
 
     <tr><td><form id="back_to_index" action='viewer_admin_index.php'>
-                <input type='submit' class="btn btn-primary" value='Go back to Viewer Admin'></td></tr>
+                <input type='submit' class="btn btn-primary" value='Go back to Caregiver Admin'></td></tr>
     </form>
 
     </div>
