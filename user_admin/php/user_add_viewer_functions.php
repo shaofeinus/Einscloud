@@ -48,7 +48,7 @@ function displayDropMenu() {
         $num_rows = mysqli_num_rows($response);
 
         if($num_rows < 5){
-            echo "How may viewers do you want to add?<br>";
+            echo "How many caregivers do you want to add?<br>";
             echo "<select id='add_num_viewers' onchange='displayAddViewerForm()' class='selectpicker'>";
             $num_options = 5 - $num_rows;
             $index = 1;
@@ -60,7 +60,7 @@ function displayDropMenu() {
             }
             echo "</select>";
         } else{
-            echo "You already have 5 Viewer. Click <a href='user_admin_index.php'>here</a> to manage Viewers";
+            echo "You already have 5 Caregivers. Click <a href='user_admin_index.php'>here</a> to manage Viewers";
         }
 
     } else {
@@ -79,10 +79,10 @@ function verifyLogin() {
 
 function getName() {
     session_start();
-    $firstName = $_SESSION['login_firstname'];
-    $lastName = $_SESSION['login_lastname'];
+    $fullName = $_SESSION['login_fullname'];
 
-    echo $firstName." ".$lastName;
+
+    echo $fullName;
 }
 
 function displayAddViewerForm($num_forms, $form_data) {
@@ -109,8 +109,8 @@ function displayAddViewerForm($num_forms, $form_data) {
         $output = $output .
             "<table class='form_table' id='viewer_" . $i . "_table'>" .
             "<tr class='spaceUnder'><td></td></tr>" .
-            "<tr><th class='form_th'>Viewer " . ($i + 1) . "</th><tr>" .
-            "<tr><td class='form_td'>Give your Viewer a name</td></tr>" .
+            "<tr><th class='form_th'>Caregiver " . ($i + 1) . "</th><tr>" .
+            "<tr><td class='form_td'>Give your Caregiver a name</td></tr>" .
             "<tr class='spaceUnder'>" .
             "<td class='form_td'><input type='text' value='$nickname' name='nickname_" . $i . "' required></td></tr>" .
             "<tr><td class='form_td'>Phone number</td></tr>" .
@@ -128,7 +128,7 @@ function displayAddViewerForm($num_forms, $form_data) {
         $num_forms--;
 
         if ($num_forms == 0) {
-            $output = $output . "<input type='submit' name='addViewersSubmit' value='Add Viewers' class='btn btn-primary'>";
+            $output = $output . "<input type='submit' name='addViewersSubmit' value='Add Caregivers' class='btn btn-primary'>";
         }
     }
 

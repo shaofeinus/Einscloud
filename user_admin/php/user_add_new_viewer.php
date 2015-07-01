@@ -39,7 +39,7 @@ function processAddViewer() {
                     <script language="JavaScript" type="text/javascript" src= "../script/user_email_viewer_script.js"></script>
                 <?php
                 echo '<script>'
-                . 'emailViewer("' . $email . '", "' . $_SESSION['login_firstname'] . '", "' . $_SESSION['login_lastname'] . '");'
+                . 'emailViewer("' . $email . '", "' . $_SESSION['login_fullname'] .'");'
                 . '</script>';
                 //require_once '../caregive_email.php';
                 //emailToViewer($email, $_SESSION['login_firstname'], $_SESSION['login_lastname']);
@@ -50,7 +50,7 @@ function processAddViewer() {
             ?><script language="JavaScript" type="text/javascript" 
             	src= "../../burstsms/burstsms_send_verification_code.js"></script>
             <?php
-            $username = $_SESSION['login_firstname'] . " " . $_SESSION['login_lastname'];
+            $username = $_SESSION['login_fullname'];
             echo "<script> sendVerificationCodeSMS('{$username}', {$verification_code}, {$phone_no}); </script>";
 
             $instance = array();
