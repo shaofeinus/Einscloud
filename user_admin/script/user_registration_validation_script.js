@@ -199,6 +199,8 @@ function checkUsernameExists(usernameInput, container, caller) {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var response = parseInt(xmlhttp.responseText);
+
+            // For form validation
             if (caller === "user") {
                 if (response == 1) {
                     container.innerHTML = "Username already exists";
@@ -207,7 +209,10 @@ function checkUsernameExists(usernameInput, container, caller) {
                     container.innerHTML = "";
                     fieldIsValid[3] = true;
                 }
-            } else if (caller === "system") {
+            }
+
+            // For default account generation
+            else if (caller === "system") {
                 if(response === 1) {
                     fieldIsValid[3] = false;
                     generateDefaultUserName2(usernameInput);
@@ -245,10 +250,7 @@ function checkNricExists(nricInput, container) {
                 container.innerHTML = "";
                 fieldIsValid[1] = true;
             }
-        } /*else {
-         container.innerHTML = "";
-         fieldIsValid[4] = true;
-         }*/
+        }
     }
     xmlhttp.open("GET", "php/check_nric_exists.php?nric=" + nricInput, true);
     xmlhttp.send();
@@ -276,70 +278,4 @@ function isFormValid() {
     }
 }
 
-function defaultUserInfo() {
-    document.getElementById('username').readOnly = true;
-    document.getElementById('password').readOnly = true;
-    document.getElementById('confirm_password').readOnly = true;
-    document.getElementById('username').style.backgroundColor = '#dddddd';
-    document.getElementById('password').style.backgroundColor = '#dddddd';
-    document.getElementById('confirm_password').style.backgroundColor = '#dddddd';
-    document.getElementById('username').value = '';
-    document.getElementById('password').value = '';
-    document.getElementById('confirm_password').value = '';
-
-    //TO-DO: call function to generate default username and password
-    generateDefaultUserName();
-    generateDefaultPassword();
-}
-
-function customUserInfo() {
-    document.getElementById('username').readOnly = false;
-    document.getElementById('password').readOnly = false;
-    document.getElementById('confirm_password').readOnly = false;
-    document.getElementById('username').style.backgroundColor = '#ffffff';
-    document.getElementById('password').style.backgroundColor = '#ffffff';
-    document.getElementById('confirm_password').style.backgroundColor = '#ffffff';
-}
-
-function generateDefaultAccount() {
-    var defaultOption = document.forms["user_registration_form"]["default_username"].value;
-    if (defaultOption === "yes") {
-        generateDefaultUserName();
-        generateDefaultPassword();
-    }
-}
-
-function generateDefaultUserName() {
-
-    var defaultOption = document.forms["user_registration_form"]["default_username"].value;
-    if (defaultOption === "yes") {
-        var username = document.forms["user_registration_form"]["fullName"].value;
-        username = username.replace(/\s+/g, '');
-        username = username.toLowerCase();
-        if(username.length < 4 && username.length > 0) {
-            var appendNum = Math.floor(Math.random()*900) + 100;
-            var stringNum = String(appendNum);
-            username = username.concat(stringNum);
-        }
-        checkUsernameExists(username, null, "system");
-    }
-}
-
-function generateDefaultUserName2(username){
-    if(username.trim() === ""){
-        username = "";
-        document.getElementById('username').value = username;
-    } else {
-        var appendNum = Math.floor(Math.random()*900) + 100;
-        var stringNum = String(appendNum);
-        username = username.concat(stringNum);
-        checkUsernameExists(username, null, "system");
-    }
-}
-
-function generateDefaultPassword(){
-    var phoneNo = document.forms["user_registration_form"]["phoneNo"].value;
-    document.getElementById('password').value = phoneNo;
-    document.getElementById('confirm_password').value = phoneNo;
-}
 

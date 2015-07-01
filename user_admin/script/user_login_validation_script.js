@@ -2,7 +2,6 @@
  * Created by Shao Fei on 9/6/2015.
  */
 var fieldIsValid = [false, false];
-var passwordIsCorrect = false;
 
 function validateForm() {
     validateUsername();
@@ -27,7 +26,6 @@ function validateUsername() {
         checkUsernameExists(usernameInput, container);
     }
 
-    console.log(fieldIsValid);
 }
 
 function validatePassword() {
@@ -45,12 +43,38 @@ function validatePassword() {
     } else if (!/^\d+$/.test(userPasswordInput)) {
         document.getElementById("password_feedback").innerHTML = "Password should be numbers only";
         fieldIsValid[1] = false;
+    } else if(document.forms["user_login_form"]["username"].value.trim() !== ""){
+        var container = document.getElementById("password_feedback");
+        checkPasswordMatches(document.forms["user_login_form"]["username"].value.trim(), userPasswordInput, container);
     } else {
         document.getElementById("password_feedback").innerHTML = "";
         fieldIsValid[1] = true;
     }
+}
 
-    console.log(fieldIsValid);
+function checkPasswordMatches(username, password, container) {
+    $.post("php/check_password_matches.php",
+        {
+            username: username,
+            password: password
+        },
+        function(data, status) {
+            data = JSON.parse(data);
+            if(status === 'success') {
+                if(data === true) {
+                    container.innerHTML = "";
+                    fieldIsValid[1] = true;
+                    console.log("Password match: " + data);
+                } else if(data === false) {
+                    container.innerHTML = "Password does not match username";
+                    fieldIsValid[1] = false;
+                    console.log("Password match: " + data);
+                } else {
+                    console.log(data);
+                }
+            }
+        });
+
 }
 
 function checkUsernameExists(usernameInput, container) {
@@ -69,14 +93,12 @@ function checkUsernameExists(usernameInput, container) {
             if(response == 1) {
                 container.innerHTML = "We recognise you!";
                 fieldIsValid[0] = true;
+                validatePassword();
             } else {
                 container.innerHTML = "We don't seem to know you";
                 fieldIsValid[0] = false;
             }
-        } /*else {
-         container.innerHTML = "";
-         fieldIsValid[4] = true;
-         }*/
+        }
     }
     xmlhttp.open("GET", "php/check_username_exists.php?username=" + usernameInput, true);
     xmlhttp.send();
