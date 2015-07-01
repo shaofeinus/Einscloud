@@ -73,7 +73,11 @@ function fillInForms(results, side) {
         addressField.value = results.address.replace(/\n/g, " ");
     }
 
+    // Function from default username script
     generateDefaultUserName();
+
+    // Function from validation script
+    validateForm();
 }
 
 function convertDateString(dateStringDDMMYYYY) {
