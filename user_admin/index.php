@@ -69,9 +69,17 @@ if(isset($_SESSION['login_id'])){
             </tr>
 
             <tr>
-                <td><input type='submit' class="btn btn-success" name='loginUser' value='Log in'></td>
+                <td><p><input type='submit' class="btn btn-success" name='loginUser' value='Log in'></p></td>
             </tr>
         </form>
+        <tr>
+            <td>
+                <form action="../forget_login_details.php" method="get">
+                    <input type='submit' class="btn btn-primary" name='forgetLogin' value='Forget User Information'>
+                </form>
+            </td>
+
+        </tr>
     </table>
 </div>
 <div class="container">
@@ -99,5 +107,7 @@ if(isset($_SESSION['login_id'])){
             ?>
         </table>
     </div></div>
+
+
 </body>
 </html>
