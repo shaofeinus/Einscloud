@@ -14,7 +14,7 @@ require_once 'php/DB_connect/check_session_validity.php';
 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
 	
-	<title>Einswatch add Viewers</title>
+	<title>Einswatch add Caregivers</title>
 
 	<style>
 	tr.spaceUnder > td{
