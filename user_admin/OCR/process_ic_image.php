@@ -20,8 +20,8 @@ define('RACE', "race");
 define('NAME', "name");
 define('NRIC', "nric");
 
-define("TEMP_IMG_PATH", "img/");
-define("TEMP_TXT_PATH", "txt/");
+define("TEMP_IMG_PATH", "temp/img/");
+define("TEMP_TXT_PATH", "temp/txt/");
 define("IMG_EXT", ".jpg");
 define("TXT_EXT", ".txt");
 
@@ -29,49 +29,56 @@ define('CONVERT_TRIM_PART_CMD', " -bordercolor \"#000000\" -border 1X1 -fuzz 80%
 define('CONVERT_BW_PART_CMD_1', " -type grayscale -clone 0 -type grayscale -negate -lat 20x20+10% -compose copy_opacity -composite -negate -auto-orient ");
 define('CONVERT_BW_PART_CMD_2', " -threshold 50% ");
 
-if(isset($_POST['img']) && isset($_POST['side'])) {
+if(isset($_POST['img']) && isset($_POST['side']) && isset($_POST['existingFile'])) {
     $side = $_POST['side'];
     $img = $_POST['img'];
+    $existingImgFileName = $_POST['existingFile'];
 
-    $fileID = saveImage($img);
-    trimImage($fileID);
+    $fileName = saveImage($img, $existingImgFileName, $side);
+    trimImage($fileName);
 
-    if($fileID) {
-        echo json_encode(processImage($fileID, $side));
+    if($fileName) {
+        $result = array();
+        $result["form"] = processImage($fileName, $side);
+        $result["fileName"] = $fileName;
+        echo json_encode($result);
+    } else {
+        echo json_encode("error");
     }
+
 }
 
-function trimImage($fileID) {
+function trimImage($fileName) {
     //$command = "convert " . IMG_PATH . $fileID . IMG_EXT . CONVERT_BW_PART_CMD_2 . IMG_PATH . $fileID . IMG_EXT;
     //exec($command);
-    $command = "convert " . TEMP_IMG_PATH . $fileID . IMG_EXT . CONVERT_TRIM_PART_CMD . TEMP_IMG_PATH . $fileID . IMG_EXT;
+    $command = "convert " . TEMP_IMG_PATH . $fileName . IMG_EXT . CONVERT_TRIM_PART_CMD . TEMP_IMG_PATH . $fileName . IMG_EXT;
     exec($command);
 }
 
-function processImage($fileID, $side) {
+function processImage($fileName, $side) {
 
-    cropSections($fileID, $side);
-    $results = interpretSections($fileID, $side);
-    removeImgFiles($fileID, $side);
+    cropSections($fileName, $side);
+    $results = interpretSections($fileName, $side);
+    removeImgFiles($fileName, $side);
     return $results;
 }
 
-function cropSections($fileID, $side)
+function cropSections($fileName, $side)
 {
     if ($side == "front") {
-        crop(NRIC, $fileID);
-        crop(NAME, $fileID);
-        crop(RACE, $fileID);
-        crop(DOB, $fileID);
-        crop(GENDER, $fileID);
+        crop(NRIC, $fileName);
+        crop(NAME, $fileName);
+        crop(RACE, $fileName);
+        crop(DOB, $fileName);
+        crop(GENDER, $fileName);
     }
 
     if ($side == "back") {
-        crop(ADDRESS, $fileID);
+        crop(ADDRESS, $fileName);
     }
 }
 
-function crop($section, $fileID) {
+function crop($section, $fileName) {
 
     // Specs for each section
     $SPECS = array();
@@ -84,7 +91,7 @@ function crop($section, $fileID) {
     $SPECS[ADDRESS] = array(WIDTH => 7.0, HEIGHT => 1.2, X_OFFSET => 0.7, Y_OFFSET => 4.9);
 
     // Dimension of current image
-    $dimension = getimagesize(TEMP_IMG_PATH . $fileID . IMG_EXT);
+    $dimension = getimagesize(TEMP_IMG_PATH . $fileName . IMG_EXT);
     $img_width = $dimension[0];
     $img_height = $dimension[1];
 
@@ -100,91 +107,93 @@ function crop($section, $fileID) {
 
     // Crops out sections of the image
     $command = "convert " .
-        TEMP_IMG_PATH . $fileID . IMG_EXT .
+        TEMP_IMG_PATH . $fileName . IMG_EXT .
         " +repage -crop " .
         $cropWidth . "x" . $cropHeight . "+" . $xOffset . "+" . $yOffset .
         " +repage " .
-        TEMP_IMG_PATH . $fileID . $section . IMG_EXT;
+        TEMP_IMG_PATH . $fileName . $section . IMG_EXT;
 
     exec($command);
 
     // Make image B/W
     $command = "convert " .
-        TEMP_IMG_PATH . $fileID . $section . IMG_EXT . CONVERT_BW_PART_CMD_1 . TEMP_IMG_PATH . $fileID . $section . IMG_EXT;
+        TEMP_IMG_PATH . $fileName . $section . IMG_EXT . CONVERT_BW_PART_CMD_1 . TEMP_IMG_PATH . $fileName . $section . IMG_EXT;
 
     exec($command);
 
 }
 
-function interpretSections($fileID, $side) {
+function interpretSections($fileName, $side) {
 
     $results = array();
 
     if($side == "front") {
-        $results[NRIC] = interpret(NRIC, $fileID);
-        $results[NAME] = interpret(NAME, $fileID);
-        $results[RACE] = interpret(RACE, $fileID);
-        $results[DOB] = interpret(DOB, $fileID);
-        $results[GENDER] = interpret(GENDER, $fileID);
+        $results[NRIC] = interpret(NRIC, $fileName);
+        $results[NAME] = interpret(NAME, $fileName);
+        $results[RACE] = interpret(RACE, $fileName);
+        $results[DOB] = interpret(DOB, $fileName);
+        $results[GENDER] = interpret(GENDER, $fileName);
     }
 
     if($side == "back") {
-        $results[ADDRESS] = interpret(ADDRESS, $fileID);
+        $results[ADDRESS] = interpret(ADDRESS, $fileName);
     }
 
     return $results;
 }
 
-function interpret($section, $fileID) {
-    $command = "tesseract " . TEMP_IMG_PATH . $fileID . $section . IMG_EXT . " " . TEMP_TXT_PATH . $fileID ;
+function interpret($section, $fileName) {
+    $command = "tesseract " . TEMP_IMG_PATH . $fileName . $section . IMG_EXT . " " . TEMP_TXT_PATH . $fileName ;
     exec($command);
-    return readTxtFile($fileID);
+    return readTxtFile($fileName);
 }
 
-function readTxtFile($fileID) {
-    $txtFile = fopen(TEMP_TXT_PATH . $fileID. TXT_EXT, "r");
-    if(filesize(TEMP_TXT_PATH . $fileID. TXT_EXT) > 0) {
-        $contents = fread($txtFile, filesize(TEMP_TXT_PATH . $fileID. TXT_EXT));
+function readTxtFile($fileName) {
+    $txtFile = fopen(TEMP_TXT_PATH . $fileName. TXT_EXT, "r");
+    if(filesize(TEMP_TXT_PATH . $fileName. TXT_EXT) > 0) {
+        $contents = fread($txtFile, filesize(TEMP_TXT_PATH . $fileName. TXT_EXT));
     } else {
         $contents = "";
     }
     fclose($txtFile);
-    unlink(TEMP_TXT_PATH . $fileID. TXT_EXT);
+    unlink(TEMP_TXT_PATH . $fileName. TXT_EXT);
     return $contents;
 }
 
 
-function saveImage($img) {
+function saveImage($img, $existingImgFileName, $side) {
     $img = str_replace('data:image/jpeg;base64,', '', $img);
     $data = base64_decode($img);
 
-    $randomId = rand();
-    $filePath = TEMP_IMG_PATH . $randomId . IMG_EXT;
+    if($existingImgFileName !== "") {
+        unlink(TEMP_IMG_PATH . $existingImgFileName . IMG_EXT);
+    }
 
+    $randomId = rand();
+    $fileName =  $randomId . $side;
+    $filePath = TEMP_IMG_PATH . $fileName . IMG_EXT;
     $success = file_put_contents($filePath, $data);
 
-    return $success ? $randomId : null;
+    return $success ? $fileName : null;
 }
 
-function removeImgFiles($fileID, $side) {
-
-    unlink(TEMP_IMG_PATH . $fileID . IMG_EXT);
+function removeImgFiles($fileName, $side) {
 
     if ($side == "front") {
-        removeImage(NRIC, $fileID);
-        removeImage(NAME, $fileID);
-        removeImage(RACE, $fileID);
-        removeImage(DOB, $fileID);
-        removeImage(GENDER, $fileID);
+        removeImage(NRIC, $fileName);
+        removeImage(NAME, $fileName);
+        removeImage(RACE, $fileName);
+        removeImage(DOB, $fileName);
+        removeImage(GENDER, $fileName);
     }
 
     if ($side == "back") {
-        removeImage(ADDRESS, $fileID);
+        removeImage(ADDRESS, $fileName);
     }
 }
 
-function removeImage($section, $fileID) {
-    $filePath = TEMP_IMG_PATH . $fileID . $section . IMG_EXT;
+function removeImage($section, $fileName) {
+    $filePath = TEMP_IMG_PATH . $fileName . $section . IMG_EXT;
     unlink($filePath);
 }
 

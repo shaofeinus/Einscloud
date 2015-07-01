@@ -3,7 +3,9 @@
  */
 
 // Factor to compress image
-COMPRESS_FACTOR = 0.7;
+const COMPRESS_FACTOR = 0.7;
+var existingIcFrontFileName = "";
+var existingIcBackFileName = "";
 
 function processICImage(side) {
 
@@ -23,15 +25,25 @@ function processICImage(side) {
             // Compress image to send to server
             var compressedImage = compressImage(img);
 
-            $.post('../feature-experiment/js_crop/process_ic_image.php',
+            var existingIcSideFileName = side === "front" ? existingIcFrontFileName : existingIcBackFileName;
+
+            $.post('OCR/process_ic_image.php',
                 {
                     side: side,
-                    img: compressedImage.src
+                    img: compressedImage.src,
+                    existingFile: existingIcSideFileName
                 },
                 function(data, status) {
-                    var results = JSON.parse(data);
                     console.log(data);
-                    fillInForms(results, side);
+                    var results = JSON.parse(data);
+                    var formData = results.form;
+                    if(side === "front") {
+                        existingIcFrontFileName = results.fileName;
+                    } else if(side === "back") {
+                        existingIcBackFileName = results.fileName;
+                    }
+
+                    fillInForms(formData, side);
                 });
         }
     )
@@ -113,4 +125,19 @@ function fillRace(race) {
         displayOthersInput();
         document.getElementById("otherRaceInput").value = race;
     }
+}
+
+function makeIcImgPerm(nric) {
+    alert("hey");
+
+    $.post('OCR/make_ic_perm.php',
+        {
+            icFrontFileName: existingIcFrontFileName,
+            icBackFileName: existingIcBackFileName,
+            nric: nric
+        },
+        function(data, status) {
+            alert(data);
+            console.log(data);
+        });
 }

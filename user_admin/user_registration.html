@@ -117,10 +117,11 @@
             <td>
                 <p>
                 <button type='button' class="btn btn-success btn-sm" onclick="showImageCaptureMenu()">
-                    <span class="glyphicon glyphicon-ok-sign"></span>Agree
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                    Agree
                 </button>
                 <button type='button' class="btn btn-danger btn-sm" id="disagreeDisclaimer" onclick="showImageCaptureDenied()">
-                    <span class="glyphicon glyphicon-remove-sign"></span>
+                    <span class="glyphicon glyphicon-thumbs-down"></span>
                     Disagree
                 </button>
                 </p>
@@ -186,7 +187,7 @@
             <td><div class='alert-info' id="confirm_password_feedback"></div></td>
         </tr>
 
-        <tr><td><p><input class="btn btn-primary" type='submit' name='registerUser' value='Register'></p></td></tr>
+        <tr><td><p><input class="btn btn-primary" type='button' name='registerUser' value='Register' onclick="isFormValid()"></p></td></tr>
 
     </form>
     <form action="index.php">

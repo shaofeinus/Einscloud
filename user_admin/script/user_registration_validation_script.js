@@ -3,7 +3,6 @@
  */
 
 var fieldIsValid = [true, false, false, false, false, false, false, false];
-var finalUsername;
 
 function validateForm() {
     validateNric();
@@ -125,6 +124,7 @@ function validatePassword() {
         fieldIsValid[4] = false;
     } else {
         document.getElementById("password_feedback").innerHTML = "";
+        validateConfirmPassword();
         fieldIsValid[4] = true;
     }
 
@@ -274,6 +274,9 @@ function isFormValid() {
         alert("Form is incomplete/contains invalid fields");
         return false;
     } else {
+        // From process image script
+        alert("kkk");
+        makeIcImgPerm(document.forms["user_registration_form"]["nric"].value);
         return true;
     }
 }
