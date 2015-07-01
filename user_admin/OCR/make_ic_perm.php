@@ -5,6 +5,8 @@
  * Date: 1/7/2015
  * Time: 5:26 PM
  */
+
+define("IMG_EXT", ".jpg");
 define("TEMP_IMG_PATH", "temp/img/");
 define("PERM_IMG_PATH", "perm/img/");
 

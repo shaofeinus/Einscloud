@@ -74,10 +74,11 @@ function make_sql_query($input) {
         if(mysqli_query($connector->conn, $query1)) {
             $connector->close();
             //echo "success";
-            echo "<script> alert('Your registration as a user is successful!'); //window.location.assign('../index.php');</script>";
+
+            echo "<script> alert('Your registration as a user is successful!'); window.location.assign('../index.php');</script>";
         } else {
             $connector->close();
-            echo "<script> alert('Your registration as a user failed! Please try again'); //window.location.assign('../user_registration.html');</script>";
+            echo "<script> alert('Your registration as a user failed! Please try again'); window.location.assign('../user_registration.html');</script>";
             //echo "error";
         }
     } else {

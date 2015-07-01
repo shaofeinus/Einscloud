@@ -127,8 +127,9 @@ function fillRace(race) {
     }
 }
 
-function makeIcImgPerm(nric) {
-    alert("hey");
+function makeIcImgPerm() {
+
+    var nric = document.forms["user_registration_form"]["nric"].value;
 
     $.post('OCR/make_ic_perm.php',
         {
@@ -137,7 +138,6 @@ function makeIcImgPerm(nric) {
             nric: nric
         },
         function(data, status) {
-            alert(data);
             console.log(data);
         });
 }

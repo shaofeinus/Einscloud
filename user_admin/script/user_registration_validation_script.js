@@ -274,9 +274,8 @@ function isFormValid() {
         alert("Form is incomplete/contains invalid fields");
         return false;
     } else {
-        // From process image script
-        alert("kkk");
-        makeIcImgPerm(document.forms["user_registration_form"]["nric"].value);
+        // Function from process ic image script
+        makeIcImgPerm();
         return true;
     }
 }
