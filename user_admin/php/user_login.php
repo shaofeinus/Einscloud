@@ -14,7 +14,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
     $password = $_POST["password"];
     $response = make_sql_query($username, $password);
 
-    if(mysqli_num_rows($response) == 1) {
+    if(mysqli_num_rows($response) === 1) {
         $row = mysqli_fetch_assoc($response);
     	$_SESSION["login_id"] =  $row ["id"];
         $_SESSION["login_user"] = $username;
@@ -22,26 +22,27 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
         $_SESSION['login_email'] = $row ["email"];
         $_SESSION['login_nric'] = $row ["nric"];
         $_SESSION['login_phone_no'] = $row ["phone_no"];
+
+        login();
+
     } else {
         echo "<script> alert('Password does not match username'); window.location.assign('../index.php')</script>";
     }
-} else {
-    $error_msg = "Empty field(s)";
 }
 
-//This section sets a custom session id and update it into database.
-require_once "DB_connect/db_utility.php";
-$user_session_id = md5('user'.time().mt_rand());
-setcookie('user_session_id', $user_session_id, 0, '/einscloud/user_admin/');
+function login() {
+    //This section sets a custom session id and update it into database.
+    require_once "DB_connect/db_utility.php";
+    $user_session_id = md5('user'.time().mt_rand());
+    setcookie('user_session_id', $user_session_id, 0, '/einscloud/user_admin/');
 
-session_id($user_session_id);
+    session_id($user_session_id);
 
-make_query("update User set session_id='{$user_session_id}' where id={$_SESSION["login_id"]};");
-$_SESSION['last_activity'] = time();
+    make_query("update User set session_id='{$user_session_id}' where id={$_SESSION["login_id"]};");
+    $_SESSION['last_activity'] = time();
 
-header("Location: ../user_admin_index.php");
-
-
+    header("Location: ../user_admin_index.php");
+}
 
 function make_sql_query($username, $password) {
     require_once 'DB_connect/db_connect.php';
