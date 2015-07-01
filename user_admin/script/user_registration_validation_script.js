@@ -199,6 +199,8 @@ function checkUsernameExists(usernameInput, container, caller) {
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var response = parseInt(xmlhttp.responseText);
+
+            // For form validation
             if (caller === "user") {
                 if (response == 1) {
                     container.innerHTML = "Username already exists";
@@ -207,7 +209,10 @@ function checkUsernameExists(usernameInput, container, caller) {
                     container.innerHTML = "";
                     fieldIsValid[3] = true;
                 }
-            } else if (caller === "system") {
+            }
+
+            // For default account generation
+            else if (caller === "system") {
                 if(response === 1) {
                     fieldIsValid[3] = false;
                     generateDefaultUserName2(usernameInput);
@@ -245,10 +250,7 @@ function checkNricExists(nricInput, container) {
                 container.innerHTML = "";
                 fieldIsValid[1] = true;
             }
-        } /*else {
-         container.innerHTML = "";
-         fieldIsValid[4] = true;
-         }*/
+        }
     }
     xmlhttp.open("GET", "php/check_nric_exists.php?nric=" + nricInput, true);
     xmlhttp.send();
@@ -276,6 +278,7 @@ function isFormValid() {
     }
 }
 
+/* Default account information functions */
 function defaultUserInfo() {
     document.getElementById('username').readOnly = true;
     document.getElementById('password').readOnly = true;
@@ -299,14 +302,6 @@ function customUserInfo() {
     document.getElementById('username').style.backgroundColor = '#ffffff';
     document.getElementById('password').style.backgroundColor = '#ffffff';
     document.getElementById('confirm_password').style.backgroundColor = '#ffffff';
-}
-
-function generateDefaultAccount() {
-    var defaultOption = document.forms["user_registration_form"]["default_username"].value;
-    if (defaultOption === "yes") {
-        generateDefaultUserName();
-        generateDefaultPassword();
-    }
 }
 
 function generateDefaultUserName() {
@@ -338,8 +333,11 @@ function generateDefaultUserName2(username){
 }
 
 function generateDefaultPassword(){
-    var phoneNo = document.forms["user_registration_form"]["phoneNo"].value;
-    document.getElementById('password').value = phoneNo;
-    document.getElementById('confirm_password').value = phoneNo;
+    var defaultOption = document.forms["user_registration_form"]["default_username"].value;
+    if (defaultOption === "yes") {
+        var phoneNo = document.forms["user_registration_form"]["phoneNo"].value;
+        document.getElementById('password').value = phoneNo.substring(0, 6);
+        document.getElementById('confirm_password').value = phoneNo.substring(0, 6);
+    }
 }
 
