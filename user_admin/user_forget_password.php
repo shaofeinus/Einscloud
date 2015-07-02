@@ -28,7 +28,7 @@
     }
 
     require_once '../burstsms/burstsms_send_function.php';
-    $smsText = 'Dear user your reset key is ' . $resetCode . '. Follow this URL to reset your password: "http://192.168.1.59/einscloud/user_admin/user_reset_password.php" You are only allowed to use this once by today.';
+    $smsText = 'Dear user your reset key is ' . $resetCode . '. Follow this URL to reset your password: "http://192.168.1.59/einshub/user_admin/user_reset_password.php" You are only allowed to use this once by today.';
     sendSMS($smsText, $phone_no);
     echo "<script> alert('SMS sent'); window.location.assign('../index.html')</script>";
 

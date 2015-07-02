@@ -15,16 +15,15 @@
 	$landline_sql_resp = make_query ( "select * from CallLandline where user_id='$user_id'");
 	
 	
-	function generate_viewer_table($viewer_sql_resp)
+	function generate_viewer_table($viewer_sql_resp, $table)
     {
     	if (mysqli_num_rows($viewer_sql_resp) > 0) {
 	        echo "<table class='table table-hover'><tr>
 				<th>Name</th>
 				<th>Phone No.</th>
 				<th>Email</th>
-				<th>Delete</th>
-			</tr>";
-	        /* Read viewers and fillin the table */
+				<th>Delete</th></tr>";
+	        /* Read viewers and filling the table */
             // output data of each row
             while ($row = mysqli_fetch_assoc($viewer_sql_resp)) {
                 echo "<tr>";
@@ -42,10 +41,19 @@
 
                 echo "</tr>";
             }
+
+            if($table === "unregistered") {
+                echo "<tr><td>";
+                echo "<input type='submit' value='Modify Information' formmethod='get' formaction='user_update_unreg_viewer.php' class='btn btn-primary'/>";
+                echo "</td><td></td><td></td><td></td></tr>";
+            } else {
+                echo "<tr><td></td><td></td><td></td><td></td></tr>";
+            }
+
             echo "</table>";
     	} 
     	else{
-    		echo 'No records found.<br>';
+    		echo '<table class="table-condensed"><tr><td>No records found.</td></tr></table>';
     	}
     }
 
@@ -78,10 +86,13 @@
 				echo "<td><input type='checkbox' name='landline[]' value=$landline_id></td>";
 				echo "</tr>";
 			}
+
+            echo "<tr><td></td><td></td><td></td></tr>";
+
 			echo "</table>";
 		}
 		else{
-			echo 'No records found.<br>';
+			echo '<table class="table-condensed"><tr><td>No records found.</td></tr></table>';
 		}
 	}
 ?>
@@ -102,51 +113,60 @@
 
 <body>
 	<div class="container">
-		<div class="jumbotron  well">
+		<div class="jumbotron well">
 			<h1> Hello, <?php echo $_SESSION['login_fullname']; ?></h1>
 		</div>
 
-		<form id="viewer_management_form" method='post'
-			action='php/user_delete_viewer.php'>
-			<div class="page-header">
-				<h2>List of registered viewers</h2>
-			</div>
+		<form id="viewer_management_form" method='post' action='php/user_delete_viewer.php'>
 
-			<?php generate_viewer_table($reg_viewers_sql_resp)?>
-		
-			<div class="page-header">
-				<h2>List of unregistered viewers</h2>
-			</div>
+            <h2 class="page-header well well-sm">Current Caregivers</h2>
 
-			<?php generate_viewer_table($unreg_viewers_sql_resp)?>
-			
-			<input type="submit"
-				value="Modify Unregistered Viewer Information" formmethod="get"
-				formaction="user_update_unreg_viewer.php" class="btn btn-primary"/>
-				
-			<div class="page-header">
-				<h2>List of Emergency landline contacts viewers</h2>
-			</div>
+            <h3>Mobile phones</h3>
+			<?php generate_viewer_table($reg_viewers_sql_resp, "registered")?>
+
+			<h3>Landlines</h3>
 	    
 	        <?php generate_landline_table($landline_sql_resp);?>
-	        
-	        <br><br><br>
-	        <div class=row><div class="col-xs-12">
-			<input type="submit" name="Delete Selected" value="Delete Selected"
-					onclick="return confirm('Are you sure that you would like to delete these contacts?')" class="btn btn-warning" />
-			</div></div>
-			<br>
-			<div class=row><div class="col-xs-12"><input type='submit' value='Add Caregiver' class="btn btn-primary" formmethod="get" formaction='user_add_viewer.php'/></div></div>
-			<br>
-			<div class=row><div class="col-xs-12"><input type='submit' value='Add Emergency landline contact' class="btn btn-primary" formmethod="get" formaction='user_add_emerg.php'/></div></div>
-			<br>
-            <div class=row><div class="col-xs-12"><input type='submit' value='Edit profile' class="btn btn-primary" formmethod="get" formaction='user_edit_profile.php'/></div></div>
-            <br>
-			<div class=row><div class="col-xs-12"><input type='submit' value='Log out' class="btn btn-danger" formmethod="get" formaction='php/logout.php'/></div></div>
-		</form>
-		
-		
 
+            <h2 class="page-header well well-sm">Pending Caregivers</h2>
+
+            <?php generate_viewer_table($unreg_viewers_sql_resp, "unregistered")?>
+
+            <table class="table-condensed">
+                <tr>
+                    <td>
+                        <input type="submit" name="Delete Selected" value="Delete Selected"
+                               onclick="return confirm('Are you sure that you would like to delete these contacts?')"
+                               class="btn btn-warning" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type='submit' value='Add Caregiver (mobile phone)' class="btn btn-primary" formmethod="get" formaction='user_add_viewer.php'/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type='submit' value='Add Caregiver (landline)' class="btn btn-primary" formmethod="get" formaction='user_add_emerg.php'/>
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+
+            <table class="table-condensed">
+                <tr>
+                    <td>
+                        <input type='submit' value='Edit profile' class="btn btn-success" formmethod="get" formaction='user_edit_profile.php'/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                       <input type='submit' value='Log out' class="btn btn-danger" formmethod="get" formaction='php/logout.php'/>
+                    </td>
+                </tr>
+            </table>
+		</form>
 	</div>
 </body>
 </html>

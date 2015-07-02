@@ -1,6 +1,6 @@
 <?php
 if(!isset($_COOKIE['user_session_id'])){
-	header("Location: /einscloud/user_admin/logged_out.html");
+	header("Location: /einshub/user_admin/logged_out.html");
 }
 session_id($_COOKIE['user_session_id']);
 session_start();
@@ -8,7 +8,7 @@ session_start();
 require_once "db_utility.php";
 
 //if session doesn't exist at all, go to logged_out.html
-if(!isset($_SESSION['login_id'])) header("Location: /einscloud/user_admin/logged_out.html");
+if(!isset($_SESSION['login_id'])) header("Location: /einshub/user_admin/logged_out.html");
 
 //check whether the session_id agrees with that in the database.
 $resp = make_query("select * from User where id={$_SESSION['login_id']}");
@@ -23,7 +23,8 @@ if (mysqli_num_rows($resp) == 1) {
 }
 
 if($id_in_database != session_id()){
-	header("Location: /einscloud/user_admin/logged_in_somewhere_else.html");
+	header("Location: /einshub/user_admin/logged_in_somewhere_else.html");
+    die();
 }
 
 //if session has not been active for 30 min, destroy session and go to logged_out.html;
@@ -31,6 +32,7 @@ if($id_in_database != session_id()){
 if(isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 1800){
 	session_unset();
 	session_destroy();
-	header("Location: /einscloud/user_admin/logged_out.html");
+	header("Location: /einshub/user_admin/logged_out.html");
+    die();
 }
 $_SESSION['last_activity'] =  time();

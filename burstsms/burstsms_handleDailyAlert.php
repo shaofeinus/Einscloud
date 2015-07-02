@@ -26,9 +26,9 @@ if ($viewer_result->num_rows > 0) {
 }
 
 function generateText($username, $verification_code){
-	return "Dear Sir/Mdm, einscloud user " . $username .
+	return "Dear Sir/Mdm, einhub user " . $username .
 	" would like to invite you to be his/her caregiver." .
-	" please goto the link http://192.168.1.59/einscloud/viewer_admin/index.php".
+	" please goto the link http://192.168.1.59/einshub/viewer_admin/index.php".
 	" or download the app at http://192.168.1.59/einsviewer.apk" .
 	" and registered with the verification code: " . $verification_code;
 }

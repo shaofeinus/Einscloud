@@ -34,7 +34,7 @@ function login() {
     //This section sets a custom session id and update it into database.
     require_once "DB_connect/db_utility.php";
     $user_session_id = md5('user'.time().mt_rand());
-    setcookie('user_session_id', $user_session_id, 0, '/einscloud/user_admin/');
+    setcookie('user_session_id', $user_session_id, 0, '/einshub/user_admin/');
 
     session_id($user_session_id);
 

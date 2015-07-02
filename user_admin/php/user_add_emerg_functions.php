@@ -42,7 +42,7 @@ function displayDropMenu() {
         $html_output = "";
         $num_rows = mysqli_num_rows($response);
         if($num_rows < 5){
-            $html_output = "How may emergency landline contacts do you want to add?<br>".
+            $html_output = "<h3 class='page-header'>How may landline Caregivers do you want to add?</h3>".
                 "<select id='add_num_emerg' class='selectpicker' onchange='displayAddEmergForm()'>".
                 "<option value='0'></option>";
             $num_options = 5 - $num_rows;
@@ -54,7 +54,7 @@ function displayDropMenu() {
             }
             $html_output = $html_output . "</select>";
         } else{
-            $html_output = "You already have 5 emergency landline contacts. Click <a href='user_admin_index.php'>here</a> to manage emergency landline contacts";
+            $html_output = "You already have 5 landline Caregivers. Click <a href='user_admin_index.php'>here</a> to manage emergency landline contacts";
         }
 
         echo $html_output;
@@ -89,7 +89,7 @@ function displayAddEmergForm($json_object) {
         $output = $output .
             "<table class='form_table' name='landline_" . $i . "_table'>" .
             "<tr class='spaceUnder'><td></td></tr>" .
-            "<tr><th class='form_th'>Emergency landline contact " . ($i + 1) . "</th><tr>" .
+            "<tr><th class='form_th'><h4>Caregiver contact " . ($i + 1) . "</h4></th><tr>" .
             "<tr><td class='form_td'>Give your landline contact a name</td></tr>" .
             "<tr class='spaceUnder'><td class='form_td'><input type='text' value='$nickname' name='nickname_" . $i . "' required></td></tr>" .
             "<tr><td class='form_td'>Phone number</td></tr>" .
@@ -103,7 +103,7 @@ function displayAddEmergForm($json_object) {
         $num_forms--;
 
         if ($num_forms == 0) {
-            $output = $output . "<input type='submit' name='addEmergSubmit' value='Add Emergency landlines' class='btn btn-primary'>";
+            $output = $output . "<input type='submit' name='addEmergSubmit' value='Add Caregivers' class='btn btn-success'>";
         }
     }
 

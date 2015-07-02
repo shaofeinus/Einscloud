@@ -16,12 +16,6 @@ require_once 'php/DB_connect/check_session_validity.php';
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="script/user_edit_profile_script.js?v=1"></script>
 
-    <style>
-        tr.spaceUnder > td{
-            padding-bottom: 1em;
-        }
-    </style>
-
     <title>Einswatch edit User profile</title>
 </head>
 
@@ -35,7 +29,7 @@ require_once 'php/DB_connect/check_session_validity.php';
 
     <div class="container">
         <div class="jumbotron well">
-            <h1>Welcome, <var id="user_real_name"></var></h1>
+            <h1>Hello, <var id="user_real_name"></var></h1>
         </div>
 
         <table class="table">
@@ -111,14 +105,12 @@ require_once 'php/DB_connect/check_session_validity.php';
         </table>
 
         <form>
-            <table>
-                <tr class="spaceUnder">
+            <table class="table-condensed">
                     <td>
                         <input type="submit" class="btn btn-primary" formaction="user_admin_index.php" value="Go back to User admin">
                     </td>
                     <td></td>
                 </tr>
-                <tr class="spaceUnder">
                     <td>
                         <input type='submit' value='Log out' class="btn btn-danger" formmethod="get" formaction='php/logout.php'/>
                     </td>

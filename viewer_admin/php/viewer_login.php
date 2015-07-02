@@ -32,7 +32,7 @@ if(!empty($_POST["username"]) && !empty($_POST["password"])) {
 //This section sets a custom session id and update it into database.
 require_once "DB_connect/db_utility.php";
 $viewer_session_id = md5('viewer'.time().mt_rand());
-setcookie('viewer_session_id', $viewer_session_id, 0, '/einscloud/viewer_admin/');
+setcookie('viewer_session_id', $viewer_session_id, 0, '/einshub/viewer_admin/');
 
 session_id($viewer_session_id);
 

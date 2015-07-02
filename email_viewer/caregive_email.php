@@ -13,7 +13,7 @@ function emailToViewer()
     $verificationCode = $_SESSION['verificationCode'];
     $subject = $user_name . ' needs you to be his Einswatch viewer';
     //$message = 'Dear Sir/Mdm,\n ' . $user_name . ' has recently purchased the Einswatch and wants you to download the app.';
-    //$headers = 'From: admin@einscloud.com' . "\r\n" . 'Reply-To: admin@einscloud.com' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
+    //$headers = 'From: admin@einshub.com' . "\r\n" . 'Reply-To: admin@einshub.com' . "\r\n" . 'X-Mailer: PHP/' . phpversion();
 
 
 
@@ -23,7 +23,7 @@ function emailToViewer()
         Dear Sir/Mdm,<br>
 		<p>' . $user_name . ' has recently purchased the Einswatch and has requested that you download
 		the mobile app to be a personal caregiver. Your one-time verification code is "' . $verificationCode .
-		'". Follow this <a href= "192.168.1.59/einscloud/viewer_admin/index.php">link</a> to go to viewer registration..</p><br>
+		'". Follow this <a href= "192.168.1.59/einshub/viewer_admin/index.php">link</a> to go to viewer registration..</p><br>
 		Best Regards,<br>
         The Einswatch Team
         </body>
@@ -34,7 +34,7 @@ function emailToViewer()
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-    $headers .= 'From: <einscloud@gmail.com>' . "\r\n";
+    $headers .= 'From: <einshub@gmail.com>' . "\r\n";
     $result = mail($to, $subject, $message, $headers);
 }
 ?>

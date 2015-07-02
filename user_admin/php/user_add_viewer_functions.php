@@ -48,7 +48,7 @@ function displayDropMenu() {
         $num_rows = mysqli_num_rows($response);
 
         if($num_rows < 5){
-            echo "How many caregivers do you want to add?<br>";
+            echo "<h3 class='page-header'>How many mobile Caregivers do you want to add?</h3>";
             echo "<select id='add_num_viewers' onchange='displayAddViewerForm()' class='selectpicker'>";
             $num_options = 5 - $num_rows;
             $index = 1;
@@ -60,7 +60,7 @@ function displayDropMenu() {
             }
             echo "</select>";
         } else{
-            echo "You already have 5 Caregivers. Click <a href='user_admin_index.php'>here</a> to manage Viewers";
+            echo "You already have 5 mobile Caregivers. Click <a href='user_admin_index.php'>here</a> to manage Viewers";
         }
 
     } else {
@@ -109,7 +109,7 @@ function displayAddViewerForm($num_forms, $form_data) {
         $output = $output .
             "<table class='form_table' id='viewer_" . $i . "_table'>" .
             "<tr class='spaceUnder'><td></td></tr>" .
-            "<tr><th class='form_th'>Caregiver " . ($i + 1) . "</th><tr>" .
+            "<tr><th class='form_th'><h4>Caregiver " . ($i + 1) . "</h4></th><tr>" .
             "<tr><td class='form_td'>Give your Caregiver a name</td></tr>" .
             "<tr class='spaceUnder'>" .
             "<td class='form_td'><input type='text' value='$nickname' name='nickname_" . $i . "' required></td></tr>" .
@@ -128,7 +128,7 @@ function displayAddViewerForm($num_forms, $form_data) {
         $num_forms--;
 
         if ($num_forms == 0) {
-            $output = $output . "<input type='submit' name='addViewersSubmit' value='Add Caregivers' class='btn btn-primary'>";
+            $output = $output . "<input type='submit' name='addViewersSubmit' value='Add Caregivers' class='btn btn-success'>";
         }
     }
 

@@ -9,8 +9,8 @@ if(isset($_COOKIE['user_session_id'])){
 	// destroy the session
 	session_destroy();
 	
-	setcookie('user_session_id', '', -1, '/einscloud/user_admin/');
+	setcookie('user_session_id', '', -1, '/einshub/user_admin/');
 }
-header("Location: /einscloud/user_admin/logged_out.html");
+header("Location: /einshub/user_admin/logged_out.html");
 
 ?>
