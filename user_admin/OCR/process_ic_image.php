@@ -45,7 +45,6 @@ if(isset($_POST['img']) && isset($_POST['side']) && isset($_POST['existingFile']
     } else {
         echo json_encode("error");
     }
-
 }
 
 function trimImage($fileName) {
@@ -173,6 +172,7 @@ function saveImage($img, $existingImgFileName, $side) {
     $fileName =  $randomId . $side;
     $filePath = TEMP_IMG_PATH . $fileName . IMG_EXT;
     $success = file_put_contents($filePath, $data);
+    //chmod($filePath, fileperms($filePath) | 128 + 16 + 2);
 
     return $success ? $fileName : null;
 }
