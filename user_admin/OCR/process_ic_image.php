@@ -172,8 +172,7 @@ function saveImage($img, $existingImgFileName, $side) {
     $fileName =  $randomId . $side;
     $filePath = TEMP_IMG_PATH . $fileName . IMG_EXT;
     $success = file_put_contents($filePath, $data);
-    chmode($filePath . TEMP_IMG_PATH . $fileName . IMG_EXT,
-        fileperms($filePath . TEMP_IMG_PATH . $fileName . IMG_EXT) | 128 + 16 + 2);
+    //chmod($filePath, fileperms($filePath) | 128 + 16 + 2);
 
     return $success ? $fileName : null;
 }
