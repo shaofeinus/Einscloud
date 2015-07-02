@@ -46,15 +46,15 @@
 
         <tr><td>Use default username and password?</td></tr>
         <tr>
-            <td><p><input type="radio" name="default_username" value="yes" onclick="defaultUserInfo()" checked required>Yes
-                <input type="radio" name="default_username" value="no" onclick= "customUserInfo()" >No
+            <td><p><input type="radio" name="default_username" value="yes" onclick="defaultUserInfo()"  required>Yes
+                <input type="radio" name="default_username" value="no" onclick= "customUserInfo()" checked>No
             </p></td>
         </tr>
 
         <tr><td>Username:</td></tr>
 
         <tr>
-            <td><p><em><input id='username' style ="background-color: #dddddd" type='text' name='username' readonly placeholder="Your desired login name" oninput="validateUsername()" required></em></p></td>
+            <td><p><em><input id='username' type='text' name='username' placeholder="Your desired login name" oninput="validateUsername()" required></em></p></td>
             <td><div class='alert-info' id='username_feedback'></div></td>
         </tr>
 
@@ -69,12 +69,12 @@
 
         <tr><td>Password:</td></tr>
         <tr>
-            <td><em><input id='password' style ="background-color: #dddddd" type='password' name='password' readonly placeholder="At least 8 characters" oninput="validatePassword()" required></em></td>
+            <td><em><input id='password' type='password' name='password'  placeholder="At least 8 characters" oninput="validatePassword()" required></em></td>
             <td><div class='alert-info' id="password_feedback"></div></td>
         </tr>
         <tr><td>Confirm password:</td></tr>
         <tr>
-            <td><em><p><input id='confirm_password' style ="background-color: #dddddd" type='password' name='confirmPassword' readonly placeholder="At least 8 characters" oninput="validateConfirmPassword()"
+            <td><em><p><input id='confirm_password' type='password' name='confirmPassword' placeholder="At least 8 characters" oninput="validateConfirmPassword()"
                        required></p></em></td>
             <td><div class='alert-info' id="confirm_password_feedback"></div></td>
         </tr>

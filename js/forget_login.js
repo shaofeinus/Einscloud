@@ -9,23 +9,22 @@ function displayLoginInfo() {
         document.getElementById("forgetUserButton").setAttribute("style", "display:inline");
         document.getElementById("forgetPassword").setAttribute("style", "display:none");
         document.getElementById("forgetPasswordButton").setAttribute("style", "display:none");
-        document.getElementById("password_feedback").setAttribute("style", "display:none");
+
+
 
     } else if (document.getElementById("loginInfo").value === "password"){
         document.getElementById("forgetPassword").setAttribute("style", "display:inline");
         document.getElementById("forgetPasswordButton").setAttribute("style", "display:inline");
         document.getElementById("forgetUsername").setAttribute("style", "display:none");
         document.getElementById("forgetUserButton").setAttribute("style", "display:none");
-        document.getElementById("nric_feedback").setAttribute("style", "display:none");
+
 
     }
-    else if (document.getElementById("loginInfo").value === ""){
+    else if (document.getElementById("loginInfo").value === "-"){
         document.getElementById("forgetUsername").setAttribute("style", "display:none");
         document.getElementById("forgetPassword").setAttribute("style", "display:none");
         document.getElementById("forgetUserButton").setAttribute("style", "display:none");
         document.getElementById("forgetPasswordButton").setAttribute("style", "display:none");
-        document.getElementById("password_feedback").setAttribute("style", "display:none");
-        document.getElementById("nric_feedback").setAttribute("style", "display:none");
     }
 }
 
