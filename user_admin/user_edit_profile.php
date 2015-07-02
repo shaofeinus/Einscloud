@@ -16,7 +16,7 @@ require_once 'php/DB_connect/check_session_validity.php';
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="script/user_edit_profile_script.js?v=1"></script>
 
-    <title>Einswatch edit User profile</title>
+    <title>EinsWatch edit User profile</title>
 </head>
 
 <body>

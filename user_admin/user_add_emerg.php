@@ -23,7 +23,7 @@ require_once 'php/DB_connect/check_session_validity.php';
         }
     </style>
 
-	<title>Einswatch add Emergency landline contacts</title>
+	<title>EinsWatch add Emergency landline contacts</title>
 </head>
 
 <body><div class="container">

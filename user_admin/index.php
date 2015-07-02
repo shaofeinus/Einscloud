@@ -33,17 +33,17 @@ if(isset($_SESSION['login_id'])){
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Einswatch User admin</title>
+    <title>EinsWatch User Admin</title>
 </head>
 
 <body>
 <script src="script/user_login_validation_script.js?v=1"></script>
 <div class="container">
     <div class="jumbotron well">
-        <h1>Welcome Einswatch User</h1>
+        <h1>Welcome EinsWatch User</h1>
     </div>
     <div class="page-header">
-        <h3>Existing Einswatch Users</h3>
+        <h3>Existing EinsWatch Users</h3>
     </div>
 </div>
 
@@ -84,7 +84,7 @@ if(isset($_SESSION['login_id'])){
 </div>
 <div class="container">
     <div class = page-header>
-        <h3>New Einswatch Users</h3>
+        <h3>New EinsWatch Users</h3>
 
         <table>
             <?php

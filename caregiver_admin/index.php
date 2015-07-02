@@ -34,17 +34,17 @@ if(isset($_SESSION['viewer_id'])){
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Einswatch Caregiver</title>
+    <title>EinsWatch Caregiver</title>
 </head>
 
 <body>
 <script src="script/caregiver_login_validation_script.js?v=1.1"></script>
 <div class="container">
     <div class="jumbotron well">
-        <h1>Welcome Einswatch Caregiver</h1>
+        <h1>Welcome EinsWatch Caregiver</h1>
     </div>
     <div class="page-header">
-        <h3>Existing Einswatch Caregiver</h3>
+        <h3>Existing EinsWatch Caregiver</h3>
     </div>
 </div>
 
@@ -86,7 +86,7 @@ if(isset($_SESSION['viewer_id'])){
 
 <div class="container">
     <div class="page-header">
-        <h3>New Einswatch Caregiver</h3>
+        <h3>New EinsWatch Caregiver</h3>
     </div>
     <table>
         <tr><td><p><form id="goto_register_form" action='caregiver_registration.html'>
