@@ -7,8 +7,8 @@ if(isset($_COOKIE['viewer_session_id'])){
 	// destroy the session
 	session_destroy();
 	
-	setcookie('viewer_session_id','', -1, '/einshub/viewer_admin/');
+	setcookie('viewer_session_id','', -1, '/einshub/caregiver_admin/');
 }
 
-header("Location: /einshub/viewer_admin/logged_out.html");
+header("Location: /einshub/caregiver_admin/logged_out.html");
 ?>

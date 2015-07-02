@@ -1,13 +1,13 @@
 <?php
 if(!isset($_COOKIE['viewer_session_id'])){
-	header("Location: /einshub/viewer_admin/logged_out.html");
+	header("Location: /einshub/caregiver_admin/logged_out.html");
 }
 session_id($_COOKIE['viewer_session_id']);
 session_start();
 
 require_once "db_utility.php";
 //if session doesn't exist at all, go to logged_out.html
-if(!isset($_SESSION['viewer_id'])) header("Location: /einshub/viewer_admin/logged_out.html");
+if(!isset($_SESSION['viewer_id'])) header("Location: /einshub/caregiver_admin/logged_out.html");
 
 //check whether the session_id agrees with that in the database.
 $resp = make_query("select * from RegisteredViewer where id={$_SESSION['viewer_id']}");
@@ -22,7 +22,7 @@ if (mysqli_num_rows($resp) == 1) {
 }
 
 if($id_in_database != session_id()){
-	header("Location: /einshub/viewer_admin/logged_in_somewhere_else.html");
+	header("Location: /einshub/caregiver_admin/logged_in_somewhere_else.html");
 }
 
 //if session has not been active for 30 min, destroy session and go to logged_out.html;
@@ -30,6 +30,6 @@ if($id_in_database != session_id()){
 if(isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] > 1800){
 	session_unset();
 	session_destroy();
-	header("Location: /einshub/viewer_admin/logged_out.html");
+	header("Location: /einshub/caregiver_admin/logged_out.html");
 }
 $_SESSION['last_activity'] =  time();

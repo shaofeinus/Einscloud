@@ -13,7 +13,7 @@ require_once 'php/DB_connect/check_session_validity.php';
 </head>
 <body>
 
-    <script src="script/viewer_verify_script.js?v=1.0"></script>
+    <script src="script/caregiver_verify_script.js?v=1.0"></script>
 
     <div class="container">
         <div class="jumbotron well">
@@ -107,7 +107,7 @@ require_once 'php/DB_connect/check_session_validity.php';
                 while ($row = mysqli_fetch_assoc($unregisteredResponse)) {
                 ?>
                 <div class="col-sm-4">
-                    <form name='viewer_verify_form' action='php/viewer_verify_user.php' method="post">
+                    <form name='viewer_verify_form' action='php/caregiver_verify_user.php' method="post">
 
                         <h3><?php echo $row["fullname"]?></h3>
                         <table>
@@ -159,7 +159,7 @@ require_once 'php/DB_connect/check_session_validity.php';
 
     <div class = 'container'>
 
-    <form id="edit_form" action='viewer_profile.php'>
+    <form id="edit_form" action='caregiver_profile.php'>
         <input type='submit' class="btn btn-primary" value='Edit my profile'>
     </form>
     <br>

@@ -20,5 +20,5 @@
 	    die(mysql_error());
 	}
 	
-	header("Location: ../viewer_profile.php");
+	header("Location: ../caregiver_profile.php");
 ?>

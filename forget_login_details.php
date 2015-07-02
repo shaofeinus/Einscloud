@@ -75,7 +75,7 @@
                 }
                 else if($userType == 'caregiver'){
                     ?>
-                    <form name='forget_username_form' action='viewer_admin/viewer_forget_username.php' method="post" onsubmit="return isPhoneValid()">
+                    <form name='forget_username_form' action='caregiver_admin/caregiver_forget_username.php' method="post" onsubmit="return isPhoneValid()">
                         <tr>
                             <td><p>
                                 <div id="forgetUsername" style="display:none">
@@ -113,7 +113,7 @@
 
             else if($userType == 'caregiver') {
             ?>
-                <form name='forget_password_form' action='viewer_admin/viewer_forget_password.php' method="post" onsubmit="return isUsernameValid()">
+                <form name='forget_password_form' action='caregiver_admin/viewer_forget_password.php' method="post" onsubmit="return isUsernameValid()">
                     <tr><td><p>
                             <div id="forgetPassword" style="display:none">
                                 Type in your Username <input type='text' name='forgetPassword' oninput="caregiverValidateUsername()">
@@ -135,7 +135,7 @@
             <?php
             } else if($userType == 'caregiver'){
             ?>
-            <tr><td><form action="viewer_admin/index.php">
+            <tr><td><form action="caregiver_admin/index.php">
                         <input class="btn btn-warning" type='submit' id='forgetPasswordButton' value='Go back to home'>
                     </form></td></tr>
             <?php

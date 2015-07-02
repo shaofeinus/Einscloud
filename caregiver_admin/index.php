@@ -21,7 +21,7 @@ if(isset($_SESSION['viewer_id'])){
 	
 	if($id_in_database == session_id()){
 		if(isset($_SESSION['last_activity']) && time() - $_SESSION['last_activity'] <= 1800){
-			header("Location: viewer_admin_index.php");
+			header("Location: caregiver_admin_index.php");
 		}
 	}
 }
@@ -38,7 +38,7 @@ if(isset($_SESSION['viewer_id'])){
 </head>
 
 <body>
-<script src="script/viewer_login_validation_script.js?v=1.0"></script>
+<script src="script/caregiver_login_validation_script.js?v=1.0"></script>
 <div class="container">
     <div class="jumbotron well">
         <h1>Welcome Einswatch Caregiver</h1>
@@ -50,7 +50,7 @@ if(isset($_SESSION['viewer_id'])){
 
 <div class="container">
     <table>
-        <form id="viewer_login_form" action='php/viewer_login.php' method='post' onsubmit="return isFormValid()">
+        <form id="viewer_login_form" action='php/caregiver_login.php' method='post' onsubmit="return isFormValid()">
 
             <tr>
                 <td>Username:</td>
@@ -89,7 +89,7 @@ if(isset($_SESSION['viewer_id'])){
         <h3>New Einswatch Caregiver</h3>
     </div>
     <table>
-        <tr><td><p><form id="goto_register_form" action='viewer_registration.html'>
+        <tr><td><p><form id="goto_register_form" action='caregiver_registration.html'>
             <input type='submit' class="btn btn-primary" value='Register'>
         </form></p></td></tr>
 

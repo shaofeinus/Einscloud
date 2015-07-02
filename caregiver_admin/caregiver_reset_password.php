@@ -22,7 +22,7 @@
             <h3>Reset your password</h3>
         </div>
         <table class="table">
-            <form id="reset_password" action='php/viewer_reset_password_script.php'onsubmit="return isPasswordValid()" method="post">
+            <form id="reset_password" action='php/caregiver_reset_password_script.php'onsubmit="return isPasswordValid()" method="post">
                 <tr><th>Reset Key: </th><td><em><input type="text" name="resetKey" placeholder= "Input Reset Key" oninput="" required></em></td></tr>
 
                 <tr><th>New Password: </th><td><em><input type="password" name="newPassword" placeholder= "Input New Password" oninput="validateCaregiverPassword()"required></em></td></tr>

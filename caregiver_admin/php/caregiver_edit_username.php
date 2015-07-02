@@ -22,5 +22,5 @@
     
     $_SESSION['login_viewer'] = $_POST['username'];
 
-    header("Location: ../viewer_profile.php");
+    header("Location: ../caregiver_profile.php");
 ?>

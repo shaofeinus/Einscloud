@@ -19,11 +19,11 @@ if(mysqli_num_rows($selectResponse) > 0) {
         echo "response is erroneous";
         die(mysql_error());
     }
-    echo "<script> alert('You have successfully changed your password!'); window.location.assign('../viewer_profile.php')</script>";
+    echo "<script> alert('You have successfully changed your password!'); window.location.assign('../caregiver_profile.php')</script>";
 
 }
 else {
-    echo "<script> alert('You have failed to change your password! Please try again.'); window.location.assign('../viewer_profile.php')</script>";
+    echo "<script> alert('You have failed to change your password! Please try again.'); window.location.assign('../caregiver_profile.php')</script>";
 }
 ?>
 

@@ -31,12 +31,12 @@
             if(mysqli_query($connector->conn, $insertQuery)) {
                 if(mysqli_query($connector->conn, $deleteQuery)){
 
-                    echo "<script> alert('Verification successful!'); window.location.assign('../viewer_admin_index.php')</script>";
+                    echo "<script> alert('Verification successful!'); window.location.assign('../caregiver_admin_index.php')</script>";
 
                 }
             }
             else{
-                echo "<script> alert('Insert query failed'); window.location.assign('../viewer_admin_index.php')</script>";
+                echo "<script> alert('Insert query failed'); window.location.assign('../caregiver_admin_index.php')</script>";
             }
         }
 
@@ -44,7 +44,7 @@
     }
 
     else{
-        echo "<script> alert('Sorry, you have keyed in the wrong verification code.'); window.location.assign('../viewer_admin_index.php')</script>";
+        echo "<script> alert('Sorry, you have keyed in the wrong verification code.'); window.location.assign('../caregiver_admin_index.php')</script>";
     }
     $connector->close();
 

@@ -82,8 +82,8 @@ function make_sql_query($input) {
 
         } else {
             $connector->close();
-            echo "<script> alert('Your registration as a caregiver failed! Please try again'); window.location.assign('../viewer_registration.html')</script>";
-            //header("Location: ../viewer_registration.html");
+            echo "<script> alert('Your registration as a caregiver failed! Please try again'); window.location.assign('../caregiver_registration.html')</script>";
+            //header("Location: ../caregiver_registration.html");
         }
     } else {
         //echo $query2 . "<br>";
@@ -97,8 +97,8 @@ function make_sql_query($input) {
         <?php
         } else {
             $connector->close();
-            echo "<script> alert('Your registration as a caregiver failed! Please try again'); window.location.assign('../viewer_registration.html')</script>";
-            //header("Location: ../viewer_registration.html");
+            echo "<script> alert('Your registration as a caregiver failed! Please try again'); window.location.assign('../caregiver_registration.html')</script>";
+            //header("Location: ../caregiver_registration.html");
         }
     }
 }

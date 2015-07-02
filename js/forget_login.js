@@ -181,7 +181,7 @@ function caregiverCheckUsernameExists(usernameInput, container) {
 
         }
     }
-    xmlhttp.open("GET", "viewer_admin/php/check_username_exists.php?username=" + usernameInput, true);
+    xmlhttp.open("GET", "caregiver_admin/php/check_username_exists.php?username=" + usernameInput, true);
     xmlhttp.send();
 }
 

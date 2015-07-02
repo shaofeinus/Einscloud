@@ -1,6 +1,6 @@
 function sendVerificationCodeSMS(username, verification_code, numberToSend) {
     var textToSend = "Dear Sir/Mdm, einshub user " + username +
-    	" would like to invite you to be his/her caregiver. please goto the link http://192.168.1.59/einshub/viewer_admin/index.php " +
+    	" would like to invite you to be his/her caregiver. please goto the link http://192.168.1.59/einshub/caregiver_admin/index.php " +
     	"or download the android app at http://192.168.1.59/einsviewer.apk" +
     	" and registered with the verification code: " + verification_code;
 	
