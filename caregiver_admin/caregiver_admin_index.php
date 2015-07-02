@@ -34,19 +34,19 @@ require_once 'php/DB_connect/check_session_validity.php';
         $viewer_phone = $_SESSION['viewer_phone'];
 
 
-        $caregiveQuery = "SELECT fullname, birthday, gender, nric, phone_no FROM User, Caregive WHERE rv_id = '$viewer_id' AND user_id = User.id";
-        $caregiveResponse = make_query($caregiveQuery);
-
-        if($caregiveResponse === FALSE) {
-            echo "response is erroneous";
-            die(mysql_error());
-        }
-        if(mysqli_num_rows($caregiveResponse) > 0) {
+        $link = get_conn();
+        $selectStmt = mysqli_prepare($link, "Select fullname, birthday, gender, nric, phone_no FROM User, Caregive WHERE rv_id = ? AND user_id = User.id");
+        $selectStmt->bind_param("i", $viewer_id);
+        $selectStmt->execute();
+        $selectStmt->store_result();
+        $selectStmt->bind_result($row['fullname'], $row['birthday'], $row['gender'], $row['nric'], $row['phone_no']);
+        $link->close();
+          if($selectStmt->num_rows>0) {
             ?>
 
             <div class="row">
             <?php
-            while ($row = mysqli_fetch_assoc($caregiveResponse)) {
+            while ($selectStmt->fetch()) {
 
                 ?>
 
@@ -96,15 +96,19 @@ require_once 'php/DB_connect/check_session_validity.php';
         </div>
 
         <?php
-        $unregisteredQuery = "select id, fullname, U.phone_no, gender, birthday from UnregisteredViewer, User U where '$viewer_phone' = UnregisteredViewer.phone_no AND user_id = U.id";
+        $link = get_conn();
+        $unregisteredStmt = mysqli_prepare($link, "Select id, fullname, U.phone_no, gender, birthday FROM UnregisteredViewer, User U WHERE UnregisteredViewer.phone_no = ? AND user_id = U.id");
+        $unregisteredStmt->bind_param("s", $viewer_phone);
+        $unregisteredStmt->execute();
+        $unregisteredStmt->store_result();
+        $unregisteredStmt->bind_result($row['id'], $row['fullname'], $row['phone_no'], $row['gender'], $row['birthday']);
+        $link->close();
 
-        $unregisteredResponse = make_query($unregisteredQuery);
-
-        if(mysqli_num_rows($unregisteredResponse) > 0) {
+        if($unregisteredStmt->num_rows > 0) {
             ?>
             <div class="row">
                 <?php
-                while ($row = mysqli_fetch_assoc($unregisteredResponse)) {
+                while ($unregisteredStmt->fetch()) {
                 ?>
                 <div class="col-sm-4">
                     <form name='viewer_verify_form' action='php/caregiver_verify_user.php' method="post">

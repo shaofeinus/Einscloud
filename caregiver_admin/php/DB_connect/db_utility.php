@@ -7,4 +7,15 @@ function make_query($query) {
     $connector->close ();
     return $response;
 }
+
+function get_conn(){
+    require_once 'db_connect.php';
+    $connector = new DB_CONNECT();
+    return $connector->connect();
+}
+
+function close_conn($conn){
+    require_once 'db_connect.php';
+    $conn.close();
+}
 ?>
