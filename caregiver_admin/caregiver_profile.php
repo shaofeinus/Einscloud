@@ -16,7 +16,7 @@ require_once 'php/DB_connect/check_session_validity.php';
         <h1><?php echo $_SESSION['login_viewer'] . "'s Profile"; ?></h1>
     </div>
 </div>
-<script src="script/caregiver_edit.js?v=1.0"></script>
+<script src="script/caregiver_edit.js?v=1.1"></script>
 <div class="container">
 <?php
     $viewer_id = $_SESSION['viewer_id'];

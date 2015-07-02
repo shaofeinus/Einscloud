@@ -10,7 +10,7 @@
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script
         src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="../js/reset_password.js?v=1.1"></script>
+    <script src="../js/reset_password.js?v=1.2"></script>
     <title> Caregiver Reset Password </title>
 </head>
 <body>

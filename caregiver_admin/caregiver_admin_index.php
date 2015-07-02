@@ -13,7 +13,7 @@ require_once 'php/DB_connect/check_session_validity.php';
 </head>
 <body>
 
-    <script src="script/caregiver_verify_script.js?v=1.0"></script>
+    <script src="script/caregiver_verify_script.js?v=1.1"></script>
 
     <div class="container">
         <div class="jumbotron well">

@@ -38,7 +38,7 @@ if(isset($_SESSION['viewer_id'])){
 </head>
 
 <body>
-<script src="script/caregiver_login_validation_script.js?v=1.0"></script>
+<script src="script/caregiver_login_validation_script.js?v=1.1"></script>
 <div class="container">
     <div class="jumbotron well">
         <h1>Welcome Einswatch Caregiver</h1>
