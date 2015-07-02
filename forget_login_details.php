@@ -46,7 +46,7 @@
             <tr>
                 <td>
                     <select id='loginInfo' name="select_info" onchange='displayLoginInfo()' class='selectpicker'>
-                        <option id='' value=''></option>
+                        <option id='-' value='-'>-</option>
                         <option id='username' value='username'>Username</option>
                         <option id = 'password' value='password'>Password</option>
                     </select>
@@ -58,11 +58,9 @@
                     <form name='forget_username_form' action='user_admin/user_forget_username.php' method="post" onsubmit="return isNricValid()">
                         <tr>
                             <td><p>
-
                                 <div id="forgetUsername" style="display:none">
                                     Please key in your NRIC <input type='text' name='forgetLoginNric' oninput="validateNric()">
-                                </div>
-                                <div class='alert-info' id='nric_feedback'></div>
+                                <div class='alert-info' id='nric_feedback'></div></div>
                                 </p>
                             </td>
                         </tr>
@@ -81,10 +79,8 @@
                         <tr>
                             <td><p>
                                 <div id="forgetUsername" style="display:none">
-                        Please key in your registered phone number <input type='text' name='forgetLoginPhone'
-                                                                   oninput="validatePhoneNo()">
-                                </div>
-                                <div class='alert-info' id='phone_no_feedback'></div>
+                        Please key in your registered phone number <input type='text' name='forgetLoginPhone' oninput="validatePhoneNo()">
+                                <div class='alert-info' id='phone_no_feedback'></div></div>
                                 </p>
                             </td>
                         </tr>
@@ -106,13 +102,12 @@
                 <tr><td><p>
                         <div id="forgetPassword" style="display:none">
                             Type in your Username <input type='text' name='forgetPassword' oninput="userValidateUsername()">
-                        </div>
-                        <div class='alert-info' id='password_feedback'></div>
+                        <div class='alert-info' id='password_feedback'></div></div>
                         </p>
                     </td></tr>
                 <tr><td>
-                        <input class="btn btn-primary" type='submit' style="display:none" id='forgetPasswordButton' value='Send Reset Key to Phone Number'>
-                    </td></tr>
+                        <p><input class="btn btn-primary" type='submit' style="display:none" id='forgetPasswordButton' value='Send Reset Key to Phone Number'>
+                        </p></td></tr>
             </form>
             <?php }
 
@@ -122,21 +117,32 @@
                     <tr><td><p>
                             <div id="forgetPassword" style="display:none">
                                 Type in your Username <input type='text' name='forgetPassword' oninput="caregiverValidateUsername()">
-                            </div>
-                            <div class='alert-info' id='password_feedback'></div>
+                            <div class='alert-info' id='password_feedback'></div></div>
                             </p>
                         </td></tr>
                     <tr><td>
-                            <input class="btn btn-primary" type='submit' style="display:none" id='forgetPasswordButton' value='Send Reset Key to Phone Number'>
-                        </td></tr>
+                            <p><input class="btn btn-primary" type='submit' style="display:none" id='forgetPasswordButton' value='Send Reset Key to Phone Number'>
+                            </p></td></tr>
                 </form>
             <?php
             }
+
+            if($userType == 'user'){
             ?>
-
-
-            <tr></tr>
+            <tr><td><form action="user_admin/index.php">
+                    <input class="btn btn-warning" type='submit' id='forgetPasswordButton' value='Go back to home'>
+                    </form></td></tr>
+            <?php
+            } else if($userType == 'caregiver'){
+            ?>
+            <tr><td><form action="viewer_admin/index.php">
+                        <input class="btn btn-warning" type='submit' id='forgetPasswordButton' value='Go back to home'>
+                    </form></td></tr>
+            <?php
+            }
+            ?>
         </table>
+
     </div>
 
 </body>

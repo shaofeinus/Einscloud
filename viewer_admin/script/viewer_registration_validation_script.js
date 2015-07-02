@@ -118,12 +118,12 @@ function checkUsernameExists(usernameInput, container) {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var response = parseInt(xmlhttp.responseText);
             if(response == 1) {
-                container.innerHTML = "Username already exists";
+                //container.innerHTML = "Username already exists";
                 fieldIsValid[2] = false;
                 uniqueCondition = false;
 
             } else {
-                container.innerHTML = "";
+                //container.innerHTML = "";
                 fieldIsValid[2] = true;
                 uniqueCondition = true;
             }
@@ -174,7 +174,10 @@ function defaultUserInfo() {
     document.getElementById('password').value = '';
     document.getElementById('confirm_password').value = '';
 
-    //TO-DO: call function to generate default username and password
+    document.getElementById('username_feedback').innerHTML = "Auto generated";
+    document.getElementById('password_feedback').innerHTML = "Auto generated - Your phone number";
+
+
     generateDefaultUserName();
     generateDefaultPassword();
 
@@ -191,6 +194,9 @@ function customUserInfo() {
     document.getElementById('username').value = '';
     document.getElementById('password').value = '';
     document.getElementById('confirm_password').value = '';
+
+    document.getElementById('username_feedback').innerHTML = "";
+    document.getElementById('password_feedback').innerHTML = "";
 }
 
 function generateDefaultUserName(){
@@ -198,6 +204,7 @@ function generateDefaultUserName(){
     var useDefaultRadio = document.forms["viewer_registration_form"]["default_username"].value;
     if(useDefaultRadio == 'yes') {
         var username = document.forms["viewer_registration_form"]["fullName"].value;
+        document.getElementById('username_feedback').value = '';
         var container = document.getElementById("username_feedback");
 
         username = username.replace(/\s+/g, '');
@@ -234,8 +241,8 @@ function generateDefaultPassword(){
     var phoneNo = document.forms["viewer_registration_form"]["phoneNo"].value;
     document.getElementById('password').value = phoneNo;
     document.getElementById('confirm_password').value = phoneNo;
-    validatePassword();
-    validateConfirmPassword();
+    //validatePassword();
+    //validateConfirmPassword();
     console.log(phoneNo);
 }
 
@@ -247,7 +254,7 @@ function generateDefaultPassword(){
 
 
 
-//unused validateNric() function
+//----------------------------------UNUSED FUNCTIONS--------------------------------------------------
 function validateNric() {
     var viewerNricInput = document.forms["viewer_registration_form"]["nric"].value;
 

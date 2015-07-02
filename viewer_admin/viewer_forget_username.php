@@ -13,4 +13,14 @@
         die(mysql_error());
     }
 
-//todo send username to phone number
+    if(mysqli_num_rows($response)>0){
+        while($row = mysqli_fetch_assoc($response)){
+            $username = $row['username'];
+            $phone_no = $row['phone_no'];
+        }
+    }
+    //require_once '../burstsms/burstsms_send_function.php';
+    $smsText = 'Dear User, your username is: '. $username . '.';
+    $insertQuery = 'insert into LogInLieuOfSMS values ("' . $smsText . '", "' . $phone_no . '")';
+    make_query($insertQuery);
+    echo "<script> alert('SMS sent'); window.location.assign('index.php')</script>";
