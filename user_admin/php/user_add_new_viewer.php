@@ -22,20 +22,29 @@ function processAddViewer() {
             $user_id = $_SESSION['login_id'];
             $verification_code = getVerificationCode();
 
+            require_once "DB_connect/db_utility.php";
+
             if (!empty($email)) {
-                $query = "INSERT INTO UnregisteredViewer (verification_code, phone_no, email, user_id, viewername)" .
-                    "VALUES ('$verification_code', '$phone_no', '$email', '$user_id', '$viewername')";
+                $link = get_conn();
+                $insertstmt = mysqli_prepare($link, "INSERT INTO UnregisteredViewer (verification_code, phone_no, user_id, viewername)" .
+                    "VALUES (?, ?, ?, ?, ?)");
+                $insertstmt->bind_param("sssis", $verification_code, $phone_no, $user_id, $viewername);
+                $insertSuccess = $insertstmt->execute();
             } else {
-                $query = "INSERT INTO UnregisteredViewer (verification_code, phone_no, email, user_id, viewername)" .
-                    "VALUES ('$verification_code', '$phone_no', NULL, '$user_id', '$viewername')";
+                $link = get_conn();
+                $insertstmt = mysqli_prepare($link, "INSERT INTO UnregisteredViewer (verification_code, phone_no, user_id, viewername)" .
+                    "VALUES (?, ?, ?, ?)");
+                $insertstmt->bind_param("ssis", $verification_code, $phone_no, $user_id, $viewername);
+                $insertSuccess = $insertstmt->execute();
             }
 
-            require_once __DIR__ . '/DB_connect/db_utility.php';
-            $response = make_query($query);
-			
+            if($insertSuccess) {
+                $link->close();
+            }
+
             //Send out invitation email asynchronously
             
-            if (!empty($email) && $response) {
+            if (!empty($email) && $insertSuccess) {
                 $_SESSION['verificationCode'] = $verification_code;
                 ?>
                     <script language="JavaScript" type="text/javascript" src= "../script/user_email_viewer_script.js"></script>
@@ -57,7 +66,7 @@ function processAddViewer() {
 
             $instance = array();
             array_push($instance, $viewername);
-            if($response) {
+            if($insertSuccess && $verification_code !== NULL) {
                 array_push($instance, true);
             } else {
                 array_push($instance, false);
@@ -90,12 +99,21 @@ function getVerificationCode() {
     $code = $code_digit1.$code_digit2.$code_digit3.$code_digit4.$code_digit5.$code_digit6.'';
 
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "SELECT * FROM UnregisteredViewer WHERE verification_code='$code'";
-    $response = make_query($query);
-    if(!mysqli_num_rows($response) == 0) {
-        return getVerificationCode();
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "SELECT * FROM UnregisteredViewer WHERE verification_code=?");
+    $selectStmt->bind_param("s", $code);
+
+    if($selectStmt->execute()) {
+        $selectStmt->store_result();
+        if ($selectStmt->num_rows !== 0) {
+            $link->close();
+            return getVerificationCode();
+        } else {
+            $link->close();
+            return $code;
+        }
     } else {
-        return $code;
+        return NULL;
     }
 }
 ?>

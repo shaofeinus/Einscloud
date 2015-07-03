@@ -13,19 +13,9 @@ require_once "clean_up_input.php";
 if(!empty($_POST["username"]) && !empty($_POST["password"])) {
     $username = cleanUpInput($_POST["username"]);
     $password = $_POST["password"];
-    $response = make_sql_query($username, $password);
-
-    if(mysqli_num_rows($response) === 1) {
-        $row = mysqli_fetch_assoc($response);
-    	$_SESSION["login_id"] =  $row ["id"];
-        $_SESSION["login_user"] = $username;
-        $_SESSION['login_fullname'] =  $row ["fullname"];
-        $_SESSION['login_email'] = $row ["email"];
-        $_SESSION['login_nric'] = $row ["nric"];
-        $_SESSION['login_phone_no'] = $row ["phone_no"];
-
+    $loginOk = make_sql_query($username, $password);
+    if($loginOk) {
         login();
-
     } else {
         echo "<script> alert('Password does not match username'); window.location.assign('../index.php')</script>";
     }
@@ -39,23 +29,47 @@ function login() {
 
     session_id($user_session_id);
 
-    make_query("update User set session_id='{$user_session_id}' where id={$_SESSION["login_id"]};");
+    $link = get_conn();
+    $updateStmt = mysqli_prepare($link, "update User set session_id=? where id=?");
+    $updateStmt->bind_param("si", $user_session_id, $_SESSION["login_id"]);
+    $updateStmt->execute();
+    $link->close();
+
     $_SESSION['last_activity'] = time();
 
     header("Location: ../user_admin_index.php");
 }
 
 function make_sql_query($username, $password) {
-    require_once 'DB_connect/db_connect.php';
-    $connector = new DB_CONNECT();
-    $connector->connect();
-
     $passwordHashed = md5($password);
-    $query = "SELECT * FROM User WHERE username='$username' AND password='$passwordHashed'";
 
-    $response = mysqli_query($connector->conn, $query);
-    $connector->close();
-    return $response;
+    require_once 'DB_connect/db_utility.php';
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "SELECT id, fullname, email, nric, phone_no FROM User WHERE username=? AND password=?");
+    $selectStmt->bind_param("ss", $username, $passwordHashed);
+
+    if($selectStmt->execute()) {
+        $selectStmt->store_result();
+        if($selectStmt->num_rows === 1) {
+            $selectStmt->bind_result($id, $fullname, $email, $nric, $phone_no);
+            $selectStmt->fetch();
+
+            $_SESSION["login_id"] =  $id;
+            $_SESSION["login_user"] = $username;
+            $_SESSION['login_fullname'] =  $fullname;
+            $_SESSION['login_email'] = $email;
+            $_SESSION['login_nric'] = $nric;
+            $_SESSION['login_phone_no'] = $phone_no;
+
+            $link->close();
+            return true;
+        } else {
+            $link->close();
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 ?>

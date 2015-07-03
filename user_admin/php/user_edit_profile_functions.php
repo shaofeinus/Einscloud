@@ -46,40 +46,45 @@ function loadProfile() {
     $id = $_SESSION['login_id'];
 
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "SELECT * FROM User WHERE id='$id'";
-    $response = make_query($query);
-
-    if($response) {
-        if(mysqli_num_rows($response) == 1) {
-            $row = mysqli_fetch_assoc($response);
-            $result['username'] = $row['username'];
-            $result['name'] = $row['fullname'];
-            $result['email'] =  $row['email'];
-            $result['nric'] =  $row['nric'];
-            $result['phone_no'] =  $row['phone_no'];
-            $result['gender'] = $row['gender'];
-            $result['dob'] = $row['birthday'];
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link,
+        "SELECT username, fullname, email, nric, phone_no, gender, birthday FROM User WHERE id=?");
+    $selectStmt->bind_param("i", $id);
+    if($selectStmt->execute()) {
+        $selectStmt->store_result();
+        if ($selectStmt->num_rows === 1) {
+            $selectStmt->bind_result($result['username'],
+                $result['name'],
+                $result['email'],
+                $result['nric'],
+                $result['phone_no'],
+                $result['gender'],
+                $result['dob']);
+            $selectStmt->fetch();
+            echo json_encode($result);
         }
+        $link->close();
     }
-
-    echo json_encode($result);
 }
 
 function hasEmail() {
     session_start();
-    $result = array();
     $id = $_SESSION['login_id'];
 
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "SELECT email FROM User WHERE id='$id'";
-    $response = make_query($query);
-    if($response) {
-        $email = mysqli_fetch_assoc($response)['email'];
-        if(!empty($email)) {
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "SELECT email FROM User WHERE id=?");
+    $selectStmt->bind_param("i", $id);
+
+    if($selectStmt->execute()) {
+        $selectStmt->bind_result($email);
+        $selectStmt->fetch();
+        if(!empty($email) || $email !== NULL) {
             echo json_encode(true);
         } else {
             echo json_encode(false);
         }
+        $link->close();
     } else {
         echo json_encode(false);
     }
@@ -89,9 +94,12 @@ function editDOB($dob) {
     require_once __DIR__.'/DB_connect/db_utility.php';
     session_start();
     $id = $_SESSION['login_id'];
-    $query = "UPDATE User SET birthday='$dob' WHERE id=$id";
-    $response = make_query($query);
-    if($response) {
+
+    $link = get_conn();
+    $updateStmt = mysqli_prepare($link, "UPDATE User SET birthday=? WHERE id=?");
+    $updateStmt->bind_param("si", $dob, $id);
+    if($updateStmt->execute()) {
+        $link->close();
         echo json_encode(true);
     } else {
         echo json_encode(false);
@@ -99,13 +107,16 @@ function editDOB($dob) {
 }
 
 function editUsername($username) {
-    cleanUpInput($username);
+    $username=cleanUpInput($username);
     require_once __DIR__.'/DB_connect/db_utility.php';
     session_start();
     $id = $_SESSION['login_id'];
-    $query = "UPDATE User SET username='$username' WHERE id=$id";
-    $response = make_query($query);
-    if($response) {
+
+    $link = get_conn();
+    $updateStmt = mysqli_prepare($link, "UPDATE User SET username=? WHERE id=?");
+    $updateStmt->bind_param("si", $username, $id);
+    if($updateStmt->execute()) {
+        $link->close();
         echo json_encode(true);
     } else {
         echo json_encode(false);
@@ -117,9 +128,12 @@ function editEmail($email) {
     require_once __DIR__.'/DB_connect/db_utility.php';
     session_start();
     $id = $_SESSION['login_id'];
-    $query = "UPDATE User SET email='$email' WHERE id=$id";
-    $response = make_query($query);
-    if($response) {
+
+    $link = get_conn();
+    $updateStmt = mysqli_prepare($link, "UPDATE User SET email=? WHERE id=?");
+    $updateStmt->bind_param("si", $email, $id);
+    if($updateStmt->execute()) {
+        $link->close();
         echo json_encode(true);
     } else {
         echo json_encode(false);
@@ -130,9 +144,12 @@ function deleteEmail() {
     require_once __DIR__.'/DB_connect/db_utility.php';
     session_start();
     $id = $_SESSION['login_id'];
-    $query = "UPDATE User SET email=NULL WHERE id=$id";
-    $response = make_query($query);
-    if($response) {
+
+    $link = get_conn();
+    $updateStmt = mysqli_prepare($link, "UPDATE User SET email=NULL WHERE id=?");
+    $updateStmt->bind_param("i", $id);
+    if($updateStmt->execute()) {
+        $link->close();
         echo json_encode(true);
     } else {
         echo json_encode(false);
@@ -144,14 +161,18 @@ function checkOldPassword($oldPassword) {
     require_once __DIR__.'/DB_connect/db_utility.php';
     session_start();
     $id = $_SESSION['login_id'];
-    $query = "SELECT * FROM User WHERE id=$id AND password='$encryptPassword'";
-    $response = make_query($query);
-    if($response) {
-        if(mysqli_num_rows($response) == 1) {
+
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "SELECT * FROM User WHERE id=? AND password=?");
+    $selectStmt->bind_param("is", $id, $encryptPassword);
+    if($selectStmt->execute()) {
+        $selectStmt->store_result();
+        if($selectStmt->num_rows === 1) {
             echo json_encode(true);
         } else {
             echo json_encode(false);
         }
+        $link->close();
     } else {
         echo json_encode(false);
     }
@@ -162,14 +183,16 @@ function changePassword($newPassword) {
     require_once __DIR__.'/DB_connect/db_utility.php';
     session_start();
     $id = $_SESSION['login_id'];
-    $query = "UPDATE User SET password='$encryptPassword' WHERE id=$id";
-    $response = make_query($query);
-    if($response) {
+
+    $link = get_conn();
+    $updateStmt = mysqli_prepare($link, "UPDATE User SET password=? WHERE id=?");
+    $updateStmt->bind_param("si", $encryptPassword, $id);
+    if($updateStmt->execute()) {
+        $link->close();
         echo json_encode(true);
     } else {
         echo json_encode(false);
     }
 }
-
 
 ?>

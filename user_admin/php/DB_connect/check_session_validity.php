@@ -10,16 +10,21 @@ require_once "db_utility.php";
 //if session doesn't exist at all, go to logged_out.html
 if(!isset($_SESSION['login_id'])) header("Location: /einshub/user_admin/logged_out.html");
 
-//check whether the session_id agrees with that in the database.
-$resp = make_query("select * from User where id={$_SESSION['login_id']}");
-$id_in_database;
-if (mysqli_num_rows($resp) == 1) {
-	$row = mysqli_fetch_assoc($resp);
-	$id_in_database = $row['session_id'];
+$link = get_conn();
+$selectStmt = mysqli_prepare($link,"select session_id from User where id=?");
+$selectStmt->bind_param("s", $_SESSION['login_id']);
+if($selectStmt->execute()) {
+    $selectStmt->store_result();
+    $selectStmt->bind_result($id_in_database);
+    if($selectStmt->num_rows == 1) {
+        $selectStmt->fetch();
+        $link->close();
+    } else {
+        $link->close();
+        die('A query with a user-id from the User table returned a non-1-row result.');
+    }
 } else {
-	//if the sql query does not return exactly 1 row of result, something's wrong. 
-	//TODO: Maybe should change this to writing to a console log file or something.
-	die('A query with a user-id from the User table returned a non-1-row result.');
+    die("Unable to make sql query");
 }
 
 if($id_in_database != session_id()){

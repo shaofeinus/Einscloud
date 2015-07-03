@@ -126,11 +126,11 @@ function checkPhoneExists(phoneNoInput, container) {
             params: phoneNoInput
         },
         function(data, status) {
-            console.log(data);
             if(data) {
                 data = JSON.parse(data);
                 num_exists[curr_form] = data['exists'];
                 container.innerHTML = data['message'];
+                console.log(data);
             } else {
                 container.innerHTML = "";
             }
@@ -187,61 +187,4 @@ function logout() {
             window.location.replace("php/logout.php");
             console.log(data);
         });
-}
-
-/** Unused functions **/
-function checkEmailAndPhoneMatch(i) {
-    var emailInput = document.forms["add_viewers_form"]["viewerEmail_" + i].value;
-    var phoneNoInput = document.forms["add_viewers_form"]["viewerPhone_" + i].value;
-
-    if(phoneNoExists(phoneNoInput)) {
-        return emailAndPhoneMatch(emailInput, phoneNoInput);
-    } else {
-        return true;
-    }
-}
-
-function emailAndPhoneMatch(emailInput, phoneNoInput) {
-    var matches;
-    $.post("php/user_add_viewer_functions.php",
-        {
-            func: "checkViewerEmailPhoneMatch",
-            params: [emailInput, phoneNoInput]
-        },
-        function(data, status) {
-            console.log("email phone match: " + data);
-            if(status === 'success') {
-                if(data === 'true') {
-                    matches = true;
-                } else {
-                    matches = false;
-                }
-            }
-        });
-
-    return matches;
-}
-
-function phoneNoExists(phoneNoInput) {
-    var exists
-    $.post("php/user_add_viewer_functions.php",
-        {
-            func: "checkViewerPhoneExists",
-            params: phoneNoInput
-        },
-        function(data, status) {
-            console.log("viewer phone exists: " + data);
-            if(status === 'success') {
-                if(data === 'true') {
-                    var emailInput = document.forms["add_viewers_form"]["viewerEmail_" + i].value;
-                    var phoneNoInput = document.forms["add_viewers_form"]["viewerPhone_" + i].value;
-                    emailAndPhoneMatch;
-                } else {
-                    exists = false;
-                }
-            }
-        });
-
-    console.log("viewer phone exists returned value: " + exists);
-    return exists;
 }

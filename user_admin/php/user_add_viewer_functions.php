@@ -41,11 +41,16 @@ function decideFunction() {
 function displayDropMenu() {
     session_start();
     $user_id = $_SESSION['login_id'];
+
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "SELECT * FROM Caregive WHERE user_id='$user_id'";
-    $response = make_query($query);
-    if($response) {
-        $num_rows = mysqli_num_rows($response);
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "SELECT * FROM Caregive WHERE user_id=?");
+    $selectStmt->bind_param("i", $user_id);
+
+    if($selectStmt->execute()) {
+        $selectStmt->store_result();
+        $num_rows = $selectStmt->num_rows;
+        $link->close();
 
         if($num_rows < 5){
             echo "<h3 class='page-header'>How many mobile Caregivers do you want to add?</h3>";
@@ -163,12 +168,17 @@ function checkPhoneExists($phone_no) {
 
 function checkUnregisteredViewers($phone_no, $user_id) {
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "SELECT * FROM UnregisteredViewer WHERE phone_no='$phone_no' AND user_id=$user_id";
-    $response = make_query($query);
-    if($response) {
-        if(mysqli_num_rows($response) > 0) {
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "SELECT * FROM UnregisteredViewer WHERE phone_no=? AND user_id=?");
+    $selectStmt->bind_param("si", $phone_no, $user_id);
+
+    if($selectStmt->execute()) {
+        $selectStmt->store_result();
+        if($selectStmt->num_rows > 0) {
+            $link->close();
             return true;
         } else {
+            $link->close();
             return false;
         }
     } else {
@@ -178,22 +188,33 @@ function checkUnregisteredViewers($phone_no, $user_id) {
 
 function checkRegisteredViewers($phone_no, $user_id) {
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "SELECT rv_id FROM Caregive WHERE user_id=$user_id";
-    $response = make_query($query);
-    if($response) {
-        if(mysqli_num_rows($response)) {
-            while($row = mysqli_fetch_assoc($response)) {
-                $rv_id = $row['rv_id'];
-                $query = "SELECT phone_no FROM RegisteredViewer WHERE id=$rv_id";
-                $response_each = make_query($query);
-                if(mysqli_num_rows($response_each)) {
-                    $row_each = mysqli_fetch_assoc($response_each);
-                    $phone_no_each = $row_each['phone_no'];
-                    if($phone_no_each == $phone_no) {
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "SELECT rv_id FROM Caregive WHERE user_id=?");
+    $selectStmt->store_result();
+    $selectStmt->bind_param("i", $user_id);
+
+    if($selectStmt->execute()) {
+        $selectStmt->store_result();
+        if($selectStmt->num_rows > 0) {
+            $selectStmt->bind_result($rv_id);
+            while($selectStmt->fetch()) {
+                $link2 = get_conn();
+                $selectStmt2 = mysqli_prepare($link2, "SELECT phone_no FROM RegisteredViewer WHERE id=?");
+                $selectStmt2->bind_param("i", $rv_id);
+                if($selectStmt2->execute()) {
+
+                    $selectStmt2->bind_result($phone_no_each);
+                    $selectStmt2->fetch();
+                    if($phone_no_each === $phone_no) {
+                        $link->close();
+                        $link2->close();
                         return true;
                     }
                 }
+                $selectStmt2->close();
+                $link2->close();
             }
+            $link->close();
         }
         return false;
     } else {
@@ -206,42 +227,6 @@ function logout() {
     session_destroy();
     header("Location: ../logged_out.html");
     echo "logged out";
-}
-
-/** Unused functions */
-function emailAndPhoneMatch($params_json) {
-    $params = json_decode($params_json);
-    $email = $params[0];
-    $phone = $params[1];
-    echo $email.$phone;
-    $query = "SELECT * FROM RegisteredViewer WHERE phone_no='$phone' AND email='$email'";
-    require_once __DIR__.'/DB_connect/db_utility.php';
-    $response = make_query($query);
-    if($response) {
-        if(mysqli_num_rows($response) > 0) {
-            echo json_encode(true);
-        } else {
-            echo json_encode(false);
-        }
-    } else {
-        echo "<script>console.log('mysql error in check email phone match');</script>";
-    }
-}
-
-function checkViewerPhoneExists($param_json) {
-    $phoneNo = json_decode($param_json);
-    $query = "SELECT * FROM RegisteredViewer WHERE phone_no='$phoneNo'";
-    require_once __DIR__.'/DB_connect/db_utility.php';
-    $response = make_query($query);
-    if($response) {
-        if(mysqli_num_rows($response) > 0) {
-            echo json_encode(true);
-        } else {
-            echo json_encode(false);
-        }
-    } else {
-        echo "<script>console.log('mysql error in check phone exist');</script>";
-    }
 }
 
 ?>

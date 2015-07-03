@@ -49,6 +49,9 @@ function loadProfile() {
             var username = data.username;
             document.getElementById('username').innerHTML = username;
             var email = data.email;
+            if(email === null) {
+                email = "";
+            }
             document.getElementById('email').innerHTML = email;
         });
 }
