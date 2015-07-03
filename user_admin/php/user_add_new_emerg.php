@@ -8,6 +8,8 @@
 //start session and check for session validity
 require_once 'DB_connect/check_session_validity.php';
 
+require_once 'clean_up_input.php';
+
 processAddEmerg();
 
 function processAddEmerg() {
@@ -16,8 +18,8 @@ function processAddEmerg() {
         $successEmerg = array();
 
         while(isset($_POST['nickname_'.$i]) && isset($_POST['landPhone_'.$i])) {
-            $name = $_POST['nickname_'.$i];
-            $phone_no = $_POST['landPhone_'.$i];
+            $name = cleanUpInput($_POST['nickname_'.$i]);
+            $phone_no = cleanUpInput($_POST['landPhone_'.$i]);
 
             $landline_id = landlineExists($phone_no);
 

@@ -8,9 +8,10 @@
 session_start();
 
 $error_msg = "";
+require_once "clean_up_input.php";
 
 if(!empty($_POST["username"]) && !empty($_POST["password"])) {
-    $username = trim($_POST["username"]);
+    $username = cleanUpInput($_POST["username"]);
     $password = $_POST["password"];
     $response = make_sql_query($username, $password);
 

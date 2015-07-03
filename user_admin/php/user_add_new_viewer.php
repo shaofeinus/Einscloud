@@ -1,6 +1,8 @@
 <?php 
 //start session and check for session validity
 require_once 'DB_connect/check_session_validity.php';
+
+require_once 'clean_up_input.php';
 ?>
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -14,9 +16,9 @@ function processAddViewer() {
         $successViewer = array();
 
         while(isset($_POST['nickname_'.$i]) && isset($_POST['viewerPhone_'.$i]) && isset($_POST['viewerEmail_'.$i])) {
-            $viewername = $_POST['nickname_' . $i];
-            $phone_no = $_POST['viewerPhone_' . $i];
-            $email = $_POST['viewerEmail_' . $i];
+            $viewername = cleanUpInput($_POST['nickname_' . $i]);
+            $phone_no = cleanUpInput($_POST['viewerPhone_' . $i]);
+            $email = cleanUpInput($_POST['viewerEmail_' . $i]);
             $user_id = $_SESSION['login_id'];
             $verification_code = getVerificationCode();
 
