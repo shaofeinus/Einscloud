@@ -13,12 +13,15 @@ $viewer_id = $_SESSION['viewer_id'];
 //echo $viewer_id;
 require_once 'DB_connect/db_utility.php';
 
-$query = "update RegisteredViewer set email = NULL where id = '$viewer_id'";
-$updateResponse = make_query($query);
-if($updateResponse === FALSE) {
-    echo "Phone number in existence apparently";
-    die(mysql_error());
-}
+$link = get_conn();
+$deleteStmt = mysqli_prepare($link, "update RegisteredViewer set email = NULL where id = ?");
+$deleteStmt->bind_param("i", $viewer_id);
+$deleteStmt->execute();
+$link->close();
+
+//$query = "update RegisteredViewer set email = NULL where id = '$viewer_id'";
+//$updateResponse = make_query($query);
+
 
 header("Location: ../caregiver_profile.php");
 ?>

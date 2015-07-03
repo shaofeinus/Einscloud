@@ -57,6 +57,7 @@ function validateUsername() {
         document.getElementById("username_feedback").innerHTML = "Username below 4 characters";
         fieldIsValid[2] = false;
     } else {
+        document.getElementById("username_feedback").innerHTML = "";
         var container = document.getElementById("username_feedback");
         checkUsernameExists(usernameInput, container);
     }
@@ -118,7 +119,7 @@ function checkUsernameExists(usernameInput, container) {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var response = parseInt(xmlhttp.responseText);
             if(response == 1) {
-                //container.innerHTML = "Username already exists";
+                container.innerHTML = "Username already exists";
                 fieldIsValid[2] = false;
                 uniqueCondition = false;
 

@@ -7,18 +7,19 @@
  */
 	//start session and check for session validity
 	require_once 'DB_connect/check_session_validity.php';
+    require_once 'clean_up_input.php';
 	
     $viewer_id = $_SESSION['viewer_id'];
-    $newUsername = $_POST['username'];
+    $newUsername = cleanUpInput($_POST['username']);
     //echo $viewer_id;
     require_once 'DB_connect/db_utility.php';
 
-    $query = "update RegisteredViewer set username = '$newUsername' where id = '$viewer_id'";
-    $updateResponse = make_query($query);
-    if($updateResponse === FALSE) {
-        echo "response is erroneous";
-        die(mysql_error());
-    }
+    $link = get_conn();
+    $editUsernameStmt = mysqli_prepare($link, "update RegisteredViewer set username = ? where id = ?");
+    $editUsernameStmt->bind_param("si", $newUsername, $viewer_id);
+    $editUsernameStmt->execute();
+    $link->close();
+
     
     $_SESSION['login_viewer'] = $_POST['username'];
 

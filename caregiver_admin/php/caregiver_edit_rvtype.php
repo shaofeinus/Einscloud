@@ -12,13 +12,14 @@
 	$newRvtype = $_POST['rvtype'];
 	//echo $viewer_id;
 	require_once 'DB_connect/db_utility.php';
-	
-	$query = "update RegisteredViewer set rvtype = '$newRvtype' where id = '$viewer_id'";
-	$updateResponse = make_query($query);
-	if($updateResponse === FALSE) {
-	    echo "response is erroneous";
-	    die(mysql_error());
-	}
+
+    $link = get_conn();
+    $updateRvStmt = mysqli_prepare($link, "update RegisteredViewer set rvtype = ? where id = ?");
+    $updateRvStmt->bind_param("si", $newRvtype, $viewer_id);
+    $updateRvStmt->execute();
+
+    $link->close();
+
 	
 	header("Location: ../caregiver_profile.php");
 ?>
