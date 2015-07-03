@@ -59,38 +59,61 @@ function process_post() {
 }
 
 function make_sql_query($input) {
-    require_once 'DB_connect/db_connect.php';
-    $connector = new DB_CONNECT();
-    $connector->connect();
-
-    $query1 = "INSERT INTO User(fullname, nric, phone_no, username, password, birthday, gender, address, race)
-	VALUES('$input->fullName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->birthday', '$input->gender', '$input->address', '$input->race')";
-
-    $query2 = "INSERT INTO User(fullname, nric, phone_no, username, password, email, birthday, gender, address, race)
-	VALUES('$input->fullName', '$input->nric', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->birthday', '$input->gender', '$input->address', '$input->race')";
 
     if(empty($input->email)) {
-        //echo $query1 . "<br>";
-        if(mysqli_query($connector->conn, $query1)) {
-            $connector->close();
-            //echo "success";
 
-            echo "<script> alert('Your registration as a user is successful!'); window.location.assign('../index.php');</script>";
+        require_once 'DB_connect/db_utility.php';
+        $link = get_conn();
+        $query1 = mysqli_prepare($link,
+            "INSERT INTO User(fullname, nric, phone_no, username, password, birthday, gender, address, race) " .
+            "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $query1->bind_param("sssssssss",
+            $input->fullName,
+            $input->nric,
+            $input->phoneNo,
+            $input->username,
+            $input->password,
+            $input->birthday,
+            $input->gender,
+            $input->address,
+            $input->race);
+        $result = $query1->execute();
+        $link->close();
+
+        if($result) {
+            echo "<script> alert('Your registration as a user is successful!'); " .
+                "window.location.assign('../index.php');</script>";
         } else {
-            $connector->close();
-            echo "<script> alert('Your registration as a user failed! Please try again'); window.location.assign('../user_registration.html');</script>";
-            //echo "error";
+            echo "<script> alert('Your registration as a user failed! Please try again'); " .
+                "window.location.assign('../user_registration.html');</script>";
         }
     } else {
-        //echo $query2 . "<br>";
-        if(mysqli_query($connector->conn, $query2)) {
-            $connector->close();
-            echo "<script> alert('Your registration as a user is successful!'); window.location.assign('../index.php')</script>";
-            //echo "success";
+
+        require_once 'DB_connect/db_utility.php';
+        $link = get_conn();
+        $query1 = mysqli_prepare($link,
+            "INSERT INTO User(fullname, nric, phone_no, username, password, email, birthday, gender, address, race) " .
+            "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $query1->bind_param("ssssssssss",
+            $input->fullName,
+            $input->nric,
+            $input->phoneNo,
+            $input->username,
+            $input->password,
+            $input->email,
+            $input->birthday,
+            $input->gender,
+            $input->address,
+            $input->race);
+        $result = $query1->execute();
+        $link->close();
+
+        if($result) {
+            echo "<script> alert('Your registration as a user is successful!'); " .
+                "window.location.assign('../index.php')</script>";
         } else {
-            $connector->close();
-            echo "<script> alert('Your registration as a user failed! Please try again'); window.location.assign('../user_registration.html')</script>";
-           // echo "error";
+            echo "<script> alert('Your registration as a user failed! Please try again'); " .
+                "window.location.assign('../user_registration.html')</script>";
         }
     }
 }
