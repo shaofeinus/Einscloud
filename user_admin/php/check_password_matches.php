@@ -14,21 +14,20 @@ if(!empty($_POST['username']) && !empty($_POST['password'])) {
     echo json_encode("Insufficient info");
 }
 
-
-
 function checkPassword($username, $password) {
     $encryptPassword = md5($password);
-    require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "SELECT * FROM User WHERE username='$username' AND password='$encryptPassword'";
-    $response = make_query($query);
-    if($response) {
-        if(mysqli_num_rows($response) == 1) {
-            echo json_encode(true);
-        } else {
-            echo json_encode(false);
-        }
+    require_once 'DB_connect/db_utility.php';
+    $link = get_conn();
+    $query = mysqli_prepare($link, "SELECT * FROM User WHERE username=? AND password=?");
+    $query->bind_param("ss", $username, $encryptPassword);
+    $query->execute();
+    $query->store_result();
+    $link->close();
+
+    if($query->fetch()) {
+        echo json_encode(true);
     } else {
-        echo json_encode("error");
+        echo json_encode(false);
     }
 }
 

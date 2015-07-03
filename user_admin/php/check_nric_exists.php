@@ -18,16 +18,6 @@ if(!empty($_GET["nric"])) {
 }
 
 function make_sql_query($data) {
-    /*
-    require_once 'DB_connect/db_connect.php';
-    $connector = new DB_CONNECT();
-    $connector->connect();
-
-    $query = "SELECT * FROM User WHERE nric='$data'";
-
-    $response = mysqli_query($connector->conn, $query);
-    $connector->close();
-    */
 
     require_once 'DB_connect/db_utility.php';
     $link = get_conn();

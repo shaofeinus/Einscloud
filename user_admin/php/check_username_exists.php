@@ -11,7 +11,7 @@ if(!empty($_GET["username"])) {
     $username = $_GET["username"];
     $response = make_sql_query($username);
 
-    if(mysqli_num_rows($response) > 0) {
+    if($response->fetch()) {
         echo 1;
     } else {
         echo 0;
@@ -19,14 +19,13 @@ if(!empty($_GET["username"])) {
 }
 
 function make_sql_query($data) {
-    require_once 'DB_connect/db_connect.php';
-    $connector = new DB_CONNECT();
-    $connector->connect();
-
-    $query = "SELECT * FROM User WHERE username='$data'";
-
-    $response = mysqli_query($connector->conn, $query);
-    $connector->close();
-    return $response;
+    require_once 'DB_connect/db_utility.php';
+    $link = get_conn();
+    $query = mysqli_prepare($link, "SELECT * FROM User WHERE username=?");
+    $query->bind_param("s", $data);
+    $query->execute();
+    $query->store_result();
+    $link->close();
+    return $query;
 }
 ?>

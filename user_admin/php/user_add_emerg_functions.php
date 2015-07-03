@@ -35,12 +35,15 @@ function decideFunction() {
 function displayDropMenu() {
     session_start();
     $user_id = $_SESSION['login_id'];
+
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "SELECT * FROM CallLandline WHERE user_id='$user_id'";
-    $response = make_query($query);
-    if($response) {
-        $html_output = "";
-        $num_rows = mysqli_num_rows($response);
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "SELECT * FROM CallLandline WHERE user_id=?");
+    $selectStmt->bind_param("i", $user_id);
+
+    if($selectStmt->execute()) {
+        $selectStmt->store_result();
+        $num_rows = $selectStmt->num_rows;
         if($num_rows < 5){
             $html_output = "<h3 class='page-header'>How may landline Caregivers do you want to add?</h3>".
                 "<select id='add_num_emerg' class='selectpicker' onchange='displayAddEmergForm()'>".
@@ -63,6 +66,7 @@ function displayDropMenu() {
         echo "error retrieving data";
     }
 
+    $link->close();
 }
 
 function displayAddEmergForm($json_object) {
@@ -70,8 +74,6 @@ function displayAddEmergForm($json_object) {
     $data = json_decode($json_object);
     $num_forms = $data->num_emerg;
     $filled_form_data = $data->filled_form;
-
-    //echo var_dump($filled_form_data);
 
     $i = 0;
     $output = "";
@@ -115,33 +117,30 @@ function checkPhoneExists($phone_no) {
     $user_id = $_SESSION['login_id'];
 
     require_once __DIR__.'/DB_connect/db_utility.php';
+    $link = get_conn();
+    $selectStmt1 = mysqli_prepare($link, "SELECT id FROM LandlineContact WHERE phone_no=?");
+    $selectStmt1->bind_param("s", $phone_no);
 
-    $query = "SELECT id FROM LandlineContact WHERE phone_no=$phone_no";
-
-    $response = make_query($query);
-
-    $landline_id = 0;
-
-    if($response) {
-        $row = mysqli_fetch_assoc($response);
-
-        if($row) {
-            $landline_id = $row['id'];
-        }
+    if($selectStmt1->execute()) {
+        $selectStmt1->bind_result($landline_id);
+        $selectStmt1->fetch();
+        $link->close();
     } else {
         echo "error";
     }
 
-    $query = "SELECT * FROM CallLandline WHERE landline_id=$landline_id AND user_id=$user_id";
+    $link = get_conn();
+    $selectStmt2 = mysqli_prepare($link, "SELECT * FROM CallLandline WHERE landline_id=? AND user_id=?");
+    $selectStmt2->bind_param("ii", $landline_id, $user_id);
 
-    $response = make_query($query);
-
-    if($response) {
-        if(mysqli_num_rows($response) > 0) {
+    if($selectStmt2->execute()) {
+        $selectStmt2->store_result();
+        if($selectStmt2->num_rows > 0) {
             echo true;
         } else {
             echo false;
         }
+        $link->close();
     } else {
         echo "error";
     }

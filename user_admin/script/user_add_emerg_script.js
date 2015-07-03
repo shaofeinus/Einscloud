@@ -133,7 +133,7 @@ function checkPhoneExists(phoneNoInput, container) {
                 container.innerHTML = "";
                 num_exists[curr_form] = false;
             } else {
-                container.innerHTML = "";
+                container.innerHTML = data;
             }
         });
 }

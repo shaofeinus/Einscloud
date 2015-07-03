@@ -51,14 +51,17 @@ function processAddEmerg() {
 function updateCallLandlineTable($landline_id, $name) {
     $user_id = $_SESSION['login_id'];
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "INSERT INTO CallLandline (landline_id, user_id, name) VALUES ($landline_id, $user_id, '$name')";
-    $response = make_query($query);
+    $link = get_conn();
+    $insertStmt = mysqli_prepare($link,
+        "INSERT INTO CallLandline (landline_id, user_id, name) VALUES (?, ?, ?)");
+    $insertStmt->bind_param("iis", $landline_id, $user_id, $name);
 
     $instance = array();
     array_push($instance, $name);
 
-    if($response) {
+    if($insertStmt->execute()) {
         array_push($instance, true);
+        $link->close();
     } else {
         array_push($instance, false);
     }
@@ -69,10 +72,14 @@ function updateCallLandlineTable($landline_id, $name) {
 function addLandline($phone_no) {
 
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "INSERT INTO LandlineContact (phone_no) VALUES ('$phone_no')";
-    $response = make_query($query);
+    $link = get_conn();
+    $insertStmt = mysqli_prepare($link,
+        "INSERT INTO LandlineContact (phone_no) VALUES (?)");
+    $insertStmt->bind_param("s", $phone_no);
 
-    if(!$response) {
+    if($insertStmt->execute()) {
+       $link->close();
+    } else {
         echo "<script>alert('Error query: addLandline');</script>";
     }
 
@@ -81,13 +88,14 @@ function addLandline($phone_no) {
 function landlineExists($phone_no) {
 
     require_once __DIR__.'/DB_connect/db_utility.php';
-    $query = "SELECT * FROM LandlineContact WHERE phone_no='$phone_no'";
-    $response = make_query($query);
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "SELECT id FROM LandlineContact WHERE phone_no=?");
+    $selectStmt->bind_param("s", $phone_no);
 
-    if($response) {
-        if(mysqli_num_rows($response) == 1){
-            $row = mysqli_fetch_array($response, MYSQL_ASSOC);
-            return $row['id'];
+    if($selectStmt->execute()) {
+        $selectStmt->bind_result($id);
+        if($selectStmt->fetch()) {
+            return $id;
         } else {
             return 0;
         }
