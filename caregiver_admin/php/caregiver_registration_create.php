@@ -21,15 +21,16 @@ class Input
 
     public function getInput()
     {
-        $this->fullName = $_POST['fullName'];
-        $this->email = $_POST['email'];
-        $this->email = filter_var($this->email, FILTER_SANITIZE_EMAIL);
+        require_once 'clean_up_input.php';
+        $this->fullName = cleanUpInput($_POST['fullName']);
+        $this->email = cleanUpInput($_POST['email']);
+        $this->email = cleanUpInput(filter_var($this->email, FILTER_SANITIZE_EMAIL));
         if(strlen(trim($this->email)) == 0){
             $this->email = NULL;
         }
 
-        $this->phoneNo = $_POST['phoneNo'];
-        $this->username = $_POST['username'];
+        $this->phoneNo = cleanUpInput($_POST['phoneNo']);
+        $this->username = cleanUpInput($_POST['username']);
         $this->password = md5($_POST['password']);
 
         $this->rvtype = 'Family'; // default value now as rvtype is deemed redundant
