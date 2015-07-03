@@ -5,6 +5,7 @@
  * Date: 22/6/2015
  * Time: 4:50 PM
  */
+require_once 'clean_up_input.php';
 
 decideFunction();
 
@@ -98,6 +99,7 @@ function editDOB($dob) {
 }
 
 function editUsername($username) {
+    cleanUpInput($username);
     require_once __DIR__.'/DB_connect/db_utility.php';
     session_start();
     $id = $_SESSION['login_id'];
@@ -111,6 +113,7 @@ function editUsername($username) {
 }
 
 function editEmail($email) {
+    $email=cleanUpInput($email);
     require_once __DIR__.'/DB_connect/db_utility.php';
     session_start();
     $id = $_SESSION['login_id'];

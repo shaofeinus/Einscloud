@@ -8,12 +8,14 @@
 
 session_start();
 
+require_once 'clean_up_input.php';
+
 $error_msg = "";
 
 require_once 'DB_connect/db_utility.php';
 
 if(!empty($_POST["username"]) && !empty($_POST["password"])) {
-    $username = trim($_POST["username"]);
+    $username = cleanUpInput($_POST["username"]);
     $password = $_POST["password"];
 
     $passwordHashed = md5($password);

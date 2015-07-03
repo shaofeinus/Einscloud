@@ -22,20 +22,22 @@ class Input
 
     public function getInput()
     {
-        $this->fullName = $_POST['fullName'];
-        $this->email = $_POST['email'];
+        require_once 'clean_up_input.php';
+
+        $this->fullName = cleanUpInput($_POST['fullName']);
+        $this->email = cleanUpInput($_POST['email']);
         $this->email = filter_var($this->email, FILTER_SANITIZE_EMAIL);
         if(strlen(trim($this->email)) == 0){
             $this->email = NULL;
         }
-        $this->nric = $_POST['nric'];
-        $this->phoneNo = $_POST['phoneNo'];
-        $this->username = $_POST['username'];
+        $this->nric = cleanUpInput($_POST['nric']);
+        $this->phoneNo = cleanUpInput($_POST['phoneNo']);
+        $this->username = cleanUpInput($_POST['username']);
         $this->password = md5($_POST['password']);
         $this->birthday = $_POST['birthday'];
         $this->gender = $_POST['gender'];
-        $this->address = $_POST['address'];
-        $this->race = $_POST['select_race'] === 'otherRaces' ? $_POST['otherRace'] : $_POST['select_race'];
+        $this->address = cleanUpInput($_POST['address']);
+        $this->race = cleanUpInput($_POST['select_race'] === 'otherRaces' ? $_POST['otherRace'] : $_POST['select_race']);
     }
 }
 
