@@ -10,7 +10,7 @@ if(!empty($_GET["nric"])) {
     $nric = $_GET["nric"];
     $response = make_sql_query($nric);
 
-    if(mysqli_num_rows($response) > 0) {
+    if($response->fetch()) {
         echo 1;
     } else {
         echo 0;
@@ -18,6 +18,7 @@ if(!empty($_GET["nric"])) {
 }
 
 function make_sql_query($data) {
+    /*
     require_once 'DB_connect/db_connect.php';
     $connector = new DB_CONNECT();
     $connector->connect();
@@ -26,7 +27,16 @@ function make_sql_query($data) {
 
     $response = mysqli_query($connector->conn, $query);
     $connector->close();
-    return $response;
+    */
+
+    require_once 'DB_connect/db_utility.php';
+    $link = get_conn();
+    $query = mysqli_prepare($link, "SELECT id FROM User WHERE nric=?");
+    $query->bind_param("s", $data);
+    $query->execute();
+    $query->store_result();
+    $link->close();
+    return $query;
 }
 
 ?>

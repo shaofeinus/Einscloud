@@ -55,7 +55,6 @@ function process_post() {
     if(isFormValid() == true) {
         $input = new Input();
         $input->getInput();
-        //echo "processing";
         make_sql_query($input);
     }
 }
