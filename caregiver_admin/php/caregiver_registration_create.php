@@ -18,6 +18,7 @@ class Input
     public $rvtype;
     public $nric;
     public $gender;
+    public $useDefault;
 
     public function getInput()
     {
@@ -31,6 +32,8 @@ class Input
         $this->phoneNo = $_POST['phoneNo'];
         $this->username = $_POST['username'];
         $this->password = md5($_POST['password']);
+
+        $this->useDefault = $_POST['default_username'];
 
         $this->rvtype = 'Family'; // default value now as rvtype is deemed redundant
         //$this->nric = 'S0000000A'; //dummy value
@@ -58,48 +61,58 @@ function process_post() {
 }
 
 function make_sql_query($input) {
-    require_once 'DB_connect/db_connect.php';
-    $connector = new DB_CONNECT();
-    $connector->connect();
+    require_once 'DB_connect/db_utility.php';
 
-    $query1 = "INSERT INTO RegisteredViewer(fullname, phone_no, username, password, rvtype)
-	VALUES('$input->fullName', '$input->phoneNo', '$input->username', '$input->password', '$input->rvtype')";
-
-    $query2 = "INSERT INTO RegisteredViewer(fullname, phone_no, username, password, email, rvtype)
-	VALUES('$input->fullName', '$input->phoneNo', '$input->username', '$input->password', '$input->email', '$input->rvtype')";
-
-    $responseString = "Your registration as a caregiver is successful! Your username is '" . $input->username . "' and your password is '" . $input->phoneNo . "'.'";
     if(empty($input->email)) {
         //echo $query1 . "<br>";
-        if(mysqli_query($connector->conn, $query1)) {
-            $connector->close();
-            //echo "success";
-            //header("Location: ../index.php");
-            ?>
-                    <script> alert("Your registration as a caregiver is successful! Your username is '<?php echo $input->username ?>' and your password is your phone number.");
+        $link = get_conn();
+        $registerNoEmailStmt = mysqli_prepare($link, "insert into RegisteredViewer(fullname, phone_no, username, password, rvtype) values (?,?,?,?,?)");
+        $registerNoEmailStmt->bind_param("sssss", $input->fullName, $input->phoneNo, $input->username, $input->password, $input->rvtype);
+        $registerResult = $registerNoEmailStmt->execute();
+        if($registerResult == true) {
+            if($input->useDefault == 'yes') {
+                ?>
+                <script> alert("Your registration as a caregiver is successful! Your username is '<?php echo $input->username ?>' and your password is your phone number.");
                 window.location.assign('../index.php')</script>
-            <?php
+                <?php
+            }
+            else{
+                ?>
+                <script> alert("Your registration as a caregiver is successful!");
+                window.location.assign('../index.php')</script>
+                <?php
+            }
+
 
         } else {
-            $connector->close();
             echo "<script> alert('Your registration as a caregiver failed! Please try again'); window.location.assign('../caregiver_registration.html')</script>";
-            //header("Location: ../caregiver_registration.html");
+                //header("Location: ../caregiver_registration.html");
         }
-    } else {
-        //echo $query2 . "<br>";
-        if(mysqli_query($connector->conn, $query2)) {
-            $connector->close();
-            //echo "success";
-            //header("Location: ../index.php");
-            ?>
-            <script> alert("Your registration as a caregiver is successful! Your username is '<?php echo $input->username ?>' and your password is your phone number.");
-                window.location.assign('../index.php')</script>
-        <?php
+            $link->close();
         } else {
-            $connector->close();
+            //echo $query2 . "<br>";
+            $link = get_conn();
+            $registerWEmailStmt = mysqli_prepare($link, "insert into RegisteredViewer(fullname, phone_no, username, password, rvtype, email) values (?,?,?,?,?,?)");
+            $registerWEmailStmt->bind_param("ssssss", $input->fullName, $input->phoneNo, $input->username, $input->password, $input->rvtype, $input->email);
+            $registerResult = $registerWEmailStmt->execute();
+            if($registerResult == true) {
+                if($input->useDefault == 'yes') {
+                    ?>
+                    <script> alert("Your registration as a caregiver is successful! Your username is '<?php echo $input->username ?>' and your password is your phone number.");
+                        window.location.assign('../index.php')</script>
+                <?php
+                }
+                else{
+                    ?>
+                    <script> alert("Your registration as a caregiver is successful!");
+                        window.location.assign('../index.php')</script>
+                <?php
+                }
+        } else {
             echo "<script> alert('Your registration as a caregiver failed! Please try again'); window.location.assign('../caregiver_registration.html')</script>";
             //header("Location: ../caregiver_registration.html");
         }
+        $link->close();
     }
 }
 ?>

@@ -8,10 +8,18 @@ session_start();
 //direct to admin page.
 if(isset($_SESSION['viewer_id'])){
 	require_once "php/DB_connect/db_utility.php";
-	$resp = make_query("select * from RegisteredViewer where id={$_SESSION['viewer_id']}");
+    $link = get_conn();
+    $sessionValidStmt = mysqli_prepare($link, "select session_id from RegisteredViewer where id=?");
+    $sessionValidStmt->bind_param("i", $_SESSION['viewer_id']);
+    $sessionValidStmt->execute();
+    $sessionValidStmt->store_result();
+    $sessionValidStmt->bind_result($row['session_id']);
+    $link->close();
+	//$resp = make_query("select * from RegisteredViewer where id={$_SESSION['viewer_id']}");
 	$id_in_database;
-	if (mysqli_num_rows($resp) == 1) {
-		$row = mysqli_fetch_assoc($resp);
+	if ($sessionValidStmt->num_rows == 1) {
+		//$row = mysqli_fetch_assoc($resp);
+        $sessionValidStmt->fetch();
 		$id_in_database = $row['session_id'];
 	} else {
 		//if the sql query does not return exactly 1 row of result, something's wrong.

@@ -8,9 +8,9 @@
 
 if(!empty($_GET["nric"])) {
     $nric = $_GET["nric"];
-    $response = make_sql_query($nric);
+    $stmt = make_sql_query($nric);
 
-    if(mysqli_num_rows($response) > 0) {
+    if($stmt->num_rows > 0) {
         echo 1;
     } else {
         echo 0;
@@ -18,15 +18,21 @@ if(!empty($_GET["nric"])) {
 }
 
 function make_sql_query($data) {
-    require_once 'DB_connect/db_connect.php';
-    $connector = new DB_CONNECT();
-    $connector->connect();
+    require_once 'DB_connect/db_utility.php';
 
-    $query = "SELECT * FROM RegisteredViewer WHERE nric='$data'";
 
-    $response = mysqli_query($connector->conn, $query);
-    $connector->close();
-    return $response;
+    $link = get_conn();
+    $findNricStmt = mysqli_prepare($link, "SELECT * FROM RegisteredViewer WHERE nric=?");
+    $findNricStmt->bind_param("s", $data);
+    $result = $findNricStmt->execute();
+    $findNricStmt->store_result();
+    $link->close();
+
+    //$query = "SELECT * FROM RegisteredViewer WHERE nric='$data'";
+
+    //$response = mysqli_query($connector->conn, $query);
+
+    return $findNricStmt;
 }
 
 ?>

@@ -113,7 +113,7 @@
 
             else if($userType == 'caregiver') {
             ?>
-                <form name='forget_password_form' action='caregiver_admin/viewer_forget_password.php' method="post" onsubmit="return isUsernameValid()">
+                <form name='forget_password_form' action='caregiver_admin/caregiver_forget_password.php' method="post" onsubmit="return isUsernameValid()">
                     <tr><td><p>
                             <div id="forgetPassword" style="display:none">
                                 Type in your Username <input type='text' name='forgetPassword' oninput="caregiverValidateUsername()">

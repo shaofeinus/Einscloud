@@ -97,18 +97,18 @@ require_once 'php/DB_connect/check_session_validity.php';
 
         <?php
         $link = get_conn();
-        $unregisteredStmt = mysqli_prepare($link, "Select id, fullname, U.phone_no, gender, birthday FROM UnregisteredViewer, User U WHERE UnregisteredViewer.phone_no = ? AND user_id = U.id");
-        $unregisteredStmt->bind_param("s", $viewer_phone);
-        $unregisteredStmt->execute();
-        $unregisteredStmt->store_result();
-        $unregisteredStmt->bind_result($row['id'], $row['fullname'], $row['phone_no'], $row['gender'], $row['birthday']);
+        $unverifiedStmt = mysqli_prepare($link, "Select id, fullname, U.phone_no, gender, birthday FROM UnregisteredViewer, User U WHERE UnregisteredViewer.phone_no = ? AND user_id = U.id");
+        $unverifiedStmt->bind_param("s", $viewer_phone);
+        $unverifiedStmt->execute();
+        $unverifiedStmt->store_result();
+        $unverifiedStmt->bind_result($row['id'], $row['fullname'], $row['phone_no'], $row['gender'], $row['birthday']);
         $link->close();
 
-        if($unregisteredStmt->num_rows > 0) {
+        if($unverifiedStmt->num_rows > 0) {
             ?>
             <div class="row">
                 <?php
-                while ($unregisteredStmt->fetch()) {
+                while ($unverifiedStmt->fetch()) {
                 ?>
                 <div class="col-sm-4">
                     <form name='viewer_verify_form' action='php/caregiver_verify_user.php' method="post">

@@ -8,17 +8,22 @@ $newPassword = md5($_POST['newPassword']);
 //echo $viewer_id;
 require_once 'DB_connect/db_utility.php';
 
-$selectQuery = "select * from RegisteredViewer where id = '$viewer_id' and password = '$oldPassword'";
-$selectResponse = make_query($selectQuery);
-if(mysqli_num_rows($selectResponse) > 0) {
-    $query = "update RegisteredViewer set password = '$newPassword' where id = '$viewer_id' and password = '$oldPassword'";
-    //print $query;
-    $updateResponse = make_query($query);
+$link = get_conn();
+$selectStmt = mysqli_prepare($link, "select * from RegisteredViewer where id = ? and password = ?");
+$selectStmt->bind_param("is", $viewer_id, $oldPassword);
+$selectStmt->execute();
+$selectStmt->store_result();
+$link->close();
 
-    if ($updateResponse === FALSE) {
-        echo "response is erroneous";
-        die(mysql_error());
-    }
+
+if($selectStmt->num_rows > 0) {
+    $link = get_conn();
+    $updateStmt = mysqli_prepare($link, "update RegisteredViewer set password = ? where id = ? and password = ?");
+    $updateStmt->bind_param("sis", $newPassword, $viewer_id, $oldPassword);
+    $updateStmt->execute();
+    $link->close();
+
+
     echo "<script> alert('You have successfully changed your password!'); window.location.assign('../caregiver_profile.php')</script>";
 
 }

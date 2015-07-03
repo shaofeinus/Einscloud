@@ -57,6 +57,7 @@ function validateUsername() {
         document.getElementById("username_feedback").innerHTML = "Username below 4 characters";
         fieldIsValid[2] = false;
     } else {
+        document.getElementById("username_feedback").innerHTML = "";
         var container = document.getElementById("username_feedback");
         checkUsernameExists(usernameInput, container);
     }

@@ -3,25 +3,38 @@
         header("Location: ../index.html");
     }
     $phoneNumber = $_POST['forgetLoginPhone'];
-    //echo $nric;
+
     require_once 'php/DB_connect/db_utility.php';
-    $sendUsernameQuery = 'select phone_no, username from RegisteredViewer where phone_no ="' . $phoneNumber . '"' ;
-    $response = make_query($sendUsernameQuery);
 
-    if($response === FALSE) {
-        echo "response is erroneous";
-        die(mysql_error());
-    }
+    $link = get_conn();
+    $caregiverForgetStmt = mysqli_prepare($link, "Select phone_no, username FROM RegisteredViewer WHERE phone_no = ?");
+    $caregiverForgetStmt->bind_param("s", $phoneNumber);
+    $caregiverForgetStmt->execute();
+    $caregiverForgetStmt->store_result();
+    $caregiverForgetStmt->bind_result($row['phone_no'], $row['username']);
+    $link->close();
 
-    if(mysqli_num_rows($response)>0){
-        while($row = mysqli_fetch_assoc($response)){
+    //$sendUsernameQuery = 'select phone_no, username from RegisteredViewer where phone_no ="' . $phoneNumber . '"' ;
+    //$response = make_query($sendUsernameQuery);
+
+    //if($response === FALSE) {
+    //    echo "response is erroneous";
+    //    die(mysql_error());
+    //}
+
+    if($caregiverForgetStmt->num_rows>0){
+        while($caregiverForgetStmt->fetch()){
             $username = $row['username'];
             $phone_no = $row['phone_no'];
         }
         //require_once '../burstsms/burstsms_send_function.php';
         $smsText = 'Dear User, your username is: '. $username . '.';
-        $insertQuery = 'insert into LogInLieuOfSMS values ("' . $smsText . '", "' . $phone_no . '")';
-        make_query($insertQuery);
+        $link = get_conn();
+        $insertSMSStmt = mysqli_prepare($link, "insert into LogInLieuOfSMS values(?, ?)");
+        $insertSMSStmt->bind_param("ss", $smsText, $phoneNumber);
+        $insertSMSStmt->execute();
+        $link->close();
+
         echo "<script> alert('SMS sent'); window.location.assign('index.php')</script>";
     }
     else{

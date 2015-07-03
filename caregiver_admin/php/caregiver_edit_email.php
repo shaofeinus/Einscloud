@@ -13,12 +13,11 @@ $newEmail = $_POST['email'];
 //echo $viewer_id;
 require_once 'DB_connect/db_utility.php';
 
-$query = "update RegisteredViewer set email = '$newEmail' where id = '$viewer_id'";
-$updateResponse = make_query($query);
-if($updateResponse === FALSE) {
-    echo "response is erroneous";
-    die(mysql_error());
-}
+$link = get_conn();
+$updateStmt = mysqli_prepare($link, "update RegisteredViewer set email = ? where id = ?");
+$updateStmt->bind_param("si", $newEmail, $viewer_id);
+$updateStmt->execute();
+$link->close();
 
 header("Location: ../caregiver_profile.php");
 ?>

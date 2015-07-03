@@ -22,13 +22,21 @@ require_once 'php/DB_connect/check_session_validity.php';
     $viewer_id = $_SESSION['viewer_id'];
     require_once 'php/DB_connect/db_utility.php';
 
-    $viewerProfileResponse = make_query("select * from RegisteredViewer where id = '$viewer_id'");
-    if($viewerProfileResponse === FALSE) {
-        echo "response is erroneous";
-        die(mysql_error());
-    }
-    if(mysqli_num_rows($viewerProfileResponse) > 0) {
-        while($row = mysqli_fetch_assoc($viewerProfileResponse)) {
+    $link = get_conn();
+    $profileStmt = mysqli_prepare($link, "select * from RegisteredViewer where id = ?");
+    $profileStmt->bind_param("i", $viewer_id);
+    $profileStmt->execute();
+    $profileStmt->store_result();
+    $profileStmt->bind_result($row['id'], $row['username'], $row['password'], $row['fullname'], $row['email'], $row['phone_no'], $row['rv_type'], $row['date_registered'], $row['session_id']);
+    $link->close();
+
+    //$viewerProfileResponse = make_query("select * from RegisteredViewer where id = '$viewer_id'");
+    //if($viewerProfileResponse === FALSE) {
+    //    echo "response is erroneous";
+    //    die(mysql_error());
+    //}
+    if($profileStmt->num_rows > 0) {
+        while($profileStmt->fetch()) {
             echo '<table class="table">
             <tr>
                 <th>Name: </th>';
