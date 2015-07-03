@@ -47,13 +47,6 @@ if(isset($userType) && $userType == 'user') {
         } else {
             die("error updating password");
         }
-
-
-        /*
-        $updatePasswordQuery = 'update User set password = "' . $hashedPassword . '" where id = ' . $userID;
-        make_query($updatePasswordQuery);
-        */
-
     }
 
     $link = get_conn();
@@ -67,11 +60,6 @@ if(isset($userType) && $userType == 'user') {
         die("error deleting reset key");
     }
 
-    /*
-    $deleteQuery = 'delete from ResetPassword where reset_key = "' . $resetKey . '"';
-    //echo $deleteQuery;
-    make_query($deleteQuery);
-    */
 } else{
     echo "<script> alert('Failed query.'); window.location.assign('../index.php')</script>";
 }

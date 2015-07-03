@@ -5,44 +5,56 @@
     $username = $_POST['forgetPassword'];
     //echo $username;
     require_once 'php/DB_connect/db_utility.php';
-    $sendUsernameQuery = 'select phone_no, id from User where username ="' . $username . '"' ;
-    $response = make_query($sendUsernameQuery);
 
-    if($response === FALSE) {
-        echo "response is erroneous";
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "select phone_no, id from User where username =?");
+    $selectStmt->bind_param("s", $username);
+    if($selectStmt->execute()) {
+        $selectStmt->store_result();
+        if ($selectStmt->num_rows > 0) {
+            $selectStmt->bind_result($phone_no, $id);
+            $selectStmt->fetch();
+        } else {
+            die(mysql_error());
+        }
+        $selectStmt->close();
+        $link->close();
+    } else {
         die(mysql_error());
     }
 
     $resetCode = getVerificationCode();
-    if(mysqli_num_rows($response) > 0){
-        while ($row = mysqli_fetch_assoc($response)){
-            $id = $row['id'];
-            $phone_no = $row['phone_no'];
+
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "select * from ResetPassword where user_id =? and user_type ='user'");
+    $selectStmt->bind_param("i", $id);
+    if($selectStmt->execute()) {
+        $selectStmt->store_result();
+        if ($selectStmt->num_rows === 0) {
+            $link2 = get_conn();
+            $insertStmt = mysqli_prepare($link2, "insert into ResetPassword values(?, 'user', ?, '1')");
+            $insertStmt->bind_param("si", $resetCode, $id);
+            if(!$insertStmt->execute()) {
+                die(mysql_error());
+            }
+            $link2->close();
+
+            require_once '../burstsms/burstsms_send_function.php';
+            $smsText = 'Dear user your reset key is ' . $resetCode . '. Follow this URL to reset your password: "http://192.168.1.59/einscloud/user_admin/user_reset_password.php" You are only allowed to use this once by today.';
+            sendSMS($smsText, $phone_no);
+
+            echo "<script> alert('SMS sent'); window.location.assign('../index.html')</script>";
+        } else if($selectStmt->num_rows > 0) {
+            echo "<script> alert('You already have one reset key!'); window.location.assign('../index.html')</script>";
+        } else {
+            echo "<script> alert('query failed!'); window.location.assign('../index.html')</script>";
         }
-    }
 
-    $selectIfExistsQuery = 'select * from ResetPassword where user_id = ' . $id . ' and user_type = "user"';
-    $selectResponse = make_query($selectIfExistsQuery);
-    if(mysqli_num_rows($selectResponse) ==  0){
-        $insertResetQuery = 'insert into ResetPassword values("' . $resetCode . '", "user",' . $id . ',"1")';
-        $insertResponse = make_query($insertResetQuery);
-        if($insertResponse === FALSE) {
-            die(mysql_error());
-        }
-        require_once '../burstsms/burstsms_send_function.php';
-        $smsText = 'Dear user your reset key is ' . $resetCode . '. Follow this URL to reset your password: "http://192.168.1.59/einscloud/user_admin/user_reset_password.php" You are only allowed to use this once by today.';
-        sendSMS($smsText, $phone_no);
-        echo "<script> alert('SMS sent'); window.location.assign('../index.html')</script>";
+        $selectStmt->close();
+        $link->close();
+    } else {
+        die(mysql_error());
     }
-    else if(mysqli_num_rows($selectResponse) >  0){
-        echo "<script> alert('You already have one reset key!'); window.location.assign('../index.html')</script>";
-    }
-    else{
-        echo "<script> alert('query failed!'); window.location.assign('../index.html')</script>";
-    }
-
-
-
 
 function getVerificationCode() {
     $code_digit1 = rand(0,9);
