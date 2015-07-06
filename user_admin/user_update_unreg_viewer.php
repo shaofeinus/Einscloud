@@ -12,34 +12,55 @@ $user_id = $_SESSION ["login_id"];
 require_once 'php/DB_connect/db_utility.php';
 
 // Fetch Unregistered Viewers of this User
-$viewers_sql_resp = make_query ( "select * from UnregisteredViewer where user_id='$user_id'" );
+$link = get_conn();
+$selectStmt = mysqli_prepare($link, "select verification_code from UnregisteredViewer where user_id=?");
+$selectStmt->bind_param("i", $user_id);
+$selectStmt->execute();
+$selectStmt->bind_result($verification_code);
+$selectStmt->fetch();
+$selectStmt->close();
+$link->close();
 
 if ( $_SERVER["REQUEST_METHOD"] == "POST") {
-	compare_and_update("viewername", $viewers_sql_resp);
-	compare_and_update("phone_no", $viewers_sql_resp);
-	compare_and_update("email", $viewers_sql_resp);
+	compare_and_update("viewername", $verification_code);
+	compare_and_update("phone_no", $verification_code);
+	compare_and_update("email", $verification_code);
 
 	header('Location: user_admin_index.php');
 }
 
-function compare_and_update($column_name, $sql_result){
+function compare_and_update($column_name, $verification_code){
 	global $user_id;
 	if (! empty ( $_POST [$column_name] )){
 		foreach ( $_POST [$column_name] as $value ) {
-			$sql_row = mysqli_fetch_assoc( $sql_result );
-			if(!($sql_row[$column_name] == $value))
-				if(gettype($value) == "string")
-					make_query ( "update UnregisteredViewer set ".$column_name."='".$value.
-							"' where verification_code=".$sql_row["verification_code"]. " and user_id=".$user_id );
-				else
-					make_query ( "update UnregisteredViewer set ".$column_name."=".$value. 
-						" where verification_code=".$sql_row["verification_code"]. " and user_id=".$user_id );
+            $link = get_conn();
+            $updateStmt = mysqli_prepare($link,
+                "update UnregisteredViewer set $column_name=? where verification_code=? and user_id=?");
+            if(gettype($value) == "string") {
+                $updateStmt->bind_param("ssi", $value, $verification_code, $user_id);
+                //make_query ( "update UnregisteredViewer set $column_name='$value' where verification_code=$verification_code and user_id=$user_id");
+            }
+            else {
+                $updateStmt->bind_param("isi", $value, $verification_code, $user_id);
+                //make_query ( "update UnregisteredViewer set $column_name=$value where verification_code=$verification_code and user_id=$user_id" );
+            }
+            $updateStmt->execute();
+            $updateStmt->close();
+            $link->close();
+
 		}
 	}
-	mysqli_data_seek($sql_result, 0); //reset the sql result object to first row
 }
 
-function generate_unrge_viewer_update_table($viewer_sql_resp) {
+function generate_unrge_viewer_update_table() {
+
+    $link = get_conn();
+    $selectStmt = mysqli_prepare($link, "select viewername, phone_no, email from UnregisteredViewer where user_id=?");
+    $user_id = $_SESSION ["login_id"];
+    $selectStmt->bind_param("i", $user_id);
+    $selectStmt->execute();
+    $selectStmt->store_result();
+
 	echo "<table class='table table-hover'><tr>
 		<th class='form_th' align='left'>Name</th>
 		<th class='form_th' align='left'>Phone No.</th>
@@ -47,10 +68,12 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 	</tr>";
 	/* Read unregistered viewers and fillin the table */
 	$isNoRecords = false;
-	if (mysqli_num_rows ( $viewer_sql_resp ) > 0) {
+    if($selectStmt->num_rows > 0) {
+        $row = array();
+        $selectStmt->bind_result($row ["viewername"], $row ["phone_no"], $row ["email"]);
 		// output data of each row
 		//TODO validate these data
-		while ( $row = mysqli_fetch_assoc ( $viewer_sql_resp ) ) {
+		while ($selectStmt->fetch()) {
 			echo "<tr>";
 			echo "<td class='form_td'>" . "<input required class='form-control' type='text' name='viewername[]' value='" . $row ["viewername"] . "'>" . "</td>";
 			echo "<td class='form_td'>" . 
@@ -63,6 +86,9 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 	} else {
 		$isNoRecords = true;
 	}
+
+    $selectStmt->close();
+    $link->close();
 
 	echo "</table>";
 	if ($isNoRecords)
@@ -87,7 +113,7 @@ function generate_unrge_viewer_update_table($viewer_sql_resp) {
 			<p>listed below are your unregistered viewers</p>
 		</div>
         <form id="unreg_viewer_update_form" method='post' class="form-horizontal" role="form">
-            <?php generate_unrge_viewer_update_table($viewers_sql_resp)?>
+            <?php generate_unrge_viewer_update_table()?>
             <div class="row">
                 <div class="col-lg-4"/>
                 <div class="col-lg-6">
