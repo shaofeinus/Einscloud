@@ -1,4 +1,24 @@
 <?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by:
+ * /user_admin/php/user_delete_viewer.php
+ * /user_admin/user_add_emerg.php
+ * /user_admin/php/user_add_new_viewer.php
+ * /user_admin/user_edit_profile.php
+ * /user_admin/user_update_unreg_viewer.php
+ * /user_admin/php/user_add_new_emerg.php
+ * /user_admin/user_add_viewer.php
+ * /user_admin/user_admin_index.php
+ * @calls:
+ * db_utility.php
+ * /user_admin/logged_out.html
+ * /user_admin/logged_in_somewhere_else.html
+ * @description:
+ * This file checks for the validity of the session that the current browser is in. If the session is no longer valid,
+ * (does not agree with the session id recorded in database) the user is redirected to appropriate pages.
+ */
 if(!isset($_COOKIE['user_session_id'])){
 	header("Location: /einshub/user_admin/logged_out.html");
 }

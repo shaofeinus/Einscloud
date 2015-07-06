@@ -1,4 +1,30 @@
 <?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by:
+ * /caregiver_admin/caregiver_profile.php
+ * /caregiver_admin/php/caregiver_edit_phone.php
+ * /caregiver_admin/php/caregiver_delete_email.php
+ * /caregiver_admin/caregiver_forget_username.php
+ * /caregiver_admin/php/caregiver_edit_username.php
+ * /caregiver_admin/php/caregiver_verify_user.php
+ * /caregiver_admin/caregiver_forget_password.php
+ * /caregiver_admin/php/caregiver_reset_password_script.php
+ * /caregiver_admin/index.php
+ * /caregiver_admin/php/caregiver_edit_password.php
+ * /caregiver_admin/php/caregiver_edit_rvtype.php
+ * /caregiver_admin/caregiver_admin_index.php
+ * /caregiver_admin/php/caregiver_edit_email.php
+ * /caregiver_admin/php/caregiver_login.php
+ * @calls:
+ * db_utility.php
+ * /caregiver_admin/logged_out.html
+ * /caregiver_admin/logged_in_somewhere_else.html
+ * @description:
+ * This file checks for the validity of the session that the current browser is in. If the session is no longer valid,
+ * (does not agree with the session id recorded in database) the user is redirected to appropriate pages.
+ */
 if(!isset($_COOKIE['viewer_session_id'])){
 	header("Location: /einshub/caregiver_admin/logged_out.html");
 }

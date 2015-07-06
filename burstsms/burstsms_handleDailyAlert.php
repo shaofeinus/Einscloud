@@ -1,5 +1,15 @@
 <?php
-
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: linux system cron job daemon
+ * @calls:
+ * /user_admin/php/DB_connect/db_utility.php
+ * burstsms_send_function.php
+ *
+ * @description:
+ * This script sends out sms notification to all unregistered viewer; is executed daily.
+ */
 require_once __DIR__.'/../user_admin/php/DB_connect/db_utility.php';
 require_once 'burstsms_send_function.php';
 
