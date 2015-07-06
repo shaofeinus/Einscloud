@@ -2,6 +2,24 @@
  * Created by Shao Fei on 22/6/2015.
  */
 
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../user_edit_profile.php
+ *
+ * @calls:
+ * ../php/user_edit_profile_functions.php
+ * ../php/user_add_viewer_functions.php
+ * ../check_username_exists.php
+ *
+ * @description:
+ * Script that contains functions to load current User's profile and edit the profile.
+ *
+ */
+
 var formValid = {username:false, dob:false, email:false, oldPassword:false, newPassword:false, confirmPassword:false, oldPasswordCorrect:false};
 
 function verifyLogin() {

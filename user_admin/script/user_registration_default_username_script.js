@@ -2,7 +2,21 @@
  * Created by Shao Fei on 1/7/2015.
  */
 
-/* Default account information functions */
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../user_registration.html
+ *
+ * @calls:
+ * user_registration_validation_script.js
+ *
+ * @description:
+ * Script that contains functions to generate default username and password from User registration form inputs.
+ *
+ */
 
 
 function generateDefaultUserName() {

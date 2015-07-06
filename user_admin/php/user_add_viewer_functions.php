@@ -6,6 +6,24 @@
  * Time: 4:15 PM
  */
 
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../script/user_add_viewer_script.js
+ *
+ * @calls:
+ * ../logged_out.html
+ * DB_connect/db_utility.php
+ * ../user_admin_index.php
+ *
+ * @description:
+ * Script that contains functions to display validate the User add mobile Caregiver form
+ *
+ */
+
 decideFunction();
 
 function decideFunction() {

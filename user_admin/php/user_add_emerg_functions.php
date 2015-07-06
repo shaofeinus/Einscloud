@@ -4,9 +4,24 @@
  * User: Shao Fei
  * Date: 12/6/2015
  * Time: 3:01 PM
- * 
- * This script contains functions used to generate the page content for user_add_emerg.html
- * Functions in this script is called by a relevant JS script.
+ *
+ */
+
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../script/user_add_emerg_script.js
+ *
+ * @calls:
+ * DB_connect/db_utility.php
+ * ../user_admin_index.php
+ *
+ * @description:
+ * Script that contains functions to display and validate the User add landline Caregiver form
+ *
  */
 
 decideFunction();

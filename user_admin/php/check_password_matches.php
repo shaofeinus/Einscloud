@@ -6,6 +6,22 @@
  * Time: 2:33 PM
  */
 
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../script/user_login_validation_script.js
+ *
+ * @calls:
+ * ../php/DB_connect/db_utility.php
+ *
+ * @description:
+ * Script to check whether password matches username.
+ *
+ */
+
 if(!empty($_POST['username']) && !empty($_POST['password'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];

@@ -1,4 +1,25 @@
-<?php 
+<?php
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../user_add_viewer.php
+ *
+ * @calls:
+ * ../script/user_email_viewer_script.js
+ * ../../burstsms/burstsms_send_verification_code.js
+ * DB_connect/check_session_validity.php
+ * clean_up_input.php
+ * DB_connect/db_utility.php
+ * ../user_admin_index.php
+ *
+ * @description:
+ * Script that adds new mobile Caregiver into database for current User
+ *
+ */
+
 //start session and check for session validity
 require_once 'DB_connect/check_session_validity.php';
 
