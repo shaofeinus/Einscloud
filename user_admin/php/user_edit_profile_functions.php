@@ -5,6 +5,24 @@
  * Date: 22/6/2015
  * Time: 4:50 PM
  */
+
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../script/user_edit_profile_script.js
+ *
+ * @calls:
+ * clean_up_input.php
+ * DB_connect/db_utility.php
+ *
+ * @description:
+ * Script that contains functions to update current User's profile
+ *
+ * */
+
 require_once 'clean_up_input.php';
 
 decideFunction();

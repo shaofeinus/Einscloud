@@ -2,6 +2,22 @@
  * Created by Shao Fei on 1/7/2015.
  */
 
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../user_registration.html
+ *
+ * @calls:
+ * user_registration_default_username_script.js
+ *
+ * @description:
+ * Script that contains functions to display forms in user registration page.
+ *
+ */
+
 function displayOthersInput() {
     validateRace();
     if(document.getElementById("race").value === "otherRaces") {

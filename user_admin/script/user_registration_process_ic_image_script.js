@@ -2,6 +2,23 @@
  * Created by Shao Fei on 26/6/2015.
  */
 
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../user_registration.html
+ *
+ * @calls:
+ * ../OCR/process_ic_image.php
+ * ../OCR/make_ic_perm.php
+ *
+ * @description:
+ * Script that contains functions to call process IC images and call php functions to process IC images for OCR
+ *
+ */
+
 // Factor to compress image
 const COMPRESS_FACTOR = 0.7;
 var existingIcFrontFileName = "";

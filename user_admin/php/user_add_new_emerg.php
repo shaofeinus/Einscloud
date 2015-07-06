@@ -5,6 +5,26 @@
  * Date: 12/6/2015
  * Time: 3:49 PM
  */
+
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../user_add_viewer.php
+ *
+ * @calls:
+ * DB_connect/check_session_validity.php
+ * clean_up_input.php
+ * DB_connect/db_utility.php
+ * ../user_admin_index.php
+ *
+ * @description:
+ * Script that adds new landline Caregiver into database for current User
+ *
+ */
+
 //start session and check for session validity
 require_once 'DB_connect/check_session_validity.php';
 

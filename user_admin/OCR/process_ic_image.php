@@ -6,6 +6,22 @@
  * Time: 2:24 PM
  */
 
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../script/user_registration_process_ic_image_script.js
+ *
+ * @calls: Nil
+ *
+ * @description:
+ * Script that processes the image captured in User registration page and
+ * performs OCR to decode the NRIC, Name, Gender, Date of Birth, Race and Address from fornt and back of IC image.
+ * Images are temporarily stored in temp/img
+ *
+ */
 
 define('X_OFFSET', "xOffset");
 define('Y_OFFSET', "yOffset");

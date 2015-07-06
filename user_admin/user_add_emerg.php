@@ -1,4 +1,24 @@
-<?php 
+<?php
+
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by: Nil
+ *
+ * @calls:
+ * script/user_add_emerg_script.js
+ * php/DB_connect/check_session_validity.php
+ * php/user_add_new_emerg.php
+ * user_admin_index.php
+ * php/logout.php
+ *
+ * @description:
+ * Page for users to add Caregivers contacts using landlines.
+ *
+ * */
+
 //start session and check for session validity
 require_once 'php/DB_connect/check_session_validity.php';
 ?>

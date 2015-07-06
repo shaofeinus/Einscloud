@@ -6,6 +6,25 @@
  * Time: 5:16 PM
  */
 
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../user_registration.html
+ *
+ * @calls:
+ * ../user_registration.html
+ * clean_up_input.php
+ * DB_connect/db_utility.php
+ * ../index.php
+ *
+ * @description:
+ * Script that creates a new user.
+ *
+ */
+
 class Input
 {
     public $fullName;

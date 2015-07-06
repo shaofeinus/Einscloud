@@ -1,6 +1,24 @@
 /**
  * Created by Shao Fei on 9/6/2015.
  */
+
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../index.php
+ *
+ * @calls:
+ * ../php/check_password_matches.php
+ * ../php/check_username_exists.php
+ *
+ * @description:
+ * Script that contains functions to validate log in form.
+ *
+ */
+
 var fieldIsValid = [false, false];
 
 function validateForm() {

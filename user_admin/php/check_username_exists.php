@@ -7,6 +7,24 @@
 * Time: 4:46 PM
 */
 
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../script/user_registration_validation_script.js
+ * ../script/user_login_validation_script.js
+ * ../script/user_edit_profile_script.js
+ *
+ * @calls:
+ * ../php/DB_connect/db_utility.php
+ *
+ * @description:
+ * Script to check whether username exists.
+ *
+ */
+
 if(!empty($_GET["username"])) {
     $username = $_GET["username"];
     $response = make_sql_query($username);

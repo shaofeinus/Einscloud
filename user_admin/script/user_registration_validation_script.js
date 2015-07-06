@@ -2,6 +2,23 @@
  * Created by Shao Fei on 8/6/2015.
  */
 
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../user_registration.html
+ *
+ * @calls:
+ * ../php/check_username_exists.php
+ * ../php/check_nric_exists.php
+ *
+ * @description:
+ * Script that contains functions to validate forms in user registration page.
+ *
+ */
+
 var fieldIsValid = [true, false, false, false, false, false, false, false];
 
 function validateForm() {

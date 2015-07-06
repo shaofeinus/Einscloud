@@ -1,4 +1,24 @@
 <?php
+
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by: Nil
+ *
+ * @calls:
+ * script/user_edit_profile_script.js
+ * php/DB_connect/check_session_validity.php
+ * user_admin_index.php
+ * php/logout.php
+ *
+ * @description:
+ * Page for users to edit their profiles.
+ *
+ * */
+
+
 //start session and check for session validity
 require_once 'php/DB_connect/check_session_validity.php';
 ?>

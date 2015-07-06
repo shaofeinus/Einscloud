@@ -4,6 +4,26 @@
 /**
  * Created by Shao Fei on 11/6/2015.
  */
+
+/**
+ * @date-of-doc: 2015-07-06
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../user_add_emerg.php
+ *
+ * @calls:
+ * ../php/user_add_emerg_functions.php
+ * ../php/user_add_viewer_functions.php
+ * ../php/logout.php
+ *
+ * @description:
+ * Script that contains functions to call php functions to display add landline Caregiver form and
+ * validate add landline Caregiver form.
+ *
+ */
+
 var num_emerg;
 var num_exists = [];
 var curr_form;
