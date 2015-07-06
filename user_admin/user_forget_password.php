@@ -1,4 +1,14 @@
 <?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../forget_login_details.php
+ * @calls:
+ *  php/DB_connect/db_utility.php
+ * @description:
+ *  This file generates a reset key for the user to reset his password and
+ *  sends an sms to the user with information on how to reset his password
+ */
     if(!isset($_POST['forgetPassword'])){
         header("Location: ../index.html");
     }

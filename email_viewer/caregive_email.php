@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: user_admin/script/user_email_viewer_script.js
+ * @calls: NIL
+ * @description:
+ *  This page sends an email to the caregiver when the .js file is invoked i.e. when a caregiver is added.
+ */
+
 session_start();
 emailToViewer();
 

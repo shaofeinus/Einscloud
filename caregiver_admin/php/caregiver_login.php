@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Shao Fei
- * Date: 9/6/2015
- * Time: 6:29 PM
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../index.php
+ * @calls:
+ *  clean_up_input.php
+ *  DB_connect/db_utility.php
+ * @description:
+ *  This file verifies and logs in the caregiver and sets a cookie for the user.
  */
 
 session_start();

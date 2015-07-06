@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Shao Fei
- * Date: 8/6/2015
- * Time: 5:16 PM
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../caregiver_registration.html
+ * @calls:
+ *  clean_up_input.php
+ *  DB_connect/db_utility.php
+ * @description:
+ *  This file registers the caregiver into the RegisteredViewer table in the database
  */
 
 class Input

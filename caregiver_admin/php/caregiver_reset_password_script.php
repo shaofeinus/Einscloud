@@ -1,4 +1,15 @@
 <?php
+
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../caregiver_reset_password.php
+ * @calls:
+ *  DB_connect/db_utility.php
+ * @description:
+ *  This file changes the caregiver's password in the database after verifying the correct reset password key
+ */
+
 require_once 'DB_connect/db_utility.php';
 $resetKey = $_POST['resetKey'];
 $newPassword = $_POST['newPassword'];

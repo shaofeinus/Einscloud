@@ -1,4 +1,21 @@
-<?php 
+<?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: caregiver_admin_index.php
+ * @calls:
+ *  php/DB_connect/check_session_validity.php
+ *  php/DB_connect/db_utility.php
+ *  php/caregiver_edit_username.php
+ *  php/caregiver_edit_phone.php
+ *  php/caregiver_delete_email.php
+ *  php/caregiver_edit_email.php
+ *  php/caregiver_edit_password.php
+ *  script/caregiver_edit.js
+ * @description:
+ *  This file retrieves the caregiver's information from the database and displays it to the caregiver
+ *  This file allows the caregiver to edit some of his personal information
+ */
 //start session and check for session validity
 require_once 'php/DB_connect/check_session_validity.php';
 ?>

@@ -1,9 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: CK
- * Date: 11/6/2015
- * Time: 11:49 AM
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../caregiver_profile.php
+ * @calls:
+ *  DB_connect/check_session_validity.php
+ *  DB_connect/db_utility.php
+ * @description:
+ *  This file deletes the caregiver's email from the database
  */
 //start session and check for session validity
 require_once 'DB_connect/check_session_validity.php';

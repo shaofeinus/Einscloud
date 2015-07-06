@@ -1,10 +1,19 @@
 <?php
-
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../forget_login_details.php
+ * @calls:
+ *  php/DB_connect/db_utility.php
+ * @description:
+ *  This file generates a reset key for the caregiver to reset his password and
+ *  sends an sms to the user with information on how to reset his password
+ */
     if(!isset($_POST['forgetPassword'])){
         header("Location: ../index.html");
     }
     $username = $_POST['forgetPassword'];
-    //echo $username;
+
     require_once 'php/DB_connect/db_utility.php';
 
     $link = get_conn();
@@ -14,9 +23,6 @@
     $findUserStmt->store_result();
     $findUserStmt->bind_result($row['phone_no'], $row['id']);
     $link->close();
-
-    //$sendUsernameQuery = 'select phone_no, id from RegisteredViewer where username ="' . $username . '"' ;
-    //$response = make_query($sendUsernameQuery);
 
     $resetCode = getVerificationCode();
     if($findUserStmt->num_rows>0){
@@ -34,8 +40,6 @@
 
 
     if($selectIfExistStmt->num_rows == 0) {
-        //$insertResetQuery = 'insert into ResetPassword values("' . $resetCode . '", "caregiver",' . $id . ',"1")';
-        //$insertResponse = make_query($insertResetQuery);
         $insertSMSStmt = mysqli_prepare($link, "insert into ResetPassword values(?, 'caregiver',?,'1')");
         $insertSMSStmt->bind_param("si", $resetCode, $id);
         $insertSMSStmt->execute();
@@ -69,8 +73,6 @@ function getVerificationCode() {
 
     $code = $code_digit1.$code_digit2.$code_digit3.$code_digit4.$code_digit5.$code_digit6.$code_digit7.$code_digit8.'';
 
-    //require_once __DIR__.'/DB_connect/db_utility.php';
-
     $link = get_conn();
     $createKeyStmt = mysqli_prepare($link, "SELECT * FROM ResetPassword WHERE reset_key=?");
     $createKeyStmt->bind_param("s", $code);
@@ -78,8 +80,6 @@ function getVerificationCode() {
     $createKeyStmt->store_result();
     $link->close();
 
-    //$query = "SELECT * FROM ResetPassword WHERE reset_key='$code'";
-    //$response = make_query($query);
     if(!$createKeyStmt->num_rows == 0) {
         return getVerificationCode();
     } else {

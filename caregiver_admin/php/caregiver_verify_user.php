@@ -1,8 +1,14 @@
 <?php
-/*
- * This script is called when the user is trying to verify the connection to a user with verification code.
- * It checks the validity of the code, removes the record from UnregisteredViewer table and add in tuple 
- * for the relationship in Cargive table.
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../caregiver_admin_index.php
+ * @calls:
+ *  DB_connect/check_session_validity.php
+ *  DB_connect/db_utility.php
+ * @description:
+ *  This file verifies the verification code required of a caregiver to confirm the link with the user and adds the
+ *  link into the Caregive table
  */
 	//start session and check for session validity
 	require_once 'DB_connect/check_session_validity.php';
@@ -12,11 +18,6 @@
     $viewer_id = $_SESSION['viewer_id'];
 
     require_once 'DB_connect/db_utility.php';
-    //$connector = new DB_CONNECT();
-    //$connector->connect();
-
-    //$verifyQuery = "select * from UnregisteredViewer where '$verification_code' = verification_code";
-    //$verifyResponse =  mysqli_query($connector->conn, $verifyQuery);
 
     $link = get_conn();
     $verifyStmt = mysqli_prepare($link, "select user_id from UnregisteredViewer where verification_code = ?");

@@ -1,4 +1,15 @@
 <?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: nil
+ * @calls:
+ *  user_admin/php/DB_connect/db_utility.php
+ * @description:
+ *  This file is accessed by the server daily. It checks the database for unverified caregivers and sends them
+ *  reminder emails
+ */
+
     require_once 'user_admin/php/DB_connect/db_utility.php';
     $viewer_result = make_query("select * from UnregisteredViewer where email is not null");
 

@@ -1,4 +1,14 @@
 <?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../forget_login_details.php
+ * @calls:
+ *  php/DB_connect/db_utility.php
+ * @description:
+ *  This file verifies a user's NRIC and sends an SMS to the user with his username.
+ */
+
     if(!isset($_POST['forgetLoginNric'])){
         header("Location: ../index.html");
     }

@@ -1,3 +1,20 @@
+<?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by:
+ *  caregiver_admin/index.php
+ *  user_admin/index.php
+ * @calls:
+ *  user_admin/user_forget_username.php
+ *  caregiver_admin/caregiver_forget_username.php
+ *  user_admin/user_forget_password.php
+ *  caregiver_admin/caregiver_forget_password.php
+ * @description:
+ *  This page provides the interface for users/caregivers to provide the required information for password and
+ *  username reset. It calls the necessary php scripts that will notify the User/Caregiver through SMS
+ */
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">

@@ -1,4 +1,15 @@
-
+<?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../js/reset_password.js
+ * @calls:
+ *  php/caregiver_reset_password_script.php
+ * @description:
+ *  This page provides the interface for the user to reset his password. Forms are provided for the caregiver to
+ *  enter the reset key and new password. New passwords are checked on the spot using javascript.
+ */
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">

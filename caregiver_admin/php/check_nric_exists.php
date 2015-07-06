@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Shao Fei
- * Date: 9/6/2015
- * Time: 4:48 PM
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../script/caregiver_registration_validation.js
+ * @calls: DB_connect/db_utility.php
+ * @description:
+ *  This file checks the database for existing NRIC. It returns 1 or 0 to the .js file that calls it.
  */
 
 if(!empty($_GET["nric"])) {

@@ -1,4 +1,16 @@
-<?php 
+<?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../script/caregiver_registration_validation.js
+ * @calls:
+ *  php/DB_connect/check_session_validity.php
+ *  php/DB_connect/db_utility.php
+ *  script/caregiver_verify_script.js
+ * @description:
+ *  This file retrieves the caregiver-linked user info from the database and displays it on the page itself
+ *  This file also retrieves the unverified users' info that are seeking verification from the caregiver
+ */
 //start session and check for session validity
 require_once 'php/DB_connect/check_session_validity.php';
 ?>

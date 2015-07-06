@@ -1,5 +1,12 @@
 /**
- * Created by Shao Fei on 9/6/2015.
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by:
+ *  ../index.php
+ * @calls: php/check_username_exists.php
+ * @description:
+ *  This file takes in data from index.php and provides client-side validation to the data
+ *  The file ensures that the fields give correct data before returning 'true' to the calling html form.
  */
 var fieldIsValid = [false, false];
 

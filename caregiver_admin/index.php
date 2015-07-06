@@ -1,4 +1,19 @@
 <?php
+
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../index.html
+ * @calls:
+ *  php/DB_connect/db_utility.php
+ *  script/caregiver_login_validation_script.js
+ *  php/caregiver_login.php
+ *  ../forget_login_details.php
+ * @description:
+ *  This page provides the interface for the caregiver to login.
+ *  This page provides caregivers with the link if they forget any login details
+ */
+
 if(isset($_COOKIE['viewer_session_id'])){
 	session_id($_COOKIE['viewer_session_id']);
 }

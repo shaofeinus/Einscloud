@@ -1,4 +1,15 @@
 <?php
+
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: ../forget_login_details.php
+ * @calls:
+ *  php/DB_connect/db_utility.php
+ * @description:
+ *  This file verifies a caregiver's phone number and sends an SMS to the caregiver with his username.
+ */
+
     if(!isset($_POST['forgetLoginPhone'])){
         header("Location: ../index.html");
     }
@@ -14,13 +25,6 @@
     $caregiverForgetStmt->bind_result($row['phone_no'], $row['username']);
     $link->close();
 
-    //$sendUsernameQuery = 'select phone_no, username from RegisteredViewer where phone_no ="' . $phoneNumber . '"' ;
-    //$response = make_query($sendUsernameQuery);
-
-    //if($response === FALSE) {
-    //    echo "response is erroneous";
-    //    die(mysql_error());
-    //}
 
     if($caregiverForgetStmt->num_rows>0){
         while($caregiverForgetStmt->fetch()){
