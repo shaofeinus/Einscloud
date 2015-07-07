@@ -1,4 +1,14 @@
-//check database
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by:
+ *  user_admin/user_reset_password.php
+ *  caregiver_admin/caregiver_reset_password.php
+ * @calls:
+ * @description:
+ *  This file does client-side validation to the new passwords that the user/caregiver wants to have after the reset
+ */
+
 var passwordIsValid = false;
 var confirmPasswordIsValid = false;
 
