@@ -1,4 +1,24 @@
 <?php
+
+/**
+ * @date-of-doc: 2015-07-07
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../index.html
+ *
+ * @calls:
+ * DB_connect/db_utility.php
+ * user_admin_index.php
+ * php/user_login.php
+ * ../forget_login_details.php
+ *
+ * @description:
+ * Page for Users to log in, navigate to create new account or navigate to forget login details.
+ *
+ */
+
 if(isset($_COOKIE['user_session_id'])){
 	session_id($_COOKIE['user_session_id']);
 }
