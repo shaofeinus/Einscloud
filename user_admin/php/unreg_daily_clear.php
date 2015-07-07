@@ -1,4 +1,14 @@
 <?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: system cron job daemon
+ * @calls: DB_connect/db_utility.php
+ * @description:
+ * This script is used to clear up from the UnregisteredViewer table
+ * those who have not responded to the invitation for 3 days or more.
+ * This is executed on a daily basis.
+ */
 require_once 'DB_connect/db_utility.php';
 $link = get_conn();
 $selectStmt = mysqli_prepare($link, "select  verification_code, user_id, notificationsLeft from UnregisteredViewer");
