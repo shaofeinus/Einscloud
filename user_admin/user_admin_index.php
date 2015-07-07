@@ -1,4 +1,16 @@
-<?php 
+<?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by:
+ * user_add_emerg.php
+ * user_add_viewer.php
+ * php/user_add_new_emerg.php
+ * php/user_add_new_viewer.php
+ * @calls: php/DB_connect/check_session_validity.php
+ * @description:
+ * This script serves as the admin console of the user.
+ */
 	//start session and check for session validity
 	require_once 'php/DB_connect/check_session_validity.php';
 	

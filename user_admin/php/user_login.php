@@ -5,6 +5,27 @@
  * Date: 9/6/2015
  * Time: 6:29 PM
  */
+
+/**
+ * @date-of-doc: 2015-07-07
+ *
+ * @project-version: v0.2
+ *
+ * @called-by:
+ * ../index.php
+ *
+ * @calls:
+ * clean_up_input.php
+ * DB_connect/db_utility.php
+ * ../user_admin_index.php
+ * ../index.php
+ *
+ * @description:
+ * Script that logs in User to ../user_admin_index.php upon correct username and password,
+ * redirect to ../index.html if otherwise.
+ *
+ */
+
 session_start();
 
 $error_msg = "";

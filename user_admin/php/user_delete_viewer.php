@@ -1,4 +1,14 @@
 <?php
+/**
+ * @date-of-doc: 2015-07-06
+ * @project-version: v0.2
+ * @called-by: /user_admin/user_admin_index.php
+ * @calls:
+ * DB_connect/check_session_validity.php
+ * DB_connect/db_utility.php
+ * @description:
+ * This script deletes the viewers (inclusive of both registered and unregistered) as the user requests.
+ */
 //start session and check for session validity
 require_once 'DB_connect/check_session_validity.php';
 require_once 'DB_connect/db_utility.php';
